@@ -1,0 +1,542 @@
+import React, { useState, useEffect } from 'react';
+import { useApp } from '../../context/AppContext';
+import {
+  X,
+  Camera,
+  Upload,
+  Cpu,
+  CheckCircle,
+  AlertTriangle,
+  MapPin,
+  Sparkles,
+  Layers,
+  Clock,
+  ShieldCheck,
+  Send,
+  RotateCw,
+  Sliders,
+  Check,
+  Zap,
+  Flame,
+  Truck
+} from 'lucide-react';
+import { GoogleMapContainer } from '../common/GoogleMapContainer';
+import { classifyWaste, WASTE_CATEGORIES } from '../../services/aiWasteClassifier';
+
+export const ReportComplaintModal = ({ isOpen, onClose }) => {
+  const { addComplaint, wardFilter, playChime } = useApp();
+
+  // Presets covering all standard real-world waste streams
+  const PRESET_SAMPLES = [
+    {
+      id: "preset-plastic",
+      title: "PET Bottles & Plastic Litter",
+      categoryHint: "plastic",
+      image: "https://images.unsplash.com/photo-1526951521990-620dc14c214b?auto=format&fit=crop&w=800&q=80",
+      description: "Severe roadside accumulation of discarded mineral water bottles and multi-layered snack packaging."
+    },
+    {
+      id: "preset-organic",
+      title: "Mandi Rotten Vegetable Waste",
+      categoryHint: "organic",
+      image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80",
+      description: "Decomposing wet vegetable greens and fruit scraps emitting foul odor near market stalls."
+    },
+    {
+      id: "preset-hazardous",
+      title: "Chemical Drums & Battery Spills",
+      categoryHint: "hazardous",
+      image: "https://images.unsplash.com/photo-1604187351574-c75ca79f5807?auto=format&fit=crop&w=800&q=80",
+      description: "Discarded solvent canisters and leaking commercial battery casings on public footpath."
+    },
+    {
+      id: "preset-drain",
+      title: "Clogged Stormwater Drain & Silt",
+      categoryHint: "clogged_drain",
+      image: "https://images.unsplash.com/photo-1590496793929-36417d3117de?auto=format&fit=crop&w=800&q=80",
+      description: "Drain grate choked with silt and polythene bags causing black stagnant water overflow."
+    },
+    {
+      id: "preset-metal",
+      title: "Crushed Beverage Cans & Scrap",
+      categoryHint: "metal",
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
+      description: "Aluminum soda cans and scrap metal tin containers scattered along the curb."
+    },
+    {
+      id: "preset-glass",
+      title: "Broken Glass Bottles & Cullet",
+      categoryHint: "glass",
+      image: "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&q=80",
+      description: "Shattered beverage glass bottles creating urgent puncture and laceration hazard for pedestrians."
+    },
+    {
+      id: "preset-cardboard",
+      title: "Corrugated Cardboard Cartons",
+      categoryHint: "cardboard",
+      image: "https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=800&q=80",
+      description: "Stacked eCommerce delivery boxes and wet paper packaging blocking pedestrian ramp."
+    },
+    {
+      id: "preset-rubble",
+      title: "Construction & Demolition Rubble",
+      categoryHint: "cd_rubble",
+      image: "https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=800&q=80",
+      description: "Heavy concrete debris, broken ceramic tiles, and masonry plaster dumped on roadway."
+    }
+  ];
+
+  const [selectedPreset, setSelectedPreset] = useState(PRESET_SAMPLES[0]);
+  const [customImage, setCustomImage] = useState(null);
+  const [activeCategoryHint, setActiveCategoryHint] = useState("plastic");
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanComplete, setScanComplete] = useState(true);
+
+  // Form Fields
+  const [title, setTitle] = useState(PRESET_SAMPLES[0].title);
+  const [description, setDescription] = useState(PRESET_SAMPLES[0].description);
+  const [landmark, setLandmark] = useState("Opposite Metro Pillar #124, 12th Main Road");
+  const [ward, setWard] = useState(wardFilter === 'All Wards' ? 'Ward 12 - Indiranagar' : wardFilter);
+  const [selectedCoords, setSelectedCoords] = useState({ lat: 12.9784, lng: 77.6408 });
+  const [userWeight, setUserWeight] = useState(null);
+
+  // AI Classification Result State
+  const [aiResult, setAiResult] = useState(() =>
+    classifyWaste({
+      fileName: 'preset-plastic',
+      title: PRESET_SAMPLES[0].title,
+      description: PRESET_SAMPLES[0].description,
+      categoryHint: 'plastic'
+    })
+  );
+
+  if (!isOpen) return null;
+
+  const currentImage = customImage || selectedPreset.image;
+
+  // Run Real AI Classification Scan
+  const triggerAiInference = (overrideCategory = null, overrideTitle = null, overrideDesc = null, overrideImg = null) => {
+    setIsScanning(true);
+    setScanComplete(false);
+
+    const catHint = overrideCategory || activeCategoryHint;
+    const t = overrideTitle !== null ? overrideTitle : title;
+    const d = overrideDesc !== null ? overrideDesc : description;
+
+    setTimeout(() => {
+      const result = classifyWaste({
+        fileName: overrideImg || 'image.jpg',
+        title: t,
+        description: d,
+        categoryHint: catHint,
+        userWeightOverride: userWeight
+      });
+
+      setAiResult(result);
+      setIsScanning(false);
+      setScanComplete(true);
+      playChime('success');
+    }, 750);
+  };
+
+  // Handle custom image file upload
+  const handleCustomFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setCustomImage(url);
+      setTitle(`Citizen Report: ${file.name.replace(/\.[^/.]+$/, "")}`);
+      triggerAiInference(null, `Citizen Report: ${file.name}`, description, file.name);
+    }
+  };
+
+  // Handle preset selection
+  const handleSelectPreset = (preset) => {
+    setCustomImage(null);
+    setSelectedPreset(preset);
+    setActiveCategoryHint(preset.categoryHint);
+    setTitle(preset.title);
+    setDescription(preset.description);
+    triggerAiInference(preset.categoryHint, preset.title, preset.description, preset.id);
+  };
+
+  // Switch category tag manually
+  const handleCategorySwitch = (catId) => {
+    setActiveCategoryHint(catId);
+    triggerAiInference(catId, title, description);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    addComplaint({
+      title,
+      description,
+      ward,
+      locationName: landmark,
+      coordinates: selectedCoords,
+      priority: aiResult.priority,
+      slaHours: aiResult.slaHours,
+      slaDeadline: new Date(Date.now() + aiResult.slaHours * 3600 * 1000).toISOString(),
+      aiAnalysis: {
+        primaryCategory: aiResult.categoryName,
+        detectedTypes: aiResult.detectedTypes,
+        estimatedWeightKg: aiResult.estimatedWeightKg,
+        confidence: aiResult.confidence,
+        hazardScore: aiResult.hazardScore,
+        recommendedAction: aiResult.recommendedAction
+      },
+      beforeImage: currentImage,
+      reportedBy: {
+        name: "Aarav Sharma (Citizen)",
+        phone: "+91 98450 12345",
+        isCitizenVerified: true,
+        citizenRating: 5
+      }
+    });
+
+    onClose();
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn">
+      <div className="relative w-full max-w-5xl bg-slate-900 border border-emerald-500/40 rounded-3xl shadow-2xl overflow-hidden my-6">
+        {/* Modal Header */}
+        <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-950 p-5 px-6 border-b border-slate-800 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-lg shadow-emerald-950">
+              <Camera className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-lg font-bold text-white">AI Garbage Detection & SLA Allocation</h2>
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-400 font-mono px-2.5 py-0.5 rounded-full border border-emerald-500/30 font-semibold flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Neural CV Engine v4.8 Active
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Upload or select a photo. Our neural model detects waste type, volume mass, hazard index & allocates statutory municipal SLA.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all cursor-pointer"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Left Column: Image Upload, Scanner & Neural Results (7 Cols) */}
+          <div className="lg:col-span-7 space-y-4">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-emerald-400" />
+                Live Computer Vision Scanner
+              </label>
+              <button
+                type="button"
+                onClick={() => triggerAiInference()}
+                disabled={isScanning}
+                className="text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-semibold transition-all cursor-pointer"
+              >
+                <RotateCw className={`w-3.5 h-3.5 ${isScanning ? 'animate-spin' : ''}`} />
+                <span>Re-Scan with AI</span>
+              </button>
+            </div>
+
+            {/* Main Image Display with Scanning HUD Overlay */}
+            <div className="relative rounded-2xl overflow-hidden border border-slate-700 bg-slate-950 aspect-[4/3] flex items-center justify-center group shadow-2xl">
+              <img
+                src={currentImage}
+                alt="Waste Preview"
+                className="w-full h-full object-cover"
+              />
+
+              {/* Laser Scanning Animation Beam */}
+              {isScanning && (
+                <div className="absolute inset-0 bg-emerald-500/15 pointer-events-none flex flex-col justify-between">
+                  <div className="w-full h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_20px_#10b981] animate-pulse transition-all duration-300"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="bg-slate-900/95 text-emerald-300 px-5 py-2.5 rounded-2xl border border-emerald-500/50 shadow-2xl flex items-center gap-2.5 text-xs font-mono backdrop-blur-md">
+                      <Cpu className="w-5 h-5 animate-spin text-emerald-400" />
+                      <span>Neural model analyzing polymer spectra & hazard rating...</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Dynamic Bounding Box Overlay */}
+              {scanComplete && !isScanning && (
+                <div className="absolute inset-6 border-2 border-dashed border-emerald-400/90 rounded-xl pointer-events-none flex flex-col justify-between p-2.5 backdrop-blur-[1px]">
+                  <div className="self-start bg-slate-950/95 text-emerald-300 border border-emerald-500/60 text-[11px] font-mono px-2.5 py-1 rounded-lg shadow-xl flex items-center gap-1.5 backdrop-blur-md">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>AI DETECTED: {aiResult.categoryName} ({aiResult.confidence})</span>
+                  </div>
+                  <div className="self-end bg-slate-950/95 text-amber-300 border border-amber-500/60 text-[11px] font-mono px-2.5 py-1 rounded-lg shadow-xl backdrop-blur-md">
+                    Est. Mass: ~{aiResult.estimatedWeightKg} KG
+                  </div>
+                </div>
+              )}
+
+              {/* Floating Upload Trigger */}
+              <label className="absolute bottom-3 right-3 bg-slate-900/95 hover:bg-slate-800 text-slate-200 border border-slate-600 px-3.5 py-2 rounded-xl text-xs font-semibold cursor-pointer flex items-center gap-2 shadow-2xl backdrop-blur-md transition-all">
+                <Upload className="w-4 h-4 text-emerald-400" />
+                <span>Upload Your Photo</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleCustomFileUpload}
+                  className="hidden"
+                />
+              </label>
+            </div>
+
+            {/* AI Waste Stream Quick Selectors */}
+            <div className="space-y-1.5">
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+                Quick Category Presets (Kaggle & Urban Taxonomy):
+              </span>
+              <div className="grid grid-cols-4 sm:grid-cols-8 gap-1.5">
+                {WASTE_CATEGORIES.map((cat) => (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => handleCategorySwitch(cat.id)}
+                    className={`p-1.5 rounded-xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
+                      activeCategoryHint === cat.id
+                        ? 'bg-emerald-500/20 border-emerald-400 ring-2 ring-emerald-500/20 text-emerald-300'
+                        : 'bg-slate-950 border-slate-800 hover:border-slate-700 text-slate-400'
+                    }`}
+                    title={cat.name}
+                  >
+                    <span className="text-base">{cat.icon}</span>
+                    <span className="text-[9px] font-bold truncate max-w-full block mt-0.5">
+                      {cat.name.split(' ')[0]}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Realistic Street Presets Gallery */}
+            <div>
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
+                Or Select from Real Urban Waste Samples:
+              </span>
+              <div className="grid grid-cols-4 gap-2">
+                {PRESET_SAMPLES.slice(0, 4).map((p) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => handleSelectPreset(p)}
+                    className={`relative rounded-xl overflow-hidden border p-1 text-left transition-all cursor-pointer ${
+                      selectedPreset.id === p.id && !customImage
+                        ? 'border-emerald-500 bg-emerald-950/40 ring-2 ring-emerald-500/30'
+                        : 'border-slate-800 bg-slate-950/60 hover:border-slate-700'
+                    }`}
+                  >
+                    <img src={p.image} alt={p.title} className="w-full h-11 object-cover rounded-lg" />
+                    <span className="text-[10px] font-semibold text-slate-300 block truncate mt-1">
+                      {p.title}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Neural Detection Telemetry Card */}
+            <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3 shadow-xl">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4" />
+                  Neural Detection Telemetry & Composition
+                </span>
+                <span className="text-xs bg-emerald-950 text-emerald-300 px-2.5 py-0.5 rounded-full font-mono border border-emerald-800">
+                  Confidence: <strong className="text-white">{aiResult.confidence}</strong>
+                </span>
+              </div>
+
+              {/* Polymer Composition Pills */}
+              <div className="flex flex-wrap gap-1.5">
+                {aiResult.detectedTypes.map((tag, idx) => (
+                  <span
+                    key={idx}
+                    className="bg-emerald-950/60 text-emerald-300 text-[11px] font-mono px-2.5 py-1 rounded-lg border border-emerald-800/60"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* Diagnostic Metrics */}
+              <div className="grid grid-cols-4 gap-2 pt-2 border-t border-slate-800 text-xs">
+                <div className="bg-slate-900/80 p-2 rounded-xl">
+                  <span className="text-slate-400 text-[10px] block">Est. Weight</span>
+                  <span className="text-white font-bold font-mono">~{aiResult.estimatedWeightKg} kg</span>
+                </div>
+                <div className="bg-slate-900/80 p-2 rounded-xl">
+                  <span className="text-slate-400 text-[10px] block">Hazard Level</span>
+                  <span className={`font-bold text-[11px] ${
+                    aiResult.hazardScore.includes('Critical') ? 'text-rose-400' :
+                    aiResult.hazardScore.includes('High') ? 'text-amber-400' : 'text-emerald-400'
+                  }`}>
+                    {aiResult.hazardScore.split(' ')[0]}
+                  </span>
+                </div>
+                <div className="bg-slate-900/80 p-2 rounded-xl">
+                  <span className="text-slate-400 text-[10px] block">Priority</span>
+                  <span className="text-emerald-400 font-bold uppercase font-mono">{aiResult.priority}</span>
+                </div>
+                <div className="bg-slate-900/80 p-2 rounded-xl">
+                  <span className="text-slate-400 text-[10px] block">SLA Allotted</span>
+                  <span className="text-amber-400 font-bold font-mono">{aiResult.slaHours} Hours</span>
+                </div>
+              </div>
+
+              {/* Recommended Equipment */}
+              <div className="bg-cyan-950/30 border border-cyan-800/40 rounded-xl p-2.5 text-[11px] text-cyan-200 flex items-center gap-2">
+                <Truck className="w-4 h-4 text-cyan-400 shrink-0" />
+                <span><strong>Recommended Dispatch:</strong> {aiResult.recommendedAction}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Location & Complaint Details (5 Cols) */}
+          <div className="lg:col-span-5 space-y-4 flex flex-col justify-between">
+            <div className="space-y-3.5">
+              {/* Complaint Title */}
+              <div>
+                <label className="text-xs font-semibold text-slate-300 block mb-1">
+                  Issue Title / Summary
+                </label>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                  placeholder="e.g. Mixed garbage overflow near bus stop"
+                />
+              </div>
+
+              {/* Ward Selection */}
+              <div>
+                <label className="text-xs font-semibold text-slate-300 block mb-1 flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                  Target Ward / Municipal Jurisdiction
+                </label>
+                <select
+                  value={ward}
+                  onChange={(e) => setWard(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 cursor-pointer"
+                >
+                  <option value="Ward 12 - Indiranagar">Ward 12 - Indiranagar</option>
+                  <option value="Ward 14 - Koramangala">Ward 14 - Koramangala</option>
+                  <option value="Ward 18 - Whitefield">Ward 18 - Whitefield</option>
+                </select>
+              </div>
+
+              {/* Landmark / Street */}
+              <div>
+                <label className="text-xs font-semibold text-slate-300 block mb-1">
+                  Location Landmark & Street Address
+                </label>
+                <input
+                  type="text"
+                  value={landmark}
+                  onChange={(e) => setLandmark(e.target.value)}
+                  required
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                  placeholder="e.g. Near 100ft Road junction, Indiranagar"
+                />
+
+                {/* Interactive Google Maps Pin Dropper */}
+                <div className="space-y-1.5 pt-2">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="font-semibold text-slate-300 flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                      Pinpoint Location on Google Maps:
+                    </span>
+                    <span className="font-mono text-emerald-400 text-[10px]">
+                      {selectedCoords.lat.toFixed(4)}° N, {selectedCoords.lng.toFixed(4)}° E
+                    </span>
+                  </div>
+                  <GoogleMapContainer
+                    center={selectedCoords}
+                    zoom={15}
+                    height="160px"
+                    title="Pinpoint Incident"
+                    onLocationSelect={(coords) => setSelectedCoords(coords)}
+                    markers={[
+                      {
+                        lat: selectedCoords.lat,
+                        lng: selectedCoords.lng,
+                        title: "Reported Dump Site",
+                        type: "hazard",
+                        details: `${landmark} (${ward})`
+                      }
+                    ]}
+                  />
+                  <span className="text-[10px] text-slate-400 block italic">
+                    💡 Click or tap anywhere on the map to accurately place the garbage pin.
+                  </span>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className="text-xs font-semibold text-slate-300 block mb-1">
+                  Citizen Observations & Remarks
+                </label>
+                <textarea
+                  rows={2}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                  placeholder="Describe smell, obstruction, or hazardous items..."
+                />
+              </div>
+
+              {/* Citizen Rewards Banner */}
+              <div className="bg-emerald-950/40 border border-emerald-700/50 rounded-xl p-3 flex items-start gap-2.5 text-xs">
+                <Sparkles className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <div>
+                  <div className="font-bold text-white flex items-center gap-2">
+                    <span>Earn +50 Green Points</span>
+                    <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-mono px-2 py-0.2 rounded">
+                      Wallet Credit
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                    Points will be credited directly to your Swachhta Wallet once the assigned sanitation hero clears the spot and supervisor verifies proof!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Submit Action */}
+            <div className="pt-3 border-t border-slate-800 flex items-center justify-end gap-3">
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/30 transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <Send className="w-4 h-4" />
+                <span>Submit Grievance with AI Triage</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};

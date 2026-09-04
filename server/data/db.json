@@ -1,0 +1,578 @@
+{
+  "users": {
+    "citizen": {
+      "id": "CIT-9821",
+      "name": "Aarav Sharma",
+      "role": "citizen",
+      "phone": "+91 98450 12345",
+      "ward": "Ward 12 - Indiranagar",
+      "points": 650,
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80",
+      "badge": "Ward Guardian"
+    },
+    "worker": {
+      "id": "WRK-01",
+      "name": "Ramesh Kumar",
+      "role": "worker",
+      "designation": "Senior Sanitation Hero",
+      "ward": "Ward 12 - Indiranagar",
+      "team": "Zone 12 Alpha Crew",
+      "rating": 4.9,
+      "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&q=80"
+    },
+    "supervisor": {
+      "id": "SUP-08",
+      "name": "Inspector Ananya Rao",
+      "role": "supervisor",
+      "designation": "Ward Sanitary Officer",
+      "ward": "Ward 12 - Indiranagar",
+      "zone": "East Bengaluru Zone",
+      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"
+    },
+    "epr": {
+      "id": "EPR-CO-01",
+      "name": "AquaPure Beverage Industries",
+      "role": "epr",
+      "gstin": "29AAACH7409R1ZX",
+      "cpcbReg": "CPCB/EPR/2024/PL-0941",
+      "category": "FMCG / Rigid Plastics (PET)",
+      "authorizedRecycler": "GreenRecycle Hub Ltd",
+      "logo": "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?auto=format&fit=crop&w=150&q=80"
+    }
+  },
+  "complaints": [
+    {
+      "id": "CMP-2026-9217",
+      "title": "Citizen Report: Screenshot 2026-09-04 162235",
+      "description": "Severe roadside accumulation of discarded mineral water bottles and multi-layered snack packaging.",
+      "ward": "Ward 12 - Indiranagar",
+      "locationName": "Opposite Metro Pillar #124, 12th Main Road",
+      "coordinates": {
+        "lat": 12.977858100291492,
+        "lng": 77.64219762661004
+      },
+      "reportedAt": "2026-09-04T11:26:49.217Z",
+      "status": "pending",
+      "priority": "high",
+      "slaHours": 4,
+      "slaDeadline": "2026-09-04T15:26:49.217Z",
+      "aiAnalysis": {
+        "detectedTypes": [
+          "Polythene Silt Bags (65%)",
+          "Organic Sludge (25%)",
+          "Metal Beverage Cans (10%)"
+        ],
+        "estimatedWeightKg": 85,
+        "confidence": "95.6%",
+        "hazardScore": "High",
+        "priority": "high",
+        "slaHours": 4,
+        "recommendedAction": "Desilting Crew with High-Pressure Jetting Vehicle"
+      },
+      "beforeImage": "blob:http://localhost:5173/e5f09068-6a5b-4df5-8bab-97f966b3abfe",
+      "afterImage": null,
+      "reportedBy": {
+        "name": "Aarav Sharma (Citizen)",
+        "phone": "+91 98450 12345",
+        "isCitizenVerified": false,
+        "citizenRating": null
+      },
+      "assignedWorkerId": null,
+      "assignedWorkerName": null,
+      "assignedTeam": null,
+      "collectedWeightKg": null,
+      "mrfDestination": null,
+      "supervisorNotes": null,
+      "supervisorRating": null,
+      "sosAlert": null
+    },
+    {
+      "id": "CMP-2026-5578",
+      "title": "[Kaggle Benchmark] Single-use Polyethylene Terephthalate (PET) beve...",
+      "description": "Verified test sample from Kaggle TrashNet (Gary Thung & Mindy Yang). Ground Truth Category: Plastic. Target MRF: Authorized Plastic Recycling Unit #04 - Peenya.",
+      "ward": "Ward 12 - Indiranagar",
+      "locationName": "Kaggle Geo-Test Site (Ward 12)",
+      "coordinates": {
+        "lat": 12.974040208172395,
+        "lng": 77.64470722048283
+      },
+      "reportedAt": "2026-09-04T11:17:25.578Z",
+      "status": "pending",
+      "priority": "high",
+      "slaHours": 4,
+      "slaDeadline": "2026-09-04T15:17:25.578Z",
+      "aiAnalysis": {
+        "detectedTypes": [
+          "Single-Use Plastic Packaging (60%)",
+          "Organic Food Scraps (25%)",
+          "Cardboard (15%)"
+        ],
+        "estimatedWeightKg": 45,
+        "confidence": "97.4%",
+        "hazardScore": "Medium",
+        "priority": "high",
+        "slaHours": 4,
+        "recommendedAction": "Dispatch Tipper Truck with 2 Sanitary Workers & Disinfectant Spray"
+      },
+      "beforeImage": "https://images.unsplash.com/photo-1526951521990-620dc14c214b?auto=format&fit=crop&w=800&q=80",
+      "afterImage": null,
+      "reportedBy": {
+        "name": "Aarav Sharma (Citizen)",
+        "phone": "+91 98450 12345",
+        "isCitizenVerified": false,
+        "citizenRating": null
+      },
+      "assignedWorkerId": null,
+      "assignedWorkerName": null,
+      "assignedTeam": null,
+      "collectedWeightKg": null,
+      "mrfDestination": null,
+      "supervisorNotes": null,
+      "supervisorRating": null,
+      "sosAlert": null
+    },
+    {
+      "id": "CMP-2026-7481",
+      "title": "[Kaggle Benchmark] Demolished masonry plaster, broken ceramic tiles...",
+      "description": "Verified test sample from Kaggle Construction & Demolition Debris Dataset. Ground Truth Category: Construction Debris. Target MRF: Channasandra C&D Waste Processing Facility.",
+      "ward": "Ward 14 - Koramangala",
+      "locationName": "Kaggle Geo-Test Site (Ward 14)",
+      "coordinates": {
+        "lat": 12.985415168157378,
+        "lng": 77.64325607315585
+      },
+      "reportedAt": "2026-09-04T11:15:57.481Z",
+      "status": "pending",
+      "priority": "critical",
+      "slaHours": 2,
+      "slaDeadline": "2026-09-04T13:15:57.481Z",
+      "aiAnalysis": {
+        "detectedTypes": [
+          "Industrial Solvent Residue (40%)",
+          "Hazardous Plastic Drums (35%)",
+          "Construction Debris (25%)"
+        ],
+        "estimatedWeightKg": 125,
+        "confidence": "97.8%",
+        "hazardScore": "Critical Biohazard",
+        "priority": "critical",
+        "slaHours": 2,
+        "recommendedAction": "Hazmat Protective Containment Squad with Heavy Hydraulic Loader"
+      },
+      "beforeImage": "https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=800&q=80",
+      "afterImage": null,
+      "reportedBy": {
+        "name": "Aarav Sharma (Citizen)",
+        "phone": "+91 98450 12345",
+        "isCitizenVerified": false,
+        "citizenRating": null
+      },
+      "assignedWorkerId": null,
+      "assignedWorkerName": null,
+      "assignedTeam": null,
+      "collectedWeightKg": null,
+      "mrfDestination": null,
+      "supervisorNotes": null,
+      "supervisorRating": null,
+      "sosAlert": null
+    },
+    {
+      "id": "CMP-2026-7807",
+      "title": "Unattended Garbage Pile on Roadway",
+      "description": "Significant plastic and organic waste accumulated. Stray animals rummaging through bags.",
+      "ward": "Ward 12 - Indiranagar",
+      "locationName": "Opposite Metro Pillar #124, 12th Main Road",
+      "coordinates": {
+        "lat": 12.977567539582543,
+        "lng": 77.63954538877942
+      },
+      "reportedAt": "2026-09-04T11:07:27.807Z",
+      "status": "pending",
+      "priority": "high",
+      "slaHours": 4,
+      "slaDeadline": "2026-09-04T15:07:27.807Z",
+      "aiAnalysis": {
+        "detectedTypes": [
+          "Single-Use Plastic Packaging (60%)",
+          "Organic Food Scraps (25%)",
+          "Cardboard (15%)"
+        ],
+        "estimatedWeightKg": 45,
+        "confidence": "95.7%",
+        "hazardScore": "Medium",
+        "priority": "high",
+        "slaHours": 4,
+        "recommendedAction": "Dispatch Tipper Truck with 2 Sanitary Workers & Disinfectant Spray"
+      },
+      "beforeImage": "blob:http://localhost:5173/69cb4549-c163-4c35-8c89-08e728f6a784",
+      "afterImage": null,
+      "reportedBy": {
+        "name": "Aarav Sharma (Citizen)",
+        "phone": "+91 98450 12345",
+        "isCitizenVerified": false,
+        "citizenRating": null
+      },
+      "assignedWorkerId": null,
+      "assignedWorkerName": null,
+      "assignedTeam": null,
+      "collectedWeightKg": null,
+      "mrfDestination": null,
+      "supervisorNotes": null,
+      "supervisorRating": null,
+      "sosAlert": null
+    },
+    {
+      "id": "CMP-2026-3831",
+      "title": "HEHIHVUHVUGGVUED",
+      "description": "Significant plastic and organic waste accumulated. Stray animals rummaging through bags.",
+      "ward": "Ward 14 - Koramangala",
+      "locationName": "Opposite Metro Pillar #124, 12th Main Road",
+      "coordinates": {
+        "lat": 12.970961741658071,
+        "lng": 77.64497769066573
+      },
+      "reportedAt": "2026-09-04T10:53:23.831Z",
+      "status": "pending",
+      "priority": "high",
+      "slaHours": 4,
+      "slaDeadline": "2026-09-04T14:53:23.831Z",
+      "aiAnalysis": {
+        "detectedTypes": [
+          "Single-Use Plastic Packaging (60%)",
+          "Organic Food Scraps (25%)",
+          "Cardboard (15%)"
+        ],
+        "estimatedWeightKg": 45,
+        "confidence": "93.6%",
+        "hazardScore": "Medium",
+        "priority": "high",
+        "slaHours": 4,
+        "recommendedAction": "Dispatch Tipper Truck with 2 Sanitary Workers & Disinfectant Spray"
+      },
+      "beforeImage": "blob:http://localhost:5173/40a70b30-8680-4cf6-b5fc-9dc51536d087",
+      "afterImage": null,
+      "reportedBy": {
+        "name": "Aarav Sharma (Citizen)",
+        "phone": "+91 98450 12345",
+        "isCitizenVerified": false,
+        "citizenRating": null
+      },
+      "assignedWorkerId": null,
+      "assignedWorkerName": null,
+      "assignedTeam": null,
+      "collectedWeightKg": null,
+      "mrfDestination": null,
+      "supervisorNotes": null,
+      "supervisorRating": null,
+      "sosAlert": null
+    },
+    {
+      "id": "CMP-2026-108",
+      "title": "Overflowing Commercial Garbage Dump Near Vegetable Market",
+      "description": "Mixed wet and dry waste overflowing onto the main pedestrian footpath. Strong odor and attracting stray cattle.",
+      "ward": "Ward 12 - Indiranagar",
+      "locationName": "14th Main Rd, Near Vegetable Mandi, Indiranagar",
+      "coordinates": {
+        "lat": 12.9784,
+        "lng": 77.6408
+      },
+      "reportedAt": "2026-09-04T08:30:00.000Z",
+      "status": "in_progress",
+      "priority": "high",
+      "slaHours": 4,
+      "slaDeadline": "2026-09-04T12:30:00.000Z",
+      "aiAnalysis": {
+        "detectedTypes": [
+          "Organic Food Waste (55%)",
+          "Single-Use Plastic (30%)",
+          "Cardboard Packaging (15%)"
+        ],
+        "estimatedWeightKg": 65,
+        "confidence": "94.8%",
+        "hazardScore": "Medium",
+        "recommendedAction": "Dispatch Tipper Truck with 2 Sanitary Workers & Disinfectant Spray"
+      },
+      "beforeImage": "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80",
+      "afterImage": "blob:http://localhost:5173/1d05d3cf-9004-4a05-b9f6-256f69c1ba38",
+      "reportedBy": {
+        "name": "Aakash Mehta",
+        "phone": "+91 98450 12345",
+        "isCitizenVerified": false,
+        "citizenRating": null
+      },
+      "assignedWorkerId": "WRK-01",
+      "assignedWorkerName": "Ramesh Kumar",
+      "assignedTeam": "Zone 12 Alpha Crew",
+      "collectedWeightKg": 15,
+      "mrfDestination": "Municipal MRF Unit #12 - Indiranagar",
+      "supervisorNotes": "Ground sanitary inspector dispatched for manual audit.",
+      "supervisorRating": null,
+      "sosAlert": null
+    },
+    {
+      "id": "CMP-2026-109",
+      "title": "Illegal Plastic & Chemical Packing Dump in Empty Plot",
+      "description": "Construction rubble mixed with toxic paint cans, industrial packaging, and styrofoam behind commercial complex.",
+      "ward": "Ward 14 - Koramangala",
+      "locationName": "Plot 88, 5th Block, Behind Sony World Signal, Koramangala",
+      "coordinates": {
+        "lat": 12.9352,
+        "lng": 77.6245
+      },
+      "reportedAt": "2026-09-04T07:15:00.000Z",
+      "status": "awaiting_verification",
+      "priority": "critical",
+      "slaHours": 2,
+      "slaDeadline": "2026-09-04T09:15:00.000Z",
+      "aiAnalysis": {
+        "detectedTypes": [
+          "Industrial Plastic Film (40%)",
+          "Chemical Cans (25%)",
+          "Construction Debris (35%)"
+        ],
+        "estimatedWeightKg": 120,
+        "confidence": "96.2%",
+        "hazardScore": "Critical",
+        "recommendedAction": "Requires Heavy Protective Gear + Dedicated Hazmat Transport"
+      },
+      "beforeImage": "https://images.unsplash.com/photo-1604187351574-c75ca79f5807?auto=format&fit=crop&w=800&q=80",
+      "afterImage": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+      "reportedBy": {
+        "name": "Sneha Rao",
+        "phone": "+91 97412 88761",
+        "isCitizenVerified": true,
+        "citizenRating": 5
+      },
+      "assignedWorkerId": "WRK-02",
+      "assignedWorkerName": "Vikram Singh",
+      "assignedTeam": "Rapid Response Unit",
+      "collectedWeightKg": 135,
+      "mrfDestination": "Authorized Hazmat Recycler #03 - Peenya",
+      "supervisorNotes": "Awaiting supervisor dual-check. Citizen confirmed spot is cleared.",
+      "supervisorRating": null,
+      "sosAlert": null
+    },
+    {
+      "id": "CMP-2026-110",
+      "title": "Littered Roadside Pathway & Plastic Bottles",
+      "description": "Pedestrians left massive quantities of single-use plastic bottles, snack wrappers, and beverage cups near the curb.",
+      "ward": "Ward 12 - Indiranagar",
+      "locationName": "Defence Colony Lake Road, Indiranagar",
+      "coordinates": {
+        "lat": 12.9735,
+        "lng": 77.6472
+      },
+      "reportedAt": "2026-09-04T10:00:00.000Z",
+      "status": "in_progress",
+      "priority": "medium",
+      "slaHours": 8,
+      "slaDeadline": "2026-09-04T18:00:00.000Z",
+      "aiAnalysis": {
+        "detectedTypes": [
+          "PET Water Bottles (70%)",
+          "Multi-layered Plastic Pouches (20%)",
+          "Paper Napkins (10%)"
+        ],
+        "estimatedWeightKg": 28,
+        "confidence": "91.5%",
+        "hazardScore": "Low",
+        "recommendedAction": "Dry Waste Segregation Sack + 1 Sanitation Hero"
+      },
+      "beforeImage": "https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=800&q=80",
+      "afterImage": null,
+      "reportedBy": {
+        "name": "Rahul Verma",
+        "phone": "+91 99001 44552",
+        "isCitizenVerified": false,
+        "citizenRating": null
+      },
+      "assignedWorkerId": "WRK-03",
+      "assignedWorkerName": "Sunita Devi",
+      "assignedTeam": "Drainage & Desilting Squad",
+      "collectedWeightKg": null,
+      "mrfDestination": null,
+      "supervisorNotes": null,
+      "supervisorRating": null,
+      "sosAlert": null
+    },
+    {
+      "id": "CMP-2026-105",
+      "title": "Clogged Stormwater Drain & Plastic Rubble",
+      "description": "Drain inlet blocked with plastic bags and road debris, causing water backflow onto street.",
+      "ward": "Ward 18 - Whitefield",
+      "locationName": "Main Road junction, Near ITPL Gate 2, Whitefield",
+      "coordinates": {
+        "lat": 12.9856,
+        "lng": 77.7289
+      },
+      "reportedAt": "2026-09-03T11:00:00.000Z",
+      "status": "verified",
+      "priority": "high",
+      "slaHours": 6,
+      "slaDeadline": "2026-09-03T17:00:00.000Z",
+      "aiAnalysis": {
+        "detectedTypes": [
+          "Polythene Carry Bags (60%)",
+          "Silt & Organic Sludge (35%)",
+          "Metal Beverage Cans (5%)"
+        ],
+        "estimatedWeightKg": 90,
+        "confidence": "95.1%",
+        "hazardScore": "High",
+        "recommendedAction": "Drain Clearance Hook + High Pressure Wash"
+      },
+      "beforeImage": "https://images.unsplash.com/photo-1590496793929-36417d3117de?auto=format&fit=crop&w=800&q=80",
+      "afterImage": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80",
+      "reportedBy": {
+        "name": "Pooja Hegde",
+        "phone": "+91 98802 33441",
+        "isCitizenVerified": true,
+        "citizenRating": 5
+      },
+      "assignedWorkerId": "WRK-03",
+      "assignedWorkerName": "Sunita Devi",
+      "assignedTeam": "Drainage & Desilting Squad",
+      "collectedWeightKg": 98,
+      "mrfDestination": "Municipal MRF Unit #12",
+      "supervisorNotes": "Verified on-site. Flow restored smoothly. Worker awarded 5-star performance.",
+      "supervisorRating": 5,
+      "sosAlert": null
+    }
+  ],
+  "workers": [
+    {
+      "id": "WRK-01",
+      "name": "Ramesh Kumar",
+      "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80",
+      "phone": "+91 98451 90211",
+      "ward": "Ward 12 - Indiranagar",
+      "team": "Zone 12 Alpha Crew",
+      "role": "Senior Sanitation Hero",
+      "rating": 4.9,
+      "reviewsCount": 142,
+      "attendance": "punched_in",
+      "punchInTime": "07:30 AM",
+      "activeTasksCount": 1,
+      "completedToday": 4,
+      "totalKgClearedToday": 200,
+      "earningsToday": 970
+    },
+    {
+      "id": "WRK-02",
+      "name": "Vikram Singh",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80",
+      "phone": "+91 99012 33214",
+      "ward": "Ward 14 - Koramangala",
+      "team": "Rapid Response Unit",
+      "role": "Hazmat & Bulk Waste Specialist",
+      "rating": 4.8,
+      "reviewsCount": 98,
+      "attendance": "punched_in",
+      "punchInTime": "08:00 AM",
+      "activeTasksCount": 1,
+      "completedToday": 2,
+      "totalKgClearedToday": 240,
+      "earningsToday": 850
+    },
+    {
+      "id": "WRK-03",
+      "name": "Sunita Devi",
+      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80",
+      "phone": "+91 97401 55623",
+      "ward": "Ward 18 - Whitefield",
+      "team": "Drainage & Desilting Squad",
+      "role": "Sanitation Lead",
+      "rating": 5,
+      "reviewsCount": 180,
+      "attendance": "punched_in",
+      "punchInTime": "07:15 AM",
+      "activeTasksCount": 1,
+      "completedToday": 4,
+      "totalKgClearedToday": 310,
+      "earningsToday": 950
+    }
+  ],
+  "vehicles": [
+    {
+      "id": "VH-102",
+      "registrationNo": "KA-03-GH-1102",
+      "type": "Compactor Garbage Truck (5 Ton)",
+      "driverName": "Santosh Gowda",
+      "driverPhone": "+91 94480 77121",
+      "ward": "Ward 12 - Indiranagar",
+      "currentLocation": {
+        "lat": 12.963967577737076,
+        "lng": 77.63971120447285
+      },
+      "currentStreet": "Near 12th Main Road, 80 Feet Road Junction",
+      "speedKmH": 18,
+      "status": "collecting",
+      "routeProgress": 58,
+      "distanceFromUserMeters": 215,
+      "estimatedArrivalMinutes": 3,
+      "capacityPercent": 74,
+      "stopsRemaining": 5
+    },
+    {
+      "id": "VH-105",
+      "registrationNo": "KA-01-EE-4509",
+      "type": "Hydraulic Tipper Truck (2.5 Ton)",
+      "driverName": "Dinesh Murthy",
+      "driverPhone": "+91 98861 88345",
+      "ward": "Ward 14 - Koramangala",
+      "currentLocation": {
+        "lat": 12.923419833575801,
+        "lng": 77.62840843340261
+      },
+      "currentStreet": "80 Feet Road, 4th Block",
+      "speedKmH": 22,
+      "status": "in_transit",
+      "routeProgress": 75,
+      "distanceFromUserMeters": 305,
+      "estimatedArrivalMinutes": 4,
+      "capacityPercent": 88,
+      "stopsRemaining": 2
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "HOT-01",
+      "title": "14th Main Vegetable Mandi Dump",
+      "ward": "Ward 12 - Indiranagar",
+      "coordinates": {
+        "lat": 12.9784,
+        "lng": 77.6408
+      },
+      "frequencyScore": "Critical (8 complaints/week)",
+      "primaryWaste": "Organic Vegetable Rots & Polythene Bags",
+      "rootCause": "Shortage of community wet-waste bins within 350m radius + late night vendor dumping",
+      "currentStatus": "Action Required"
+    }
+  ],
+  "eprCompanies": [
+    {
+      "id": "EPR-CO-01",
+      "companyName": "AquaPure Beverage Industries",
+      "category": "FMCG / Rigid Plastics (PET)",
+      "targetTons": 150,
+      "collectedTons": 118.4,
+      "recycledTons": 112.1,
+      "compliancePercent": 78.9,
+      "status": "On Track",
+      "currentCreditValue": "₹4,72,000",
+      "authorizedRecycler": "GreenRecycle Hub Ltd (State Reg: PCB/REC-884)",
+      "lastCertificateId": "EPR-CERT-2026-9921",
+      "batches": [
+        {
+          "batchId": "BATCH-2026-0881",
+          "facility": "Indiranagar MRF Unit #12",
+          "weightKg": 24800,
+          "material": "rPET Food Grade Flakes",
+          "verifiedAt": "2026-09-02T14:30:00.000Z",
+          "sha256Hash": "a8f5f167f44f4964e6c998dee827110c0883d6e5a1b326078652dcfd485002b2"
+        }
+      ]
+    }
+  ],
+  "citizenPoints": 650
+}

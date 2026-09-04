@@ -1,0 +1,62 @@
+{
+  "name": "Swachhta Sangam — Smart Waste & Civic App",
+  "short_name": "Swachhta Sangam",
+  "description": "AI-Powered Municipal Waste Governance, Real-Time Truck Radar, and Circular Economy Portal",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#020617",
+  "theme_color": "#10b981",
+  "categories": ["government", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo-emblem.png",
+      "sizes": "284x284",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Citizen Portal",
+      "short_name": "Citizen",
+      "description": "Report garbage and track collection trucks",
+      "url": "/?role=citizen",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Sanitation Hero App",
+      "short_name": "Worker",
+      "description": "Daily route navigation and cleanup tasks",
+      "url": "/?role=worker",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Supervisor Control Hub",
+      "short_name": "Supervisor",
+      "description": "Triage complaints and manage fleet",
+      "url": "/?role=supervisor",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Municipality Office",
+      "short_name": "Municipality",
+      "description": "Recyclers, waste categories, and vehicle ledger",
+      "url": "/?role=municipality",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
