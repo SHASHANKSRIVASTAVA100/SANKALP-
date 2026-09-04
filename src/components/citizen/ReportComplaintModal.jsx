@@ -199,36 +199,36 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-5xl bg-slate-900 border border-emerald-500/40 rounded-3xl shadow-2xl overflow-hidden my-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn">
+      <div className="relative w-full max-w-5xl bg-slate-900 border border-emerald-500/40 rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Modal Header */}
-        <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-950 p-5 px-6 border-b border-slate-800 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-950 p-4 sm:p-5 px-4 sm:px-6 border-b border-slate-800 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-lg shadow-emerald-950">
-              <Camera className="w-6 h-6" />
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-lg shadow-emerald-950 shrink-0">
+              <Camera className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-lg font-bold text-white">AI Garbage Detection & SLA Allocation</h2>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-400 font-mono px-2.5 py-0.5 rounded-full border border-emerald-500/30 font-semibold flex items-center gap-1">
+                <h2 className="text-base sm:text-lg font-bold text-white">AI Garbage Detection & SLA Allocation</h2>
+                <span className="hidden sm:inline-flex text-[10px] bg-emerald-500/20 text-emerald-400 font-mono px-2.5 py-0.5 rounded-full border border-emerald-500/30 font-semibold items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                   Neural CV Engine v4.8 Active
                 </span>
               </div>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Upload or select a photo. Our neural model detects waste type, volume mass, hazard index & allocates statutory municipal SLA.
+              <p className="text-xs text-slate-400 mt-0.5 line-clamp-1 sm:line-clamp-none">
+                Upload or take a photo. Neural model detects waste type, mass, hazard & municipal SLA.
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all cursor-pointer"
+            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all cursor-pointer shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-y-auto flex-1">
           {/* Left Column: Image Upload, Scanner & Neural Results (7 Cols) */}
           <div className="lg:col-span-7 space-y-4">
             <div className="flex items-center justify-between">
@@ -281,17 +281,30 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
                 </div>
               )}
 
-              {/* Floating Upload Trigger */}
-              <label className="absolute bottom-3 right-3 bg-slate-900/95 hover:bg-slate-800 text-slate-200 border border-slate-600 px-3.5 py-2 rounded-xl text-xs font-semibold cursor-pointer flex items-center gap-2 shadow-2xl backdrop-blur-md transition-all">
-                <Upload className="w-4 h-4 text-emerald-400" />
-                <span>Upload Your Photo</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleCustomFileUpload}
-                  className="hidden"
-                />
-              </label>
+              {/* Floating Camera / Gallery Upload Triggers */}
+              <div className="absolute bottom-3 right-3 flex items-center gap-2">
+                <label className="bg-emerald-600 hover:bg-emerald-500 text-slate-950 px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer flex items-center gap-1.5 shadow-2xl backdrop-blur-md transition-all active:scale-95">
+                  <Camera className="w-3.5 h-3.5" />
+                  <span>Camera</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    onChange={handleCustomFileUpload}
+                    className="hidden"
+                  />
+                </label>
+                <label className="bg-slate-900/95 hover:bg-slate-800 text-slate-200 border border-slate-600 px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer flex items-center gap-1.5 shadow-2xl backdrop-blur-md transition-all active:scale-95">
+                  <Upload className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Upload</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleCustomFileUpload}
+                    className="hidden"
+                  />
+                </label>
+              </div>
             </div>
 
             {/* AI Waste Stream Quick Selectors */}

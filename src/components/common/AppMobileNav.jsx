@@ -30,7 +30,7 @@ export const AppMobileNav = () => {
     if (action === 'report') {
       setActiveModal('report');
     } else if (action === 'radar') {
-      const radarEl = document.getElementById('vehicle-radar-section');
+      const radarEl = document.getElementById('vehicle-radar');
       if (radarEl) {
         radarEl.scrollIntoView({ behavior: 'smooth' });
       } else {
@@ -39,7 +39,7 @@ export const AppMobileNav = () => {
     } else if (action === 'leaderboard') {
       setActiveModal('leaderboard');
     } else if (action === 'paid') {
-      setActiveModal('paid_services');
+      setActiveModal('paid');
     } else if (action === 'top') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
