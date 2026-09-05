@@ -42,12 +42,12 @@ export const EvidenceUploadModal = ({ complaint, isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-3xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden my-auto sm:my-8 flex flex-col max-h-[92vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
+      <div className="relative w-full max-w-3xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden my-8">
         {/* Header */}
-        <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-900 p-4 sm:p-5 border-b border-slate-700 flex items-center justify-between shrink-0">
+        <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-900 p-5 border-b border-slate-700 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
               <Camera className="w-5 h-5" />
             </div>
             <div>
@@ -62,13 +62,13 @@ export const EvidenceUploadModal = ({ complaint, isOpen, onClose }) => {
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all cursor-pointer"
+            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-5 overflow-y-auto flex-1">
+        <form onSubmit={handleSubmit} className="p-6 space-y-5">
           {/* Comparison Preview (Before vs Uploaded After) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Before Photo */}
@@ -89,20 +89,13 @@ export const EvidenceUploadModal = ({ complaint, isOpen, onClose }) => {
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <span className="text-xs font-bold text-emerald-400">
-                  AFTER CLEANUP (Live Evidence):
+                  AFTER CLEANUP (Your Live Evidence):
                 </span>
-                <div className="flex items-center gap-1.5">
-                  <label className="text-[10px] text-emerald-300 hover:underline cursor-pointer flex items-center gap-1 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-700">
-                    <Camera className="w-3 h-3 text-emerald-400" />
-                    <span>Camera</span>
-                    <input type="file" accept="image/*" capture="environment" onChange={handleFileUpload} className="hidden" />
-                  </label>
-                  <label className="text-[10px] text-slate-300 hover:underline cursor-pointer flex items-center gap-1 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
-                    <Upload className="w-3 h-3" />
-                    <span>Gallery</span>
-                    <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
-                  </label>
-                </div>
+                <label className="text-[11px] text-emerald-400 hover:underline cursor-pointer flex items-center gap-1">
+                  <Upload className="w-3 h-3" />
+                  Upload Photo
+                  <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
+                </label>
               </div>
 
               <div className="relative rounded-xl overflow-hidden border border-emerald-500/50 aspect-[4/3] bg-slate-950">

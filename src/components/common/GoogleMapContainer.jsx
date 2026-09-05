@@ -108,7 +108,7 @@ export const GoogleMapContainer = ({
         mapTypeControl: false,
         streetViewControl: false,
         fullscreenControl: showControls,
-        gestureHandling: interactive ? 'cooperative' : 'none'
+        gestureHandling: interactive ? 'auto' : 'none'
       };
 
       const map = new window.google.maps.Map(mapElementRef.current, mapOptions);

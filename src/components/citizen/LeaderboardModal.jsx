@@ -57,16 +57,16 @@ export const LeaderboardModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-3xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden my-auto sm:my-8 flex flex-col max-h-[92vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
+      <div className="relative w-full max-w-3xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden my-8">
         {/* Header */}
-        <div className="bg-gradient-to-r from-amber-950/60 via-slate-900 to-slate-900 p-4 sm:p-5 border-b border-slate-700 flex items-center justify-between shrink-0">
+        <div className="bg-gradient-to-r from-amber-950/60 via-slate-900 to-slate-900 p-5 border-b border-slate-700 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
               <Trophy className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+              <h2 className="text-lg font-bold text-white flex items-center gap-2">
                 Citizen Green Leaderboard & Rewards
               </h2>
               <p className="text-xs text-slate-400">Recognizing citizen vigilance in keeping Bengaluru spotless</p>
@@ -74,21 +74,21 @@ export const LeaderboardModal = ({ isOpen, onClose }) => {
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all cursor-pointer"
+            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* User Balance Header Strip */}
-        <div className="bg-slate-950 px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3 shrink-0">
+        <div className="bg-slate-950 px-6 py-4 border-b border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-emerald-500/20 border-2 border-emerald-400/40 flex items-center justify-center font-bold text-emerald-300 text-base sm:text-lg shrink-0">
+            <div className="w-12 h-12 rounded-full bg-emerald-500/20 border-2 border-emerald-400/40 flex items-center justify-center font-bold text-emerald-300 text-lg">
               ✨
             </div>
             <div>
-              <div className="text-[11px] text-slate-400">Your Current Civic Wallet:</div>
-              <div className="text-lg sm:text-xl font-extrabold text-white flex items-center gap-2">
+              <div className="text-xs text-slate-400">Your Current Civic Wallet:</div>
+              <div className="text-xl font-extrabold text-white flex items-center gap-2">
                 <span className="text-emerald-400">{citizenPoints}</span>
                 <span className="text-xs font-semibold text-slate-400">Green Points</span>
               </div>
@@ -99,7 +99,7 @@ export const LeaderboardModal = ({ isOpen, onClose }) => {
           <div className="flex items-center bg-slate-900 border border-slate-700 rounded-xl p-1 gap-1">
             <button
               onClick={() => setActiveTab('leaderboard')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'leaderboard'
                   ? 'bg-amber-500 text-slate-950 shadow'
                   : 'text-slate-400 hover:text-white'
@@ -109,7 +109,7 @@ export const LeaderboardModal = ({ isOpen, onClose }) => {
             </button>
             <button
               onClick={() => setActiveTab('rewards')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'rewards'
                   ? 'bg-emerald-500 text-slate-950 shadow'
                   : 'text-slate-400 hover:text-white'
@@ -121,13 +121,13 @@ export const LeaderboardModal = ({ isOpen, onClose }) => {
         </div>
 
         {/* Tab Content */}
-        <div className="p-4 sm:p-6 overflow-y-auto flex-1">
+        <div className="p-6">
           {activeTab === 'leaderboard' ? (
             <div className="space-y-3">
               <div className="grid grid-cols-12 text-[11px] font-semibold text-slate-500 px-3 uppercase tracking-wider">
-                <div className="col-span-2 sm:col-span-1">Rank</div>
-                <div className="col-span-7 sm:col-span-6">Citizen Name & Ward</div>
-                <div className="hidden sm:block sm:col-span-2 text-center">Verified</div>
+                <div className="col-span-1">Rank</div>
+                <div className="col-span-6">Citizen Name & Ward</div>
+                <div className="col-span-2 text-center">Verified</div>
                 <div className="col-span-3 text-right">Green Points</div>
               </div>
 
@@ -144,28 +144,28 @@ export const LeaderboardModal = ({ isOpen, onClose }) => {
                         : 'bg-slate-950/60 border-slate-800/80 hover:border-slate-700'
                     }`}
                   >
-                    <div className="col-span-2 sm:col-span-1 flex items-center font-bold">
+                    <div className="col-span-1 flex items-center font-bold">
                       {user.rank === 1 && <span className="text-amber-400 text-base">🥇</span>}
                       {user.rank === 2 && <span className="text-slate-300 text-base">🥈</span>}
                       {user.rank === 3 && <span className="text-amber-600 text-base">🥉</span>}
                       {user.rank > 3 && <span className="text-slate-400 font-mono">#{user.rank}</span>}
                     </div>
 
-                    <div className="col-span-7 sm:col-span-6">
+                    <div className="col-span-6">
                       <div className="font-bold text-white flex items-center gap-2">
-                        <span className="truncate">{user.name}</span>
-                        <span className="text-[10px] bg-slate-800 text-emerald-400 px-1.5 py-0.2 rounded-full font-normal shrink-0">
+                        {user.name}
+                        <span className="text-[10px] bg-slate-800 text-emerald-400 px-2 py-0.2 rounded-full font-normal">
                           {user.badge}
                         </span>
                       </div>
-                      <div className="text-[11px] text-slate-400 truncate">{user.ward}</div>
+                      <div className="text-[11px] text-slate-400">{user.ward}</div>
                     </div>
 
-                    <div className="hidden sm:block sm:col-span-2 text-center font-mono text-slate-300">
+                    <div className="col-span-2 text-center font-mono text-slate-300">
                       {user.complaintsVerified} cleanups
                     </div>
 
-                    <div className="col-span-3 text-right font-mono font-bold text-emerald-400 text-xs sm:text-sm">
+                    <div className="col-span-3 text-right font-mono font-bold text-emerald-400 text-sm">
                       {currentPoints} pts
                     </div>
                   </div>

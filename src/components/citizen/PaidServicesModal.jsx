@@ -50,16 +50,16 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-4xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden my-auto sm:my-8 flex flex-col max-h-[92vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
+      <div className="relative w-full max-w-4xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden my-8">
         {/* Header */}
-        <div className="bg-gradient-to-r from-teal-950/80 via-slate-900 to-slate-900 p-4 sm:p-5 border-b border-slate-700 flex items-center justify-between shrink-0">
+        <div className="bg-gradient-to-r from-teal-950/80 via-slate-900 to-slate-900 p-5 border-b border-slate-700 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-teal-400 shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-teal-400">
               <Truck className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+              <h2 className="text-lg font-bold text-white flex items-center gap-2">
                 On-Demand & Commercial Waste Services
               </h2>
               <p className="text-xs text-slate-400">
@@ -69,14 +69,14 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
           </div>
           <button
             onClick={handleResetAndClose}
-            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all cursor-pointer"
+            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {isBooked ? (
-          <div className="p-8 text-center space-y-4 max-w-lg mx-auto overflow-y-auto flex-1">
+          <div className="p-8 text-center space-y-4 max-w-lg mx-auto">
             <div className="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400/40 flex items-center justify-center text-emerald-400 mx-auto">
               <CheckCircle className="w-8 h-8" />
             </div>
@@ -93,13 +93,13 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
             </p>
             <button
               onClick={handleResetAndClose}
-              className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold transition-all shadow cursor-pointer"
+              className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold transition-all shadow"
             >
               Done & Return to Dashboard
             </button>
           </div>
         ) : (
-          <div className="p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-y-auto flex-1">
+          <div className="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Service Selection Catalog (5 Cols) */}
             <div className="lg:col-span-5 space-y-3">
               <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">

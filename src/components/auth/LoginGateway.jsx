@@ -19,12 +19,11 @@ import {
   Lock,
   ChevronRight,
   Info,
-  Landmark,
-  Download
+  Landmark
 } from 'lucide-react';
 
 export const LoginGateway = () => {
-  const { login, language, setLanguage, t, setIsInstallModalOpen } = useApp();
+  const { login, language, setLanguage, t } = useApp();
 
   const [selectedRole, setSelectedRole] = useState('citizen'); // 'citizen' | 'worker' | 'supervisor' | 'epr' | 'municipality'
 
@@ -120,13 +119,6 @@ export const LoginGateway = () => {
     login(roleProfiles[roleKey]);
   };
 
-  const selectAndScroll = (roleKey) => {
-    setSelectedRole(roleKey);
-    setTimeout(() => {
-      document.getElementById('login-box')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
-  };
-
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-white relative overflow-hidden">
       {/* Tricolor National Mission Accent Bar */}
@@ -153,20 +145,8 @@ export const LoginGateway = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          {/* Install App Quick Button */}
-          <button
-            type="button"
-            onClick={() => setIsInstallModalOpen(true)}
-            className="flex items-center gap-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shadow active:scale-95"
-            title="Download & Install App on Mobile or PC"
-          >
-            <Download className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="hidden xs:inline sm:inline">Install App</span>
-          </button>
-
-          {/* Multilingual Selector */}
-          <div className="flex items-center gap-2 bg-slate-900 border border-slate-700/80 rounded-xl px-2.5 sm:px-3 py-1.5 shadow-inner">
+        {/* Multilingual Selector */}
+        <div className="flex items-center gap-2 bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-1.5 shadow-inner">
           <Globe className="w-4 h-4 text-emerald-400 shrink-0" />
           <span className="text-xs text-slate-400 font-medium hidden sm:inline">{t('selectLanguage')}:</span>
           <div className="flex items-center gap-1">
@@ -185,13 +165,12 @@ export const LoginGateway = () => {
             ))}
           </div>
         </div>
-      </div>
-    </header>
+      </header>
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 max-w-6xl mx-auto w-full relative z-10">
         {/* Gateway Heading */}
-        <div className="text-center max-w-2xl mb-6 flex flex-col items-center">
+        <div className="text-center max-w-2xl mb-8 flex flex-col items-center">
           {/* Official Brand Logo Showcase */}
           <div className="mb-4 relative group">
             <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500/30 via-teal-500/30 to-cyan-500/30 rounded-full blur-xl opacity-60 group-hover:opacity-100 transition duration-700 pointer-events-none"></div>
@@ -216,251 +195,151 @@ export const LoginGateway = () => {
           </p>
         </div>
 
-        {/* Quick 1-Tap Demo Switcher Pills (Ultra-convenient for mobile preview) */}
-        <div className="w-full mb-6 bg-slate-900/90 border border-slate-800 rounded-2xl p-3 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-xs font-bold text-slate-300 shrink-0">
-            <Sparkles className="w-4 h-4 text-amber-400" />
-            <span>⚡ 1-Tap Direct Portal Entry:</span>
-          </div>
-          <div className="flex items-center gap-1.5 overflow-x-auto w-full no-scrollbar pb-1 sm:pb-0 justify-start sm:justify-end">
-            <button
-              type="button"
-              onClick={() => handleQuickLogin('citizen')}
-              className="px-2.5 py-1.5 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 text-xs font-bold border border-emerald-500/40 shrink-0 transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
-            >
-              <User className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Citizen</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleQuickLogin('worker')}
-              className="px-2.5 py-1.5 rounded-xl bg-amber-950/80 hover:bg-amber-900 text-amber-300 text-xs font-bold border border-amber-500/40 shrink-0 transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
-            >
-              <HardHat className="w-3.5 h-3.5 text-amber-400" />
-              <span>Worker</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleQuickLogin('supervisor')}
-              className="px-2.5 py-1.5 rounded-xl bg-cyan-950/80 hover:bg-cyan-900 text-cyan-300 text-xs font-bold border border-cyan-500/40 shrink-0 transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
-            >
-              <ShieldAlert className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Supervisor</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleQuickLogin('epr')}
-              className="px-2.5 py-1.5 rounded-xl bg-indigo-950/80 hover:bg-indigo-900 text-indigo-300 text-xs font-bold border border-indigo-500/40 shrink-0 transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
-            >
-              <Building2 className="w-3.5 h-3.5 text-indigo-400" />
-              <span>EPR</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleQuickLogin('municipality')}
-              className="px-2.5 py-1.5 rounded-xl bg-purple-950/80 hover:bg-purple-900 text-purple-300 text-xs font-bold border border-purple-500/40 shrink-0 transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
-            >
-              <Landmark className="w-3.5 h-3.5 text-purple-400" />
-              <span>ULB HQ</span>
-            </button>
-          </div>
-        </div>
-
         {/* 5 Role Selection Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 w-full mb-8">
           {/* 1. Citizen */}
-          <div
-            onClick={() => selectAndScroll('citizen')}
-            className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group cursor-pointer flex flex-col justify-between ${
+          <button
+            type="button"
+            onClick={() => setSelectedRole('citizen')}
+            className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group ${
               selectedRole === 'citizen'
                 ? 'bg-emerald-950/40 border-emerald-500 ring-2 ring-emerald-500/30 shadow-xl shadow-emerald-950/50'
                 : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900'
             }`}
           >
-            <div>
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-colors ${
-                selectedRole === 'citizen' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300 group-hover:bg-slate-700'
-              }`}>
-                <User className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-sm text-white flex items-center justify-between">
-                {t('citizenTab')}
-                {selectedRole === 'citizen' && <span className="w-2 h-2 rounded-full bg-emerald-400"></span>}
-              </h3>
-              <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">
-                {t('citizenRoleDesc')}
-              </p>
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-colors ${
+              selectedRole === 'citizen' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300 group-hover:bg-slate-700'
+            }`}>
+              <User className="w-5 h-5" />
             </div>
-            <div className="mt-3">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleQuickLogin('citizen');
-                }}
-                className="w-full py-1.5 px-2 rounded-lg bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 text-[10px] font-bold border border-emerald-500/40 transition-all flex items-center justify-center gap-1 active:scale-95"
-              >
-                <Sparkles className="w-3 h-3" />
-                <span>1-Tap Entry ⚡</span>
-              </button>
+            <h3 className="font-bold text-sm text-white flex items-center justify-between">
+              {t('citizenTab')}
+              {selectedRole === 'citizen' && <span className="w-2 h-2 rounded-full bg-emerald-400"></span>}
+            </h3>
+            <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">
+              {t('citizenRoleDesc')}
+            </p>
+            <div className="mt-3 text-[10px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+              <span>Citizen Portal</span>
+              <ChevronRight className="w-3 h-3" />
             </div>
-          </div>
+          </button>
 
           {/* 2. Worker */}
-          <div
-            onClick={() => selectAndScroll('worker')}
-            className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group cursor-pointer flex flex-col justify-between ${
+          <button
+            type="button"
+            onClick={() => setSelectedRole('worker')}
+            className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group ${
               selectedRole === 'worker'
                 ? 'bg-amber-950/40 border-amber-500 ring-2 ring-amber-500/30 shadow-xl shadow-amber-950/50'
                 : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900'
             }`}
           >
-            <div>
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-colors ${
-                selectedRole === 'worker' ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300 group-hover:bg-slate-700'
-              }`}>
-                <HardHat className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-sm text-white flex items-center justify-between">
-                {t('workerTab')}
-                {selectedRole === 'worker' && <span className="w-2 h-2 rounded-full bg-amber-400"></span>}
-              </h3>
-              <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">
-                {t('workerRoleDesc')}
-              </p>
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-colors ${
+              selectedRole === 'worker' ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300 group-hover:bg-slate-700'
+            }`}>
+              <HardHat className="w-5 h-5" />
             </div>
-            <div className="mt-3">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleQuickLogin('worker');
-                }}
-                className="w-full py-1.5 px-2 rounded-lg bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 text-[10px] font-bold border border-amber-500/40 transition-all flex items-center justify-center gap-1 active:scale-95"
-              >
-                <Sparkles className="w-3 h-3" />
-                <span>1-Tap Entry ⚡</span>
-              </button>
+            <h3 className="font-bold text-sm text-white flex items-center justify-between">
+              {t('workerTab')}
+              {selectedRole === 'worker' && <span className="w-2 h-2 rounded-full bg-amber-400"></span>}
+            </h3>
+            <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">
+              {t('workerRoleDesc')}
+            </p>
+            <div className="mt-3 text-[10px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
+              <span>Worker App</span>
+              <ChevronRight className="w-3 h-3" />
             </div>
-          </div>
+          </button>
 
           {/* 3. Supervisor */}
-          <div
-            onClick={() => selectAndScroll('supervisor')}
-            className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group cursor-pointer flex flex-col justify-between ${
+          <button
+            type="button"
+            onClick={() => setSelectedRole('supervisor')}
+            className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group ${
               selectedRole === 'supervisor'
                 ? 'bg-cyan-950/40 border-cyan-500 ring-2 ring-cyan-500/30 shadow-xl shadow-cyan-950/50'
                 : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900'
             }`}
           >
-            <div>
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-colors ${
-                selectedRole === 'supervisor' ? 'bg-cyan-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300 group-hover:bg-slate-700'
-              }`}>
-                <ShieldAlert className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-sm text-white flex items-center justify-between">
-                {t('supervisorTab')}
-                {selectedRole === 'supervisor' && <span className="w-2 h-2 rounded-full bg-cyan-400"></span>}
-              </h3>
-              <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">
-                {t('supervisorRoleDesc')}
-              </p>
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-colors ${
+              selectedRole === 'supervisor' ? 'bg-cyan-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300 group-hover:bg-slate-700'
+            }`}>
+              <ShieldAlert className="w-5 h-5" />
             </div>
-            <div className="mt-3">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleQuickLogin('supervisor');
-                }}
-                className="w-full py-1.5 px-2 rounded-lg bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 text-[10px] font-bold border border-cyan-500/40 transition-all flex items-center justify-center gap-1 active:scale-95"
-              >
-                <Sparkles className="w-3 h-3" />
-                <span>1-Tap Entry ⚡</span>
-              </button>
+            <h3 className="font-bold text-sm text-white flex items-center justify-between">
+              {t('supervisorTab')}
+              {selectedRole === 'supervisor' && <span className="w-2 h-2 rounded-full bg-cyan-400"></span>}
+            </h3>
+            <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">
+              {t('supervisorRoleDesc')}
+            </p>
+            <div className="mt-3 text-[10px] font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1">
+              <span>Control Hub</span>
+              <ChevronRight className="w-3 h-3" />
             </div>
-          </div>
+          </button>
 
           {/* 4. Company (EPR) */}
-          <div
-            onClick={() => selectAndScroll('epr')}
-            className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group cursor-pointer flex flex-col justify-between ${
+          <button
+            type="button"
+            onClick={() => setSelectedRole('epr')}
+            className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group ${
               selectedRole === 'epr'
                 ? 'bg-indigo-950/40 border-indigo-500 ring-2 ring-indigo-500/30 shadow-xl shadow-indigo-950/50'
                 : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900'
             }`}
           >
-            <div>
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-colors ${
-                selectedRole === 'epr' ? 'bg-indigo-500 text-white font-bold' : 'bg-slate-800 text-slate-300 group-hover:bg-slate-700'
-              }`}>
-                <Building2 className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-sm text-white flex items-center justify-between">
-                {t('companyTab')}
-                {selectedRole === 'epr' && <span className="w-2 h-2 rounded-full bg-indigo-400"></span>}
-              </h3>
-              <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">
-                {t('companyRoleDesc')}
-              </p>
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-colors ${
+              selectedRole === 'epr' ? 'bg-indigo-500 text-white font-bold' : 'bg-slate-800 text-slate-300 group-hover:bg-slate-700'
+            }`}>
+              <Building2 className="w-5 h-5" />
             </div>
-            <div className="mt-3">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleQuickLogin('epr');
-                }}
-                className="w-full py-1.5 px-2 rounded-lg bg-indigo-500/20 hover:bg-indigo-500 text-indigo-300 hover:text-white text-[10px] font-bold border border-indigo-500/40 transition-all flex items-center justify-center gap-1 active:scale-95"
-              >
-                <Sparkles className="w-3 h-3" />
-                <span>1-Tap Entry ⚡</span>
-              </button>
+            <h3 className="font-bold text-sm text-white flex items-center justify-between">
+              {t('companyTab')}
+              {selectedRole === 'epr' && <span className="w-2 h-2 rounded-full bg-indigo-400"></span>}
+            </h3>
+            <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">
+              {t('companyRoleDesc')}
+            </p>
+            <div className="mt-3 text-[10px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
+              <span>EPR Gateway</span>
+              <ChevronRight className="w-3 h-3" />
             </div>
-          </div>
+          </button>
 
-          {/* 5. Municipality Office (spans 2 cols on mobile for balanced layout) */}
-          <div
-            onClick={() => selectAndScroll('municipality')}
-            className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group cursor-pointer flex flex-col justify-between col-span-2 sm:col-span-1 ${
+          {/* 5. Municipality Office */}
+          <button
+            type="button"
+            onClick={() => setSelectedRole('municipality')}
+            className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group ${
               selectedRole === 'municipality'
                 ? 'bg-purple-950/40 border-purple-500 ring-2 ring-purple-500/30 shadow-xl shadow-purple-950/50'
                 : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900'
             }`}
           >
-            <div>
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-colors ${
-                selectedRole === 'municipality' ? 'bg-purple-500 text-white font-bold' : 'bg-slate-800 text-slate-300 group-hover:bg-slate-700'
-              }`}>
-                <Landmark className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-sm text-white flex items-center justify-between">
-                {t('municipalityTab')}
-                {selectedRole === 'municipality' && <span className="w-2 h-2 rounded-full bg-purple-400"></span>}
-              </h3>
-              <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">
-                {t('municipalityRoleDesc')}
-              </p>
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-colors ${
+              selectedRole === 'municipality' ? 'bg-purple-500 text-white font-bold' : 'bg-slate-800 text-slate-300 group-hover:bg-slate-700'
+            }`}>
+              <Landmark className="w-5 h-5" />
             </div>
-            <div className="mt-3">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleQuickLogin('municipality');
-                }}
-                className="w-full py-1.5 px-2 rounded-lg bg-purple-500/20 hover:bg-purple-500 text-purple-300 hover:text-white text-[10px] font-bold border border-purple-500/40 transition-all flex items-center justify-center gap-1 active:scale-95"
-              >
-                <Sparkles className="w-3 h-3" />
-                <span>1-Tap Entry ⚡</span>
-              </button>
+            <h3 className="font-bold text-sm text-white flex items-center justify-between">
+              {t('municipalityTab')}
+              {selectedRole === 'municipality' && <span className="w-2 h-2 rounded-full bg-purple-400"></span>}
+            </h3>
+            <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">
+              {t('municipalityRoleDesc')}
+            </p>
+            <div className="mt-3 text-[10px] font-bold text-purple-400 uppercase tracking-wider flex items-center gap-1">
+              <span>ULB HQ Portal</span>
+              <ChevronRight className="w-3 h-3" />
             </div>
-          </div>
+          </button>
         </div>
 
         {/* Active Role Dedicated Login Box */}
-        <div id="login-box" className="w-full max-w-xl bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl relative scroll-mt-20">
+        <div className="w-full max-w-xl bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl relative">
           <form onSubmit={handleRoleSubmit} className="space-y-5">
             {/* Citizen Form */}
             {selectedRole === 'citizen' && (
