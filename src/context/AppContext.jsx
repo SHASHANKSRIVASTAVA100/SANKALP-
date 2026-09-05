@@ -128,19 +128,25 @@ export const AppProvider = ({ children }) => {
   // Active Modal States
   const [activeModal, setActiveModal] = useState(null);
 
-  // Sync Initial State with Live Backend Server
+  // Sync Initial State with Live Backend Server (Local Development Only with instant timeout)
   useEffect(() => {
+    const isLocal = typeof window !== 'undefined' && 
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    if (!isLocal) return; // On production (e.g. Vercel), load state instantly with 0 delay
+
     const syncBackend = async () => {
       try {
-        const backendComplaints = await apiClient.complaints.getAll();
+        const [backendComplaints, backendWorkers, backendVehicles] = await Promise.all([
+          apiClient.complaints.getAll().catch(() => null),
+          apiClient.workers.getAll().catch(() => null),
+          apiClient.fleet.getAll().catch(() => null)
+        ]);
         if (backendComplaints && backendComplaints.length > 0) {
           setComplaints(backendComplaints);
         }
-        const backendWorkers = await apiClient.workers.getAll();
         if (backendWorkers && backendWorkers.length > 0) {
           setWorkers(backendWorkers);
         }
-        const backendVehicles = await apiClient.fleet.getAll();
         if (backendVehicles && backendVehicles.length > 0) {
           setVehicles(backendVehicles);
         }
@@ -151,8 +157,12 @@ export const AppProvider = ({ children }) => {
     syncBackend();
   }, []);
 
-  // Connect to Live WebSocket RTK GPS Telematics Stream
+  // Connect to Live WebSocket RTK GPS Telematics Stream (Local Development Only)
   useEffect(() => {
+    const isLocal = typeof window !== 'undefined' && 
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    if (!isLocal) return;
+
     let ws;
     try {
       const wsUrl = `ws://${window.location.hostname}:5000`;

@@ -1,5 +1,5 @@
 // Service Worker for Swachhta Sangam (AICTE PS-26195) PWA
-const CACHE_NAME = 'swachhta-sangam-v3-ps26195';
+const CACHE_NAME = 'swachhta-sangam-v4-fast';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -17,12 +17,12 @@ const ASSETS_TO_CACHE = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
+      return cache.addAll(ASSETS_TO_CACHE).catch(() => {});
     }).then(() => self.skipWaiting())
   );
 });
 
-// Activate Event: Clean up older caches
+// Activate Event: Clean up older caches immediately
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -37,15 +37,17 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event: Network-first with cache fallback
+// Fetch Event: Network-first with fast fallback; bypass API and dynamic calls
 self.addEventListener('fetch', (event) => {
-  // Ignore chrome-extension and non-http(s) requests
-  if (!event.request.url.startsWith('http')) return;
+  const url = event.request.url;
+  // Bypass non-http, API requests, WebSockets, or Vite dev requests
+  if (!url.startsWith('http') || url.includes('/api/') || url.includes('/@') || url.includes(':5173') || url.includes(':5000')) {
+    return;
+  }
 
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // Clone response to put into cache
         if (response && response.status === 200 && response.type === 'basic') {
           const responseToCache = response.clone();
           caches.open(CACHE_NAME).then((cache) => {
@@ -55,14 +57,9 @@ self.addEventListener('fetch', (event) => {
         return response;
       })
       .catch(() => {
-        // Fallback to cache when offline
         return caches.match(event.request).then((cachedResponse) => {
-          if (cachedResponse) {
-            return cachedResponse;
-          }
-          if (event.request.mode === 'navigate') {
-            return caches.match('/');
-          }
+          if (cachedResponse) return cachedResponse;
+          if (event.request.mode === 'navigate') return caches.match('/');
         });
       })
   );
