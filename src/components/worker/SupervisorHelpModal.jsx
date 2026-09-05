@@ -53,12 +53,12 @@ export const SupervisorHelpModal = ({ complaint, isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-2xl bg-slate-900 border border-rose-800/80 rounded-2xl shadow-2xl overflow-hidden my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
+      <div className="relative w-full max-w-2xl bg-slate-900 border border-rose-800/80 rounded-2xl shadow-2xl overflow-hidden my-auto sm:my-8 flex flex-col max-h-[92vh]">
         {/* Header */}
-        <div className="bg-gradient-to-r from-rose-950 via-slate-900 to-slate-900 p-5 border-b border-rose-900/60 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-rose-950 via-slate-900 to-slate-900 p-4 sm:p-5 border-b border-rose-900/60 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400 animate-pulse">
+            <div className="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400 animate-pulse shrink-0">
               <AlertTriangle className="w-6 h-6" />
             </div>
             <div>
@@ -75,13 +75,13 @@ export const SupervisorHelpModal = ({ complaint, isOpen, onClose }) => {
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all"
+            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
           <label className="text-xs font-semibold text-slate-300 block">
             Select Primary Ground Blocker Reason:
           </label>

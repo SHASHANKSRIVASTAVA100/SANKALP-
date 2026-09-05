@@ -16,9 +16,72 @@ import { apiClient } from '../services/api';
 
 const AppContext = createContext();
 
+export const DEMO_PROFILES = {
+  citizen: {
+    id: "CIT-9821",
+    name: "Aarav Sharma",
+    role: "citizen",
+    phone: "+91 98450 12345",
+    ward: "Ward 12 - Indiranagar",
+    points: 650,
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80",
+    badge: "Ward Guardian"
+  },
+  worker: {
+    id: "WRK-01",
+    name: "Ramesh Kumar",
+    role: "worker",
+    designation: "Senior Sanitation Hero",
+    ward: "Ward 12 - Indiranagar",
+    team: "Zone 12 Alpha Crew",
+    rating: 4.9,
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&q=80"
+  },
+  supervisor: {
+    id: "SUP-08",
+    name: "Inspector Ananya Rao",
+    role: "supervisor",
+    designation: "Ward Sanitary Officer",
+    ward: "Ward 12 - Indiranagar",
+    zone: "East Bengaluru Zone",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"
+  },
+  epr: {
+    id: "EPR-CO-01",
+    name: "AquaPure Beverage Industries",
+    role: "epr",
+    gstin: "29AAACH7409R1ZX",
+    cpcbReg: "CPCB/EPR/2024/PL-0941",
+    category: "FMCG / Rigid Plastics (PET)",
+    authorizedRecycler: "GreenRecycle Hub Ltd",
+    logo: "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?auto=format&fit=crop&w=150&q=80"
+  },
+  municipality: {
+    id: "MUNI-HQ-01",
+    name: "Dr. Rajeshwari Swamy, IAS",
+    role: "municipality",
+    designation: "Municipal Commissioner & Director of Urban Solid Waste Management",
+    ulbOfficeId: "BBMP/HQ/COMM-01",
+    jurisdiction: "Greater Metropolitan Urban Local Body (ULB)",
+    contact: "+91 80 2222 1188",
+    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80"
+  }
+};
+
 export const AppProvider = ({ children }) => {
   // Current Authenticated User (null means user is at Login Gateway)
   const [currentUser, setCurrentUser] = useState(() => {
+    // Check URL parameters for PWA shortcuts (e.g. ?role=citizen or ?role=worker)
+    if (typeof window !== 'undefined') {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const roleParam = urlParams.get('role');
+        if (roleParam && DEMO_PROFILES[roleParam]) {
+          localStorage.setItem('swachhta_current_user', JSON.stringify(DEMO_PROFILES[roleParam]));
+          return DEMO_PROFILES[roleParam];
+        }
+      } catch (e) {}
+    }
     const savedUser = localStorage.getItem('swachhta_current_user');
     return savedUser ? JSON.parse(savedUser) : null;
   });
