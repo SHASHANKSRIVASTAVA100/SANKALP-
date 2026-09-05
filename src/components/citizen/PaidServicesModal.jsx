@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { PAID_SERVICES_CATALOG } from '../../data/mockData';
 import {
@@ -23,6 +23,16 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
   const [contactPhone, setContactPhone] = useState("+91 98450 12345");
   const [isBooked, setIsBooked] = useState(false);
   const [bookingToken, setBookingToken] = useState("");
+
+  // Lock body scroll on open to prevent background screen from rolling/scrolling
+  useEffect(() => {
+    if (!isOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -50,40 +60,40 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-4xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden my-8">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto overscroll-contain">
+      <div className="relative w-full max-w-4xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Header */}
-        <div className="bg-gradient-to-r from-teal-950/80 via-slate-900 to-slate-900 p-5 border-b border-slate-700 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-teal-400">
+        <div className="bg-gradient-to-r from-teal-950/80 via-slate-900 to-slate-900 p-3.5 sm:p-5 border-b border-slate-700 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-teal-400 shrink-0">
               <Truck className="w-5 h-5" />
             </div>
-            <div>
-              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+            <div className="min-w-0">
+              <h2 className="text-sm sm:text-lg font-bold text-white flex items-center gap-1.5 truncate sm:overflow-visible">
                 On-Demand & Commercial Waste Services
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className="text-[11px] sm:text-xs text-slate-400 line-clamp-1 sm:line-clamp-none">
                 Book professional post-function clearing or scheduled commercial pickups for shops & factories
               </p>
             </div>
           </div>
           <button
             onClick={handleResetAndClose}
-            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all"
+            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all shrink-0 ml-2"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {isBooked ? (
-          <div className="p-8 text-center space-y-4 max-w-lg mx-auto">
+          <div className="p-6 sm:p-8 text-center space-y-4 max-w-lg mx-auto overflow-y-auto flex-1">
             <div className="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400/40 flex items-center justify-center text-emerald-400 mx-auto">
               <CheckCircle className="w-8 h-8" />
             </div>
-            <h3 className="text-xl font-bold text-white">Booking Confirmed & Dispatched!</h3>
+            <h3 className="text-lg sm:text-xl font-bold text-white">Booking Confirmed & Dispatched!</h3>
             <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
               <div className="text-xs text-slate-400">Digital Service Token:</div>
-              <div className="text-2xl font-mono font-extrabold text-emerald-400">{bookingToken}</div>
+              <div className="text-xl sm:text-2xl font-mono font-extrabold text-emerald-400">{bookingToken}</div>
               <div className="text-xs text-slate-300">
                 Assigned Team: <strong className="text-white">Zone 12 Rapid Commercial Unit</strong>
               </div>
@@ -93,15 +103,15 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
             </p>
             <button
               onClick={handleResetAndClose}
-              className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold transition-all shadow"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold transition-all shadow"
             >
               Done & Return to Dashboard
             </button>
           </div>
         ) : (
-          <div className="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="p-3.5 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 overflow-y-auto flex-1">
             {/* Service Selection Catalog (5 Cols) */}
-            <div className="lg:col-span-5 space-y-3">
+            <div className="lg:col-span-5 space-y-2.5 sm:space-y-3">
               <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">
                 Select Service Type:
               </label>
@@ -110,7 +120,7 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
                 <div
                   key={srv.id}
                   onClick={() => setSelectedService(srv)}
-                  className={`p-4 rounded-xl border cursor-pointer transition-all ${
+                  className={`p-3 sm:p-4 rounded-xl border cursor-pointer transition-all ${
                     selectedService.id === srv.id
                       ? 'bg-teal-950/40 border-teal-500/80 ring-2 ring-teal-500/20 shadow-lg'
                       : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
@@ -131,7 +141,7 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Booking Form & Calculator (7 Cols) */}
-            <form onSubmit={handleBooking} className="lg:col-span-7 bg-slate-950/80 rounded-xl p-5 border border-slate-800 space-y-4">
+            <form onSubmit={handleBooking} className="lg:col-span-7 bg-slate-950/80 rounded-xl p-4 sm:p-5 border border-slate-800 space-y-4">
               <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                 <span className="text-xs font-bold text-teal-300">
                   Configure Booking: {selectedService.title}
@@ -143,7 +153,7 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
 
               {/* Dynamic input for event vs commercial */}
               {selectedService.id === 'PAID-01' ? (
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="text-[11px] text-slate-300 font-medium block mb-1">
                       Event / Function Date
@@ -172,7 +182,7 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
                   </div>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="text-[11px] text-slate-300 font-medium block mb-1">
                       Daily Preferred Slot
@@ -229,7 +239,7 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
                   Package Guarantees:
                 </span>
-                <div className="grid grid-cols-2 gap-1.5 text-[11px] text-slate-300">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px] text-slate-300">
                   {selectedService.features.map((f, i) => (
                     <span key={i} className="flex items-center gap-1.5">
                       <CheckCircle className="w-3 h-3 text-emerald-400 shrink-0" />
@@ -240,18 +250,20 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
               </div>
 
               {/* Price Calculation & Checkout */}
-              <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+              <div className="pt-3 border-t border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                 <div>
                   <span className="text-[10px] text-slate-400 block">Total Quotation:</span>
-                  <span className="text-xl font-extrabold text-emerald-400 font-mono">
-                    ₹{calculatedPrice}
-                  </span>
-                  <span className="text-[10px] text-slate-400 ml-1.5">(Taxes & Labor Included)</span>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-xl font-extrabold text-emerald-400 font-mono">
+                      ₹{calculatedPrice}
+                    </span>
+                    <span className="text-[10px] text-slate-400">(Taxes & Labor Included)</span>
+                  </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-bold transition-all shadow-lg shadow-teal-500/20 flex items-center gap-2"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-bold transition-all shadow-lg shadow-teal-500/20 flex items-center justify-center gap-2"
                 >
                   <CreditCard className="w-4 h-4" />
                   Confirm & Schedule Pickup

@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Key, ShieldCheck, ExternalLink, X, Check, RefreshCw, MapPin } from 'lucide-react';
 
 export const MapKeyModal = ({ isOpen, onClose, onKeySaved, currentKey }) => {
   const [apiKey, setApiKey] = useState(currentKey || '');
   const [saved, setSaved] = useState(false);
+
+  // Lock body scroll on open to prevent background screen from rolling
+  useEffect(() => {
+    if (!isOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -33,8 +43,8 @@ export const MapKeyModal = ({ isOpen, onClose, onKeySaved, currentKey }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-md bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl p-6 space-y-4">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-sm overscroll-contain overflow-y-auto animate-fadeIn">
+      <div className="relative w-full max-w-md bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl p-4 sm:p-6 space-y-4 my-auto max-h-[92vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">

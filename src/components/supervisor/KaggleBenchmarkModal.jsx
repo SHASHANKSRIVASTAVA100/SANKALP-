@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FlaskConical,
   CheckCircle2,
@@ -20,6 +20,16 @@ import { useApp } from '../../context/AppContext';
 
 export const KaggleBenchmarkModal = ({ isOpen, onClose }) => {
   const { addComplaint, playChime } = useApp();
+
+  // Lock body scroll on open to prevent background screen from rolling
+  useEffect(() => {
+    if (!isOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
 
   const [kaggleData, setKaggleData] = useState([
     {
@@ -241,10 +251,10 @@ export const KaggleBenchmarkModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-5xl bg-slate-900 border border-cyan-500/40 rounded-3xl shadow-2xl overflow-hidden my-6">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain animate-fadeIn">
+      <div className="relative w-full max-w-5xl bg-slate-900 border border-cyan-500/40 rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Header */}
-        <div className="bg-gradient-to-r from-cyan-950 via-slate-900 to-slate-950 p-6 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+        <div className="bg-gradient-to-r from-cyan-950 via-slate-900 to-slate-950 p-4 sm:p-6 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shadow-lg shadow-cyan-950">
               <FlaskConical className="w-6 h-6" />
@@ -292,7 +302,7 @@ export const KaggleBenchmarkModal = ({ isOpen, onClose }) => {
 
         {/* Batch Benchmark Executive Summary (if executed) */}
         {batchResults && (
-          <div className="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-slate-950 border-b border-emerald-500/30 p-4 px-6 flex flex-wrap items-center justify-between gap-4 animate-fadeIn">
+          <div className="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-slate-950 border-b border-emerald-500/30 p-4 px-6 flex flex-wrap items-center justify-between gap-4 animate-fadeIn shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
                 <CheckCircle2 className="w-5 h-5" />
@@ -321,7 +331,7 @@ export const KaggleBenchmarkModal = ({ isOpen, onClose }) => {
           </div>
         )}
 
-        <div className="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-y-auto flex-1">
           {/* Left Column: Sample Selector Grid (7 cols) */}
           <div className="lg:col-span-7 space-y-4">
             <div className="flex items-center justify-between">

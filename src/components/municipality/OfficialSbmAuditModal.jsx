@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
   X,
   Printer,
@@ -21,6 +21,16 @@ import {
 export const OfficialSbmAuditModal = ({ isOpen, onClose, municipalStats = {} }) => {
   const printRef = useRef(null);
 
+  // Lock body scroll on open to prevent background screen from rolling
+  useEffect(() => {
+    if (!isOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const totalGenerated = municipalStats?.cityTotalGenerationTonsPerDay || 1750;
@@ -41,9 +51,9 @@ export const OfficialSbmAuditModal = ({ isOpen, onClose, municipalStats = {} }) 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md overflow-y-auto animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-6 bg-slate-950/85 backdrop-blur-md overflow-y-auto overscroll-contain animate-fadeIn">
       {/* Container */}
-      <div className="bg-slate-900 border border-purple-500/40 rounded-3xl w-full max-w-4xl shadow-2xl relative overflow-hidden flex flex-col max-h-[92vh]">
+      <div className="bg-slate-900 border border-purple-500/40 rounded-3xl w-full max-w-4xl shadow-2xl relative overflow-hidden flex flex-col max-h-[92vh] my-auto">
         {/* Top Control Bar (Hidden in Print) */}
         <div className="bg-slate-950/90 border-b border-slate-800 px-6 py-3.5 flex items-center justify-between shrink-0 print:hidden">
           <div className="flex items-center gap-2.5">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import {
   BookOpen,
@@ -19,6 +19,16 @@ import {
 export const DemoGuideModal = ({ isOpen, onClose }) => {
   const { setRole, setActiveModal, resetDemoData } = useApp();
   const [activeTab, setActiveTab] = useState('defense'); // 'defense' | 'script' | 'qa' | 'architecture'
+
+  // Lock body scroll on open to prevent background screen from rolling
+  useEffect(() => {
+    if (!isOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -93,27 +103,27 @@ export const DemoGuideModal = ({ isOpen, onClose }) => {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-4xl bg-slate-900 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden my-8 flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto overscroll-contain">
+      <div className="relative w-full max-w-4xl bg-slate-900 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]">
         {/* Header */}
-        <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-indigo-950 p-5 border-b border-slate-700 flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+        <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-indigo-950 p-3.5 sm:p-5 border-b border-slate-700 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0">
               <BookOpen className="w-5 h-5" />
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <h2 className="text-lg font-bold text-white">Presentation & Demo Quick Guide</h2>
-                <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-mono px-2 py-0.5 rounded border border-emerald-500/30">
+                <h2 className="text-sm sm:text-lg font-bold text-white truncate sm:overflow-visible">Presentation & Demo Quick Guide</h2>
+                <span className="hidden sm:inline-flex bg-emerald-500/20 text-emerald-400 text-[10px] font-mono px-2 py-0.5 rounded border border-emerald-500/30">
                   AICTE PS-26195 DEFENSE CHEAT SHEET
                 </span>
               </div>
-              <p className="text-xs text-slate-400">Official 3-pillar breakdown & winning viva points for hackathon judges</p>
+              <p className="text-[11px] sm:text-xs text-slate-400 line-clamp-1 sm:line-clamp-none">Official 3-pillar breakdown & winning viva points for hackathon judges</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all"
+            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all shrink-0 ml-2"
           >
             <X className="w-5 h-5" />
           </button>

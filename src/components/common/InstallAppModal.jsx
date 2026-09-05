@@ -54,6 +54,16 @@ export const InstallAppModal = ({ isOpen, onClose }) => {
     };
   }, []);
 
+  // Lock body scroll on open to prevent background screen from rolling
+  useEffect(() => {
+    if (!isOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleInstallClick = async () => {
@@ -75,8 +85,8 @@ export const InstallAppModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
-      <div className="bg-slate-900 border border-emerald-500/40 rounded-3xl w-full max-w-lg p-6 sm:p-8 shadow-2xl relative overflow-hidden text-slate-100">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 bg-slate-950/80 backdrop-blur-md overscroll-contain overflow-y-auto animate-fadeIn">
+      <div className="bg-slate-900 border border-emerald-500/40 rounded-3xl w-full max-w-lg p-4 sm:p-8 shadow-2xl relative overflow-hidden text-slate-100 my-auto max-h-[92vh] overflow-y-auto">
         {/* Glow Accent */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 

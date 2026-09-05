@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { CITIZEN_LEADERBOARD } from '../../data/mockData';
 import {
@@ -16,6 +16,16 @@ import {
 export const LeaderboardModal = ({ isOpen, onClose }) => {
   const { citizenPoints, addNotification, playChime } = useApp();
   const [activeTab, setActiveTab] = useState('leaderboard'); // 'leaderboard' | 'rewards'
+
+  // Lock body scroll on open to prevent background screen from rolling
+  useEffect(() => {
+    if (!isOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -57,38 +67,38 @@ export const LeaderboardModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-3xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden my-8">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto overscroll-contain">
+      <div className="relative w-full max-w-3xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Header */}
-        <div className="bg-gradient-to-r from-amber-950/60 via-slate-900 to-slate-900 p-5 border-b border-slate-700 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+        <div className="bg-gradient-to-r from-amber-950/60 via-slate-900 to-slate-900 p-3.5 sm:p-5 border-b border-slate-700 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
               <Trophy className="w-5 h-5" />
             </div>
-            <div>
-              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+            <div className="min-w-0">
+              <h2 className="text-sm sm:text-lg font-bold text-white flex items-center gap-2 truncate sm:overflow-visible">
                 Citizen Green Leaderboard & Rewards
               </h2>
-              <p className="text-xs text-slate-400">Recognizing citizen vigilance in keeping Bengaluru spotless</p>
+              <p className="text-[11px] sm:text-xs text-slate-400 line-clamp-1 sm:line-clamp-none">Recognizing citizen vigilance in keeping Bengaluru spotless</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all"
+            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all shrink-0 ml-2"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* User Balance Header Strip */}
-        <div className="bg-slate-950 px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+        <div className="bg-slate-950 px-4 sm:px-6 py-3.5 border-b border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-emerald-500/20 border-2 border-emerald-400/40 flex items-center justify-center font-bold text-emerald-300 text-lg">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-emerald-500/20 border-2 border-emerald-400/40 flex items-center justify-center font-bold text-emerald-300 text-base sm:text-lg shrink-0">
               ✨
             </div>
             <div>
               <div className="text-xs text-slate-400">Your Current Civic Wallet:</div>
-              <div className="text-xl font-extrabold text-white flex items-center gap-2">
+              <div className="text-lg sm:text-xl font-extrabold text-white flex items-center gap-2">
                 <span className="text-emerald-400">{citizenPoints}</span>
                 <span className="text-xs font-semibold text-slate-400">Green Points</span>
               </div>
@@ -99,7 +109,7 @@ export const LeaderboardModal = ({ isOpen, onClose }) => {
           <div className="flex items-center bg-slate-900 border border-slate-700 rounded-xl p-1 gap-1">
             <button
               onClick={() => setActiveTab('leaderboard')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'leaderboard'
                   ? 'bg-amber-500 text-slate-950 shadow'
                   : 'text-slate-400 hover:text-white'
@@ -109,7 +119,7 @@ export const LeaderboardModal = ({ isOpen, onClose }) => {
             </button>
             <button
               onClick={() => setActiveTab('rewards')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'rewards'
                   ? 'bg-emerald-500 text-slate-950 shadow'
                   : 'text-slate-400 hover:text-white'
@@ -121,7 +131,7 @@ export const LeaderboardModal = ({ isOpen, onClose }) => {
         </div>
 
         {/* Tab Content */}
-        <div className="p-6">
+        <div className="p-3.5 sm:p-6 overflow-y-auto flex-1">
           {activeTab === 'leaderboard' ? (
             <div className="space-y-3">
               <div className="grid grid-cols-12 text-[11px] font-semibold text-slate-500 px-3 uppercase tracking-wider">

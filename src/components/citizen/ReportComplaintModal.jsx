@@ -23,8 +23,17 @@ import {
 import { GoogleMapContainer } from '../common/GoogleMapContainer';
 import { classifyWaste, WASTE_CATEGORIES } from '../../services/aiWasteClassifier';
 
-export const ReportComplaintModal = ({ isOpen, onClose }) => {
+export const ReportComplaintModal = ({ onClose }) => {
   const { addComplaint, wardFilter, playChime } = useApp();
+
+  // Lock body scroll on mount to prevent background screen from rolling
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
 
   // Presets covering all standard real-world waste streams
   const PRESET_SAMPLES = [
@@ -199,7 +208,7 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain animate-fadeIn">
       <div className="relative w-full max-w-5xl bg-slate-900 border border-emerald-500/40 rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Modal Header */}
         <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-950 p-4 sm:p-5 px-4 sm:px-6 border-b border-slate-800 flex items-center justify-between shrink-0">
