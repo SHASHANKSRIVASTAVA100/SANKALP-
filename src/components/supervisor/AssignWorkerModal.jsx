@@ -14,7 +14,7 @@ import {
 export const AssignWorkerModal = ({ complaint, isOpen, onClose }) => {
   const { workers, assignWorker } = useApp();
 
-  const [selectedWorkerId, setSelectedWorkerId] = useState(workers[0].id);
+  const [selectedWorkerId, setSelectedWorkerId] = useState(workers?.[0]?.id || 'WRK-01');
   const [priorityOverride, setPriorityOverride] = useState(complaint?.priority || "high");
 
   // Lock body scroll on open to prevent background screen from rolling
