@@ -216,6 +216,62 @@ export const WorkerDashboard = () => {
         </div>
       </div>
 
+      {/* AICTE PS-26195: Pillar 3 National Sanitization Worker Safety & PPE Protocol (MoSJE / NAMASTE Mandate) */}
+      <div className="bg-gradient-to-r from-amber-950/50 via-slate-900 to-slate-950 border border-amber-500/40 rounded-2xl p-4 shadow-xl space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+            <h3 className="text-xs font-black uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-amber-400" />
+              Pillar 3: Frontline Worker Safety & PPE Compliance (MoSJE / NAMASTE)
+            </h3>
+          </div>
+          <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">
+            Zero Manual Scavenging Mandate
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
+          <div className="bg-slate-950/80 border border-amber-500/30 rounded-xl p-3 flex items-center gap-2.5">
+            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-[10px] shrink-0">✓</span>
+            <div>
+              <strong className="text-white block text-[11px]">Nitrile Heavy-Duty Safety Gloves</strong>
+              <span className="text-slate-400 text-[10px]">Verified Puncture & Chemical Resistant</span>
+            </div>
+          </div>
+
+          <div className="bg-slate-950/80 border border-amber-500/30 rounded-xl p-3 flex items-center gap-2.5">
+            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-[10px] shrink-0">✓</span>
+            <div>
+              <strong className="text-white block text-[11px]">Steel-Toe Safety Gumboots</strong>
+              <span className="text-slate-400 text-[10px]">Anti-slip wet terrain & glass protection</span>
+            </div>
+          </div>
+
+          <div className="bg-slate-950/80 border border-amber-500/30 rounded-xl p-3 flex items-center gap-2.5">
+            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-[10px] shrink-0">✓</span>
+            <div>
+              <strong className="text-white block text-[11px]">FFP3 Toxic Vapor & Odor Respirator</strong>
+              <span className="text-slate-400 text-[10px]">Active bio-filtration for sewage & wet piles</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-2.5 rounded-xl bg-amber-950/30 border border-amber-800/40 text-[11px] text-amber-200 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
+            <span>Encountering hazardous chemical waste, dead animal, or deep drain blockage?</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setSosModalComplaint(activeTasks[0] || complaints[0])}
+            className="px-3 py-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs transition-all shadow cursor-pointer shrink-0"
+          >
+            Escalate to Mechanized JCB / Suction
+          </button>
+        </div>
+      </div>
+
       {/* Tabs Navigation */}
       <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
         <button

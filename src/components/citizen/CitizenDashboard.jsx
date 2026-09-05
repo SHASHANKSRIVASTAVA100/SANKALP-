@@ -52,7 +52,7 @@ export const CitizenDashboard = () => {
             <div className="flex items-center gap-2">
               <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full border border-emerald-500/30 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5" />
-                {t('citizenHeroTag')}
+                AICTE PS-26195 • Clean & Green Tech
               </span>
               <span className="text-xs text-slate-400">Ward 12 (Indiranagar)</span>
             </div>
@@ -128,6 +128,53 @@ export const CitizenDashboard = () => {
             <Truck className="w-4 h-4 text-emerald-400" />
             <span>{t('liveRadarBtn')}</span>
           </button>
+        </div>
+      </div>
+
+      {/* AICTE PS-26195: Pillar 2 Clean & Green Tech Environmental Impact Bar */}
+      <div className="bg-slate-900/90 border border-emerald-500/30 rounded-2xl p-4 shadow-xl grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="flex items-center gap-3 p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/20">
+          <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-lg">
+            🌱
+          </div>
+          <div>
+            <span className="text-[10px] text-slate-400 font-medium block">CO₂ Avoided</span>
+            <span className="text-base font-black text-white font-mono">48.5 kg</span>
+            <span className="text-[9px] text-emerald-400 font-bold block">Spared via AI Segregation</span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 p-2.5 rounded-xl bg-teal-950/40 border border-teal-500/20">
+          <div className="w-10 h-10 rounded-xl bg-teal-500/20 flex items-center justify-center text-teal-400 font-bold text-lg">
+            ♻️
+          </div>
+          <div>
+            <span className="text-[10px] text-slate-400 font-medium block">Landfill Diversion Rate</span>
+            <span className="text-base font-black text-teal-300 font-mono">84.2%</span>
+            <span className="text-[9px] text-teal-400 font-bold block">Routed to Recyclers</span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 p-2.5 rounded-xl bg-amber-950/40 border border-amber-500/20">
+          <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-lg">
+            🌳
+          </div>
+          <div>
+            <span className="text-[10px] text-slate-400 font-medium block">Tree Offset Equivalent</span>
+            <span className="text-base font-black text-amber-300 font-mono">2.4 Trees</span>
+            <span className="text-[9px] text-amber-400 font-bold block">Carbon Sequestration Eq.</span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 p-2.5 rounded-xl bg-cyan-950/40 border border-cyan-500/20">
+          <div className="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold text-lg">
+            🎯
+          </div>
+          <div>
+            <span className="text-[10px] text-slate-400 font-medium block">3-Bin Accuracy</span>
+            <span className="text-base font-black text-cyan-300 font-mono">92.8%</span>
+            <span className="text-[9px] text-cyan-400 font-bold block">MoSJE Citizen Standard</span>
+          </div>
         </div>
       </div>
 

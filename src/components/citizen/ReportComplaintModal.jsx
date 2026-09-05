@@ -209,14 +209,14 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-base sm:text-lg font-bold text-white">AI Garbage Detection & SLA Allocation</h2>
+                <h2 className="text-base sm:text-lg font-bold text-white">AI Waste Segregation & Green Disposal Engine</h2>
                 <span className="hidden sm:inline-flex text-[10px] bg-emerald-500/20 text-emerald-400 font-mono px-2.5 py-0.5 rounded-full border border-emerald-500/30 font-semibold items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                  Neural CV Engine v4.8 Active
+                  AICTE PS-26195 • Clean & Green Tech
                 </span>
               </div>
               <p className="text-xs text-slate-400 mt-0.5 line-clamp-1 sm:line-clamp-none">
-                Upload or take a photo. Neural model detects waste type, mass, hazard & municipal SLA.
+                Neural computer vision classifies 3-bin source segregation, computes CO₂ avoided & dispatches green fleet.
               </p>
             </div>
           </div>
@@ -413,6 +413,50 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
               <div className="bg-cyan-950/30 border border-cyan-800/40 rounded-xl p-2.5 text-[11px] text-cyan-200 flex items-center gap-2">
                 <Truck className="w-4 h-4 text-cyan-400 shrink-0" />
                 <span><strong>Recommended Dispatch:</strong> {aiResult.recommendedAction}</span>
+              </div>
+
+              {/* AICTE PS-26195: Pillar 1 & 2 Segregation & Green Disposal Engine */}
+              <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-emerald-500/40 rounded-xl p-3 space-y-2.5 shadow-inner">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-emerald-300 uppercase tracking-wide flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                    AI 3-Bin Source Segregation Guide
+                  </span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">
+                    PS-26195
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-2.5 p-2 rounded-lg bg-slate-950/80 border border-slate-800">
+                  <div className={`w-3.5 h-3.5 rounded-full mt-0.5 shrink-0 ${aiResult.binColor || 'bg-blue-500'} shadow-sm`}></div>
+                  <div className="space-y-1 text-xs">
+                    <div className="font-bold text-white flex items-center gap-2">
+                      <span>Assigned Bin:</span>
+                      <span className={`px-2 py-0.5 rounded text-[11px] font-mono font-bold ${aiResult.binBg || 'bg-blue-950 text-blue-300'}`}>
+                        {aiResult.binName || 'Blue Bin (Dry Recyclable)'}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      {aiResult.segregationTip || 'Segregate at generation point to eliminate mixed landfill dumping.'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Pillar 2: Clean Tech Carbon & Diversion Counter */}
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <div className="bg-emerald-950/30 border border-emerald-500/30 rounded-lg p-2 text-center">
+                    <span className="text-[10px] text-slate-400 block font-medium">CO₂ Spared</span>
+                    <span className="text-sm font-black text-emerald-400 font-mono">
+                      +{aiResult.co2SavedKg || (Number(aiResult.estimatedWeightKg) * 1.5).toFixed(1)} kg
+                    </span>
+                  </div>
+                  <div className="bg-teal-950/30 border border-teal-500/30 rounded-lg p-2 text-center">
+                    <span className="text-[10px] text-slate-400 block font-medium">Landfill Diversion</span>
+                    <span className="text-xs font-bold text-teal-300 font-mono mt-0.5 block">
+                      {aiResult.landfillDiversion || '92% Circular'}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

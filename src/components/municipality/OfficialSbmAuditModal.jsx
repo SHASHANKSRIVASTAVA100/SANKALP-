@@ -90,7 +90,7 @@ export const OfficialSbmAuditModal = ({ isOpen, onClose, municipalStats = {} }) 
                 </div>
                 <div>
                   <h3 className="text-xs font-black uppercase tracking-widest text-emerald-400 print:text-emerald-700">
-                    Government of India • Ministry of Housing & Urban Affairs
+                    Government of India • MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE) • AICTE PS-26195
                   </h3>
                   <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white print:text-slate-950">
                     SWACHH BHARAT MISSION (URBAN 2.0)
@@ -103,7 +103,7 @@ export const OfficialSbmAuditModal = ({ isOpen, onClose, municipalStats = {} }) 
 
               <div className="text-right sm:border-l border-slate-700/60 print:border-slate-300 sm:pl-6 text-xs space-y-1">
                 <div className="font-mono text-[11px] bg-purple-500/10 text-purple-300 print:text-purple-800 px-2 py-0.5 rounded font-bold border border-purple-500/30">
-                  GAZETTE ID: SBM2/KA-BLR/2026/094
+                  GAZETTE ID: SBM2/KA-BLR/2026/094 • AICTE MIC PS-26195
                 </div>
                 <div className="text-slate-400 print:text-slate-600">Audit Date: <strong>{currentDate}</strong></div>
                 <div className="text-slate-400 print:text-slate-600">ULB Ward: <strong>Ward 12 (Central Zone)</strong></div>
@@ -287,7 +287,7 @@ export const OfficialSbmAuditModal = ({ isOpen, onClose, municipalStats = {} }) 
 
         {/* Footer */}
         <div className="bg-slate-950 px-6 py-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 shrink-0 print:hidden">
-          <span>Smart India Hackathon (SIH 2026) Official Municipal Governance Prototype</span>
+          <span>Ministry of Social Justice and Empowerment (MoSJE) • AICTE PS-26195 Clean & Green Tech Governance</span>
           <button
             onClick={onClose}
             className="text-slate-400 hover:text-white transition-colors"

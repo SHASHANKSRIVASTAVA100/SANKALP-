@@ -87,7 +87,7 @@ export const Header = () => {
               <Volume2 className="w-3 h-3" />
               <span>{t('testBell')}</span>
             </button>
-            <span className="text-slate-400 hidden md:inline">SIH-2026 ID: <strong>WMS-IND-26</strong></span>
+            <span className="text-slate-400 hidden md:inline">MoSJE Portal ID: <strong>SBM-IND-2026</strong></span>
           </div>
         </div>
       )}
@@ -104,8 +104,8 @@ export const Header = () => {
               <h1 className="font-extrabold text-lg text-white tracking-tight leading-none">
                 Swachhta <span className="text-emerald-400">Sangam</span>
               </h1>
-              <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">
-                SIH 2026
+              <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/30">
+                AICTE PS-26195 • Clean & Green Tech
               </span>
             </div>
             <p className="text-xs text-slate-400">{t('tagline')}</p>
@@ -224,29 +224,6 @@ export const Header = () => {
               </select>
             </div>
           )}
-
-          {/* Dual View Mode Switcher: Website Mode vs Mobile App Simulator (Desktop Only) */}
-          <button
-            onClick={() => setViewMode(viewMode === 'website' ? 'app' : 'website')}
-            className={`hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer shadow ${
-              viewMode === 'app'
-                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/50'
-                : 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700'
-            }`}
-            title="Toggle between Mobile App View & Desktop Website Mode"
-          >
-            {viewMode === 'app' ? (
-              <>
-                <Monitor className="w-3.5 h-3.5 text-amber-400" />
-                <span>Website Mode</span>
-              </>
-            ) : (
-              <>
-                <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
-                <span>App View</span>
-              </>
-            )}
-          </button>
 
           {/* 1-Click Install PWA App Button */}
           <button

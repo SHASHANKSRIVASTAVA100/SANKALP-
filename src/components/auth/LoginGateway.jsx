@@ -136,7 +136,7 @@ export const LoginGateway = () => {
                 Swachhta <span className="text-emerald-400">Sangam</span>
               </h1>
               <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/30">
-                SIH 2026
+                AICTE PS-26195 • Clean & Green Tech
               </span>
             </div>
             <p className="text-xs text-slate-400">
@@ -183,9 +183,15 @@ export const LoginGateway = () => {
             </div>
           </div>
 
-          <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs px-3 py-1 rounded-full font-semibold mb-3">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            <span>SIH 2026 Real-Life Waste Operations</span>
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
+            <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs px-3 py-1 rounded-full font-semibold">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 border border-teal-500/40 text-teal-300 text-xs px-3 py-1 rounded-full font-bold">
+              <Sparkles className="w-3.5 h-3.5 text-teal-400" />
+              <span>AICTE PS-26195 • Clean & Green Technology</span>
+            </div>
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
             {t('loginGatewayTitle')}
@@ -650,18 +656,6 @@ export const LoginGateway = () => {
                 <span>{t('enterPortalBtn')}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
-
-              {/* 1-Click Demo Login Button */}
-              <button
-                type="button"
-                onClick={() => handleQuickLogin(selectedRole)}
-                className="w-full py-2.5 rounded-xl font-semibold text-xs transition-all border border-slate-700/80 bg-slate-800/60 hover:bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center gap-2"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                <span>
-                  {t('oneClickDemoBtn')}: <strong>{roleProfiles[selectedRole].name}</strong>
-                </span>
-              </button>
             </div>
           </form>
         </div>
@@ -670,10 +664,10 @@ export const LoginGateway = () => {
       {/* Footer */}
       <footer className="border-t border-slate-900 bg-slate-950 py-5 text-center text-xs text-slate-500">
         <p className="font-semibold text-slate-400">
-          Swachhta Sangam (स्वच्छता संगम) • Smart India Hackathon 2026
+          Swachhta Sangam (स्वच्छता संगम) • AICTE PS-26195 Clean & Green Technology
         </p>
         <p className="text-[11px] text-slate-600 mt-1">
-          Ministry of Housing and Urban Affairs & Smart Cities Mission Initiative
+          Ministry of Social Justice and Empowerment (MoSJE) • National Sanitation Governance Platform
         </p>
       </footer>
     </div>

@@ -18,7 +18,7 @@ import {
 
 export const DemoGuideModal = ({ isOpen, onClose }) => {
   const { setRole, setActiveModal, resetDemoData } = useApp();
-  const [activeTab, setActiveTab] = useState('script'); // 'script' | 'qa' | 'architecture'
+  const [activeTab, setActiveTab] = useState('defense'); // 'defense' | 'script' | 'qa' | 'architecture'
 
   if (!isOpen) return null;
 
@@ -105,10 +105,10 @@ export const DemoGuideModal = ({ isOpen, onClose }) => {
               <div className="flex items-center gap-2">
                 <h2 className="text-lg font-bold text-white">Presentation & Demo Quick Guide</h2>
                 <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-mono px-2 py-0.5 rounded border border-emerald-500/30">
-                  SIH 2026 CHEAT SHEET
+                  AICTE PS-26195 DEFENSE CHEAT SHEET
                 </span>
               </div>
-              <p className="text-xs text-slate-400">2-minute live walkthrough script and high-score answers for judges</p>
+              <p className="text-xs text-slate-400">Official 3-pillar breakdown & winning viva points for hackathon judges</p>
             </div>
           </div>
           <button
@@ -122,6 +122,17 @@ export const DemoGuideModal = ({ isOpen, onClose }) => {
         {/* Navigation Tabs */}
         <div className="bg-slate-950 px-6 py-3 border-b border-slate-800 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => setActiveTab('defense')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                activeTab === 'defense'
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-black shadow-lg shadow-emerald-500/20'
+                  : 'text-emerald-400 hover:text-emerald-300 hover:bg-emerald-950/40 border border-emerald-500/30'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>AICTE PS-26195 Defense</span>
+            </button>
             <button
               onClick={() => setActiveTab('script')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
@@ -169,6 +180,162 @@ export const DemoGuideModal = ({ isOpen, onClose }) => {
 
         {/* Body Content */}
         <div className="p-6 overflow-y-auto space-y-4 flex-1">
+          {/* TAB 0: AICTE PS-26195 Defense */}
+          {activeTab === 'defense' && (
+            <div className="space-y-4 animate-fadeIn">
+              {/* Problem Statement Card */}
+              <div className="bg-gradient-to-r from-emerald-950/60 via-slate-950 to-teal-950/60 border border-emerald-500/40 rounded-2xl p-5 shadow-inner space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="bg-emerald-500 text-slate-950 text-xs font-black px-2.5 py-1 rounded-md font-mono">
+                      PS ID: 26195
+                    </span>
+                    <span className="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full border border-emerald-500/30">
+                      Clean & Green Technology • Software
+                    </span>
+                  </div>
+                  <span className="text-xs text-slate-400 font-mono">
+                    AICTE, MIC-Student Innovation | MoSJE Mandate
+                  </span>
+                </div>
+                <div>
+                  <h3 className="text-base font-extrabold text-white leading-snug">
+                    "Solutions could be in the form of waste segregation, disposal, and improve sanitization system."
+                  </h3>
+                  <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                    Swachhta Sangam is custom-engineered to directly target and exhaustively solve all three mandated pillars of AICTE PS-26195 under the administrative framework of the Ministry of Social Justice and Empowerment (MoSJE).
+                  </p>
+                </div>
+              </div>
+
+              {/* 3 Pillars Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Pillar 1 */}
+                <div className="bg-slate-950 border border-emerald-500/40 rounded-2xl p-4 flex flex-col justify-between space-y-3 shadow-lg">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold text-xs">
+                        1
+                      </div>
+                      <span className="text-xs font-black text-emerald-400 uppercase tracking-wide">
+                        Waste Segregation
+                      </span>
+                    </div>
+                    <h4 className="font-bold text-sm text-white">AI 3-Bin Source Segregation</h4>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      On-device computer vision analyzes citizen waste images, identifies polymer types, and instructs strict separation into standard 3-bin colors:
+                    </p>
+                    <ul className="text-xs space-y-1.5 text-slate-400 pt-1">
+                      <li className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
+                        <span><strong className="text-emerald-300">Green Bin:</strong> Wet/Biodegradable organic waste</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0"></span>
+                        <span><strong className="text-blue-300">Blue Bin:</strong> Dry Recyclable (PET, paper, metal)</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-red-500 shrink-0"></span>
+                        <span><strong className="text-red-300">Red/Black:</strong> Domestic Hazardous & sanitary</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="bg-emerald-950/40 border border-emerald-500/30 rounded-xl p-2.5 text-[11px] text-emerald-300 font-medium">
+                    ✓ Eliminates 60%+ mixed waste contamination before municipal pickup.
+                  </div>
+                </div>
+
+                {/* Pillar 2 */}
+                <div className="bg-slate-950 border border-teal-500/40 rounded-2xl p-4 flex flex-col justify-between space-y-3 shadow-lg">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-teal-400 font-bold text-xs">
+                        2
+                      </div>
+                      <span className="text-xs font-black text-teal-400 uppercase tracking-wide">
+                        Clean & Green Disposal
+                      </span>
+                    </div>
+                    <h4 className="font-bold text-sm text-white">Ecological Impact & Circular Route</h4>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Calculates tangible ecological returns and provides proactive doorstep collection to prevent open dumping:
+                    </p>
+                    <ul className="text-xs space-y-1.5 text-slate-400 pt-1">
+                      <li className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-teal-400 shrink-0"></span>
+                        <span><strong>CO₂ Avoidance Engine:</strong> Instant formula metric of carbon spared from open incineration.</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-teal-400 shrink-0"></span>
+                        <span><strong>Landfill Diversion Rate:</strong> Automated tracking of waste rerouted into circular recyclers.</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-teal-400 shrink-0"></span>
+                        <span><strong>AIS-140 GPS Radar:</strong> Proximity alerts stop garbage vulnerable points (GVPs).</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="bg-teal-950/40 border border-teal-500/30 rounded-xl p-2.5 text-[11px] text-teal-300 font-medium">
+                    ✓ Direct digital handoff from citizen to authorized recycler with EPR ledger.
+                  </div>
+                </div>
+
+                {/* Pillar 3 */}
+                <div className="bg-slate-950 border border-amber-500/40 rounded-2xl p-4 flex flex-col justify-between space-y-3 shadow-lg">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold text-xs">
+                        3
+                      </div>
+                      <span className="text-xs font-black text-amber-400 uppercase tracking-wide">
+                        Sanitization System
+                      </span>
+                    </div>
+                    <h4 className="font-bold text-sm text-white">Frontline Worker Dignity & Safety</h4>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Improves municipal sanitization through institutional protection under the MoSJE / NAMASTE framework:
+                    </p>
+                    <ul className="text-xs space-y-1.5 text-slate-400 pt-1">
+                      <li className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>
+                        <span><strong>Mandatory PPE Check:</strong> Digital attestation of nitrile gloves, safety boots & FFP3 masks.</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>
+                        <span><strong>Mechanized Escalation SOS:</strong> Zero manual entry; 1-click trigger for JCB/suction trucks.</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>
+                        <span><strong>Dual Photographic Audit:</strong> 30m geofenced before/after proof prevents bogus resolutions.</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="bg-amber-950/40 border border-amber-500/30 rounded-xl p-2.5 text-[11px] text-amber-300 font-medium">
+                    ✓ Eradicates hazardous manual scavenging and enforces institutional accountability.
+                  </div>
+                </div>
+              </div>
+
+              {/* Judge Viva Defense Pitch */}
+              <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 space-y-3">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-emerald-400" />
+                  <h4 className="font-bold text-sm text-white">How to Answer the Judges: "How Does This Solve PS-26195?"</h4>
+                </div>
+                <div className="p-3.5 bg-slate-900/80 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed space-y-2">
+                  <p>
+                    <strong className="text-emerald-400 font-mono">30-Second Winning Pitch:</strong> "Respected jury, Problem Statement 26195 explicitly challenges teams to create innovation in waste segregation, disposal, and sanitization systems. Most solutions only create another basic complaint form. <em>Swachhta Sangam</em> delivers a complete closed-loop ecosystem addressing all three:"
+                  </p>
+                  <ol className="list-decimal list-inside space-y-1 pl-2 text-slate-300">
+                    <li><strong>Segregation:</strong> Computer vision instantly enforces the 3-bin color standard at source before mixed dumping occurs.</li>
+                    <li><strong>Disposal:</strong> Real-time \(CO_2\) offset formulas and GPS doorstep collection ensure clean, verified routing directly to authorized recyclers via CPCB-compliant EPR certificates.</li>
+                    <li><strong>Sanitization Improvement:</strong> Under the Ministry of Social Justice and Empowerment (MoSJE), we protect frontline sanitation heroes with mandatory PPE compliance, 1-click mechanized machinery escalation (eradicating manual contact with hazardous waste), and geofenced dual-photo verification.</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* TAB 1: 2-Minute Demo Script */}
           {activeTab === 'script' && (
             <div className="space-y-4">

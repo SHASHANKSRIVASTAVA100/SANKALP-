@@ -501,13 +501,13 @@
       "driverPhone": "+91 94480 77121",
       "ward": "Ward 12 - Indiranagar",
       "currentLocation": {
-        "lat": 12.957150689820946,
-        "lng": 77.64342746122549
+        "lat": 12.953517611239239,
+        "lng": 77.64470576895097
       },
       "currentStreet": "Near 12th Main Road, 80 Feet Road Junction",
       "speedKmH": 18,
       "status": "collecting",
-      "routeProgress": 29,
+      "routeProgress": 34,
       "distanceFromUserMeters": 260,
       "estimatedArrivalMinutes": 3,
       "capacityPercent": 74,
@@ -521,13 +521,13 @@
       "driverPhone": "+91 98861 88345",
       "ward": "Ward 14 - Koramangala",
       "currentLocation": {
-        "lat": 12.927304525369255,
-        "lng": 77.61977028845622
+        "lat": 12.928797602419012,
+        "lng": 77.62146189821189
       },
       "currentStreet": "80 Feet Road, 4th Block",
       "speedKmH": 22,
       "status": "in_transit",
-      "routeProgress": 46,
+      "routeProgress": 51,
       "distanceFromUserMeters": 95,
       "estimatedArrivalMinutes": 1,
       "capacityPercent": 88,
