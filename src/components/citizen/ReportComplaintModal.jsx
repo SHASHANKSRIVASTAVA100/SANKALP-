@@ -23,17 +23,18 @@ import {
 import { GoogleMapContainer } from '../common/GoogleMapContainer';
 import { classifyWaste, WASTE_CATEGORIES } from '../../services/aiWasteClassifier';
 
-export const ReportComplaintModal = ({ onClose }) => {
+export const ReportComplaintModal = ({ isOpen, onClose }) => {
   const { addComplaint, wardFilter, playChime } = useApp();
 
-  // Lock body scroll on mount to prevent background screen from rolling
+  // Lock body scroll on open to prevent background screen from rolling
   useEffect(() => {
+    if (!isOpen) return;
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = originalOverflow;
     };
-  }, []);
+  }, [isOpen]);
 
   // Presets covering all standard real-world waste streams
   const PRESET_SAMPLES = [
