@@ -140,24 +140,24 @@ export const OfficialSbmAuditModal = ({ isOpen, onClose, municipalStats = {} }) 
             {/* Key Audit KPI Metrics Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
               <div className="bg-slate-900/90 print:bg-slate-50 border border-slate-800 print:border-slate-200 rounded-xl p-3.5 text-center">
-                <div className="text-xs text-slate-400 print:text-slate-600 font-medium">Daily Waste Inflow</div>
-                <div className="text-lg font-black text-white print:text-slate-900 mt-1">{totalGenerated} TPD</div>
-                <span className="text-[10px] text-emerald-400 print:text-emerald-700 font-semibold">98.2% Segregated</span>
+                <div className="text-xs text-slate-400 print:text-slate-600 font-medium">Daily Waste Collected</div>
+                <div className="text-lg font-black text-white print:text-slate-900 mt-1">{totalGenerated} Tons/Day</div>
+                <span className="text-[10px] text-emerald-400 print:text-emerald-700 font-semibold">98.2% Segregated at Source</span>
               </div>
               <div className="bg-slate-900/90 print:bg-slate-50 border border-slate-800 print:border-slate-200 rounded-xl p-3.5 text-center">
-                <div className="text-xs text-slate-400 print:text-slate-600 font-medium">Landfill Diversion</div>
+                <div className="text-xs text-slate-400 print:text-slate-600 font-medium">Kept Out of Landfills</div>
                 <div className="text-lg font-black text-emerald-400 print:text-emerald-700 mt-1">{diversionRate}</div>
-                <span className="text-[10px] text-purple-400 print:text-purple-700 font-semibold">Exceeds 75% Target</span>
+                <span className="text-[10px] text-purple-400 print:text-purple-700 font-semibold">Exceeds 75% Govt Goal</span>
               </div>
               <div className="bg-slate-900/90 print:bg-slate-50 border border-slate-800 print:border-slate-200 rounded-xl p-3.5 text-center">
-                <div className="text-xs text-slate-400 print:text-slate-600 font-medium">Clean Energy Generated</div>
+                <div className="text-xs text-slate-400 print:text-slate-600 font-medium">Clean Electricity Made</div>
                 <div className="text-lg font-black text-amber-400 print:text-amber-700 mt-1">{cleanEnergyKwh.toLocaleString()} kWh</div>
-                <span className="text-[10px] text-slate-400 print:text-slate-600">Bio-CNG Micro-Grid</span>
+                <span className="text-[10px] text-slate-400 print:text-slate-600">Bio-CNG Micro-Grid Power</span>
               </div>
               <div className="bg-slate-900/90 print:bg-slate-50 border border-slate-800 print:border-slate-200 rounded-xl p-3.5 text-center">
-                <div className="text-xs text-slate-400 print:text-slate-600 font-medium">GHG Methane Offset</div>
-                <div className="text-lg font-black text-cyan-400 print:text-cyan-700 mt-1">{co2Saved} MT CO₂e</div>
-                <span className="text-[10px] text-cyan-400 print:text-cyan-700 font-semibold">Certified Carbon Offset</span>
+                <div className="text-xs text-slate-400 print:text-slate-600 font-medium">Clean Air (CO₂ Saved)</div>
+                <div className="text-lg font-black text-cyan-400 print:text-cyan-700 mt-1">{co2Saved} Tons/Day</div>
+                <span className="text-[10px] text-cyan-400 print:text-cyan-700 font-semibold">Verified Carbon Savings</span>
               </div>
             </div>
 
@@ -165,17 +165,17 @@ export const OfficialSbmAuditModal = ({ isOpen, onClose, municipalStats = {} }) 
             <div className="mb-6">
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300 print:text-slate-700 mb-2.5 flex items-center gap-2">
                 <Recycle className="w-3.5 h-3.5 text-emerald-400 print:text-emerald-600" />
-                Audited Waste Stream Allocation (8 Statutory Streams)
+                Audited Waste Journey (8 City Garbage Streams)
               </h4>
               <div className="border border-slate-800 print:border-slate-300 rounded-xl overflow-hidden text-xs">
                 <table className="w-full text-left">
                   <thead className="bg-slate-900 print:bg-slate-100 text-slate-300 print:text-slate-800 font-semibold border-b border-slate-800 print:border-slate-300">
                     <tr>
-                      <th className="p-2.5">Category Stream</th>
-                      <th className="p-2.5 text-right">Daily Mass (TPD)</th>
+                      <th className="p-2.5">Garbage Category</th>
+                      <th className="p-2.5 text-right">Daily Weight</th>
                       <th className="p-2.5 text-right">% Share</th>
-                      <th className="p-2.5">Primary Processing Technology</th>
-                      <th className="p-2.5 text-right">Regulatory Status</th>
+                      <th className="p-2.5">How It Is Recycled & Reused</th>
+                      <th className="p-2.5 text-right">Govt Verification</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-800/60 print:divide-slate-200 text-slate-300 print:text-slate-700">
@@ -183,55 +183,55 @@ export const OfficialSbmAuditModal = ({ isOpen, onClose, municipalStats = {} }) 
                       <td className="p-2.5 font-medium flex items-center gap-1.5 text-emerald-400 print:text-emerald-800">
                         <span className="w-2 h-2 rounded-full bg-emerald-500" /> Organic Wet Food Waste
                       </td>
-                      <td className="p-2.5 text-right font-mono">580 TPD</td>
+                      <td className="p-2.5 text-right font-mono">580 Tons</td>
                       <td className="p-2.5 text-right font-mono">33.1%</td>
-                      <td className="p-2.5">Continuous Anaerobic Bio-Methanation</td>
-                      <td className="p-2.5 text-right"><span className="text-emerald-400 print:text-emerald-700 font-bold">100% Diverted</span></td>
+                      <td className="p-2.5">Turned into Bio-Gas Energy & Farm Compost</td>
+                      <td className="p-2.5 text-right"><span className="text-emerald-400 print:text-emerald-700 font-bold">100% Recycled</span></td>
                     </tr>
                     <tr>
                       <td className="p-2.5 font-medium flex items-center gap-1.5 text-amber-400 print:text-amber-800">
-                        <span className="w-2 h-2 rounded-full bg-amber-500" /> C&D Concrete Rubble
+                        <span className="w-2 h-2 rounded-full bg-amber-500" /> Building & Demolition Rubble
                       </td>
-                      <td className="p-2.5 text-right font-mono">380 TPD</td>
+                      <td className="p-2.5 text-right font-mono">380 Tons</td>
                       <td className="p-2.5 text-right font-mono">21.7%</td>
-                      <td className="p-2.5">Impact Crushing & M-Sand Grading</td>
-                      <td className="p-2.5 text-right"><span className="text-emerald-400 print:text-emerald-700 font-bold">100% Diverted</span></td>
+                      <td className="p-2.5">Crushed into Reusable M-Sand for New Roads</td>
+                      <td className="p-2.5 text-right"><span className="text-emerald-400 print:text-emerald-700 font-bold">100% Recycled</span></td>
                     </tr>
                     <tr>
                       <td className="p-2.5 font-medium flex items-center gap-1.5 text-cyan-400 print:text-cyan-800">
-                        <span className="w-2 h-2 rounded-full bg-cyan-500" /> Plastic & Polymers (PET/HDPE)
+                        <span className="w-2 h-2 rounded-full bg-cyan-500" /> Plastic Packaging (Bottles, Wrappers)
                       </td>
-                      <td className="p-2.5 text-right font-mono">290 TPD</td>
+                      <td className="p-2.5 text-right font-mono">290 Tons</td>
                       <td className="p-2.5 text-right font-mono">16.6%</td>
-                      <td className="p-2.5">Optical Near-IR Sorting & Flaking</td>
-                      <td className="p-2.5 text-right"><span className="text-cyan-400 print:text-cyan-700 font-bold">CPCB Form-IV Valid</span></td>
+                      <td className="p-2.5">Optical Sorter & Melted into Recycled Polymer Pellets</td>
+                      <td className="p-2.5 text-right"><span className="text-cyan-400 print:text-cyan-700 font-bold">EPR Certified</span></td>
                     </tr>
                     <tr>
                       <td className="p-2.5 font-medium flex items-center gap-1.5 text-sky-400 print:text-sky-800">
-                        <span className="w-2 h-2 rounded-full bg-sky-500" /> Cardboard & Clean Paper
+                        <span className="w-2 h-2 rounded-full bg-sky-500" /> Cardboard Boxes & Clean Paper
                       </td>
-                      <td className="p-2.5 text-right font-mono">185 TPD</td>
+                      <td className="p-2.5 text-right font-mono">185 Tons</td>
                       <td className="p-2.5 text-right font-mono">10.6%</td>
-                      <td className="p-2.5">Automated High-Density Hydraulic Baling</td>
-                      <td className="p-2.5 text-right"><span className="text-emerald-400 print:text-emerald-700 font-bold">100% Diverted</span></td>
+                      <td className="p-2.5">Hydraulic Compressed & Sent to Paper Mills</td>
+                      <td className="p-2.5 text-right"><span className="text-emerald-400 print:text-emerald-700 font-bold">100% Recycled</span></td>
                     </tr>
                     <tr>
                       <td className="p-2.5 font-medium flex items-center gap-1.5 text-purple-400 print:text-purple-800">
-                        <span className="w-2 h-2 rounded-full bg-purple-500" /> Metal Scrap & Cans
+                        <span className="w-2 h-2 rounded-full bg-purple-500" /> Metal Scrap & Beverage Cans
                       </td>
-                      <td className="p-2.5 text-right font-mono">95 TPD</td>
+                      <td className="p-2.5 text-right font-mono">95 Tons</td>
                       <td className="p-2.5 text-right font-mono">5.4%</td>
-                      <td className="p-2.5">Eddy Current Magnetic Separator</td>
-                      <td className="p-2.5 text-right"><span className="text-emerald-400 print:text-emerald-700 font-bold">100% Diverted</span></td>
+                      <td className="p-2.5">High-Heat Smelting into New Steel & Aluminum</td>
+                      <td className="p-2.5 text-right"><span className="text-emerald-400 print:text-emerald-700 font-bold">100% Recycled</span></td>
                     </tr>
                     <tr>
                       <td className="p-2.5 font-medium flex items-center gap-1.5 text-rose-400 print:text-rose-800">
-                        <span className="w-2 h-2 rounded-full bg-rose-500" /> Hazardous & E-Waste
+                        <span className="w-2 h-2 rounded-full bg-rose-500" /> Hazardous & Electronic Waste (E-Waste)
                       </td>
-                      <td className="p-2.5 text-right font-mono">35 TPD</td>
+                      <td className="p-2.5 text-right font-mono">35 Tons</td>
                       <td className="p-2.5 text-right font-mono">2.0%</td>
-                      <td className="p-2.5">TSDF Plasma Arc & Battery Neutralization</td>
-                      <td className="p-2.5 text-right"><span className="text-rose-400 print:text-rose-700 font-bold">Secure Manifest</span></td>
+                      <td className="p-2.5">Safe Neutralization & Precious Metal Recovery</td>
+                      <td className="p-2.5 text-right"><span className="text-rose-400 print:text-rose-700 font-bold">Govt Safe Pass</span></td>
                     </tr>
                   </tbody>
                 </table>

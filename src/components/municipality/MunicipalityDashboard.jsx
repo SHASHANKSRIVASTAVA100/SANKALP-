@@ -240,23 +240,23 @@ export const MunicipalityDashboard = () => {
               <div className="flex flex-wrap items-center gap-2 mb-1.5">
                 <span className="bg-purple-500/20 border border-purple-400/40 text-purple-300 text-[11px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
                   <ShieldCheck className="w-3 h-3 text-purple-400" />
-                  Apex Municipal Governance
+                  City Municipal Headquarters
                 </span>
                 <span className="bg-slate-800 text-slate-300 text-[11px] font-mono px-2.5 py-0.5 rounded-md border border-slate-700">
-                  ULB ID: {currentUser?.ulbOfficeId || 'BBMP/HQ/COMM-01'}
+                  City Corporation Code: {currentUser?.ulbOfficeId || 'BBMP/HQ/COMM-01'}
                 </span>
                 <span className="bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 text-[11px] font-semibold px-2.5 py-0.5 rounded-md flex items-center gap-1">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  CPCB Telemetry Live
+                  Live Sensors & GPS Connected
                 </span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                Municipality Office • Urban Waste & Resource Ledger
+                Municipality Office • City Waste & Clean City Operations
               </h1>
               <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl">
-                Official regulatory portal for Municipal Commissioner{' '}
+                Central executive cockpit for Municipal Commissioner{' '}
                 <strong className="text-purple-300">{currentUser?.name || 'Dr. Rajeshwari Swamy, IAS'}</strong>.
-                Real-time tracking of certified processors, 8-class collection volume, circular diversion rates, industrial machinery, and the complete municipal vehicle ledger.
+                Monitoring daily doorstep garbage pickup, 8 waste streams, partner recycling factories, clean green energy, and 12 live GPS garbage trucks.
               </p>
             </div>
           </div>
@@ -268,7 +268,7 @@ export const MunicipalityDashboard = () => {
               title="Export Official SBM-U 2.0 Compliance Audit Certificate"
             >
               <FileCheck className="w-4 h-4 text-slate-950" />
-              <span>Export SBM-U 2.0 Audit (PDF)</span>
+              <span>Download SBM-U 2.0 Inspection Report (PDF)</span>
             </button>
             <div className="px-3.5 py-2 rounded-xl bg-purple-900/40 border border-purple-500/40 text-purple-200 text-xs font-mono font-bold flex items-center gap-1.5">
               <Calendar className="w-4 h-4 text-purple-400" />
@@ -277,102 +277,138 @@ export const MunicipalityDashboard = () => {
           </div>
         </div>
 
-        {/* Top Operational KPI Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-6 pt-6 border-t border-slate-800/80">
+        {/* City Operations at a Glance (Easy-to-Understand 3-Pillar Summary) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-6 pt-6 border-t border-slate-800/80">
+          <div className="flex items-start gap-3 bg-slate-950/70 p-3.5 rounded-xl border border-slate-800">
+            <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
+              <Truck className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-[10px] text-purple-300 font-bold uppercase tracking-wider block">1. Doorstep Pickup</span>
+              <strong className="text-white text-sm block">98.0% City Coverage</strong>
+              <p className="text-[11px] text-slate-400 mt-0.5">1,715 Tons of garbage picked up every morning from homes & shops.</p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3 bg-slate-950/70 p-3.5 rounded-xl border border-slate-800">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+              <Scale className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-[10px] text-emerald-300 font-bold uppercase tracking-wider block">2. Smart Digital Scales</span>
+              <strong className="text-white text-sm block">Automated Weighbridges</strong>
+              <p className="text-[11px] text-slate-400 mt-0.5">Trucks are digitally weighed at city checkpoints so zero waste is dumped illegally.</p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3 bg-slate-950/70 p-3.5 rounded-xl border border-slate-800">
+            <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+              <Recycle className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-[10px] text-cyan-300 font-bold uppercase tracking-wider block">3. Kept Out of Landfills</span>
+              <strong className="text-white text-sm block">81.1% Recycled & Reused</strong>
+              <p className="text-[11px] text-slate-400 mt-0.5">Turned into 38,400 kWh of clean biogas energy and recycled plastic pellets!</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Top Operational KPI Bar (Plain-Language Labels) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-4 pt-4 border-t border-slate-800/80">
           <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3">
             <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
-              City Waste Generated
+              Daily Waste Produced
             </span>
             <div className="flex items-baseline gap-1 mt-1">
               <span className="text-xl font-black text-white font-mono">
                 {totalGenerated}
               </span>
-              <span className="text-[11px] text-slate-400 font-medium">TPD</span>
+              <span className="text-[11px] text-slate-400 font-medium">Tons/Day</span>
             </div>
             <span className="text-[10px] text-emerald-400 font-mono mt-0.5 block">
-              98.0% Doorstep Collected
+              98.0% Collected from Homes
             </span>
           </div>
 
           <div className="bg-slate-900/80 border border-purple-900/40 rounded-xl p-3">
             <span className="text-[10px] text-purple-300 font-semibold uppercase tracking-wider block">
-              Recycling Diversion
+              Recycled & Reused
             </span>
             <div className="flex items-baseline gap-1 mt-1">
               <span className="text-xl font-black text-purple-400 font-mono">
                 {diversionRate}
               </span>
-              <span className="text-[11px] text-purple-300 font-medium">Target 75%</span>
+              <span className="text-[11px] text-purple-300 font-medium">Goal 75%</span>
             </div>
             <span className="text-[10px] text-purple-300 font-mono mt-0.5 block">
-              {totalRecycled} TPD Recycled
+              {totalRecycled} Tons/Day Saved
             </span>
           </div>
 
           <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3">
             <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
-              Clean Energy Yield
+              Clean Electricity Made
             </span>
             <div className="flex items-baseline gap-1 mt-1">
               <span className="text-xl font-black text-amber-400 font-mono">
                 {(cleanEnergyKwh / 1000).toFixed(1)}k
               </span>
-              <span className="text-[11px] text-slate-400 font-medium">kWh/day</span>
+              <span className="text-[11px] text-slate-400 font-medium">kWh/Day</span>
             </div>
             <span className="text-[10px] text-amber-300 font-mono mt-0.5 block flex items-center gap-1">
-              <Zap className="w-2.5 h-2.5" /> Indiranagar Bio-CBG
+              <Zap className="w-2.5 h-2.5" /> Powers 3,200 Streetlights
             </span>
           </div>
 
           <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3">
             <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
-              CO₂e Methane Avoided
+              Clean Air Impact (CO₂)
             </span>
             <div className="flex items-baseline gap-1 mt-1">
               <span className="text-xl font-black text-emerald-400 font-mono">
                 {co2Saved}
               </span>
-              <span className="text-[11px] text-slate-400 font-medium">MT/day</span>
+              <span className="text-[11px] text-slate-400 font-medium">Tons/Day</span>
             </div>
             <span className="text-[10px] text-emerald-300 font-mono mt-0.5 block flex items-center gap-1">
-              <TreePine className="w-2.5 h-2.5" /> 16.4k Trees Equivalent
+              <TreePine className="w-2.5 h-2.5" /> Equal to 16,400 Trees
             </span>
           </div>
 
           <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3">
             <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
-              Registered Recyclers
+              Partner Recycling Plants
             </span>
             <div className="flex items-baseline gap-1 mt-1">
               <span className="text-xl font-black text-indigo-400 font-mono">
                 {recyclers.length}
               </span>
-              <span className="text-[11px] text-slate-400 font-medium">Plants</span>
+              <span className="text-[11px] text-slate-400 font-medium">Factories</span>
             </div>
             <span className="text-[10px] text-indigo-300 font-mono mt-0.5 block">
-              1,930 TPD Capacity
+              1,930 Tons/Day Capacity
             </span>
           </div>
 
           <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3">
             <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
-              Fleet Readiness
+              Garbage Trucks On Duty
             </span>
             <div className="flex items-baseline gap-1 mt-1">
               <span className="text-xl font-black text-cyan-400 font-mono">
                 100%
               </span>
-              <span className="text-[11px] text-slate-400 font-medium">{vehicles.length} Units</span>
+              <span className="text-[11px] text-slate-400 font-medium">{vehicles.length} Trucks</span>
             </div>
             <span className="text-[10px] text-cyan-300 font-mono mt-0.5 block">
-              0 PUC Violations
+              0 Violations • Clean Fleets
             </span>
           </div>
         </div>
       </div>
 
-      {/* 5 Navigation Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-800">
+      {/* 5 Navigation Tabs (Human-Friendly Labels) */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-800 no-scrollbar">
         <button
           onClick={() => setActiveTab('recyclers')}
           className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all shrink-0 cursor-pointer ${
@@ -382,11 +418,11 @@ export const MunicipalityDashboard = () => {
           }`}
         >
           <Factory className="w-4 h-4" />
-          <span>Registered Recyclers & Processors</span>
+          <span>Recycling Factories & Centers</span>
           <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
             activeTab === 'recyclers' ? 'bg-purple-800 text-white' : 'bg-slate-800 text-slate-400'
           }`}>
-            {recyclers.length}
+            {recyclers.length} Plants
           </span>
         </button>
 
@@ -399,11 +435,11 @@ export const MunicipalityDashboard = () => {
           }`}
         >
           <BarChart3 className="w-4 h-4" />
-          <span>Waste Collected with Categories</span>
+          <span>8 Waste Types & Where They Go</span>
           <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
             activeTab === 'categories' ? 'bg-purple-800 text-white' : 'bg-slate-800 text-slate-400'
           }`}>
-            8 Classes
+            8 Streams
           </span>
         </button>
 
@@ -416,11 +452,11 @@ export const MunicipalityDashboard = () => {
           }`}
         >
           <Recycle className="w-4 h-4" />
-          <span>Recycling & Landfill Diversion</span>
+          <span>Landfill Savings & Truck Scales</span>
           <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
             activeTab === 'diversion' ? 'bg-purple-800 text-white' : 'bg-slate-800 text-slate-400'
           }`}>
-            {diversionRate}
+            {diversionRate} Saved
           </span>
         </button>
 
@@ -433,11 +469,11 @@ export const MunicipalityDashboard = () => {
           }`}
         >
           <Cpu className="w-4 h-4" />
-          <span>Large Collector Technology</span>
+          <span>City Eco-Machines & Technology</span>
           <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
             activeTab === 'technology' ? 'bg-purple-800 text-white' : 'bg-slate-800 text-slate-400'
           }`}>
-            {technologies.length}
+            {technologies.length} Tech Units
           </span>
         </button>
 
@@ -450,20 +486,36 @@ export const MunicipalityDashboard = () => {
           }`}
         >
           <Truck className="w-4 h-4" />
-          <span>Vehicle Records & Fleet Ledger</span>
+          <span>Garbage Trucks & Live GPS</span>
           <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
             activeTab === 'fleet' ? 'bg-purple-800 text-white' : 'bg-slate-800 text-slate-400'
           }`}>
-            {vehicles.length} Units
+            {vehicles.length} Trucks
           </span>
         </button>
       </div>
 
       {/* ========================================================================= */}
-      {/* TAB 1: REGISTERED RECYCLER / PROCESSORS                                   */}
+      {/* TAB 1: CERTIFIED RECYCLING FACTORIES & MATERIAL PROCESSING CENTERS        */}
       {/* ========================================================================= */}
       {activeTab === 'recyclers' && (
         <div className="space-y-6">
+          {/* Friendly Section Header */}
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                <Factory className="w-5 h-5 text-purple-400" />
+                Certified Recycling Factories & Material Processing Centers
+              </h2>
+              <p className="text-xs text-slate-400 mt-1">
+                Licensed partner factories that receive segregated city waste and transform it into clean electricity, compost, or secondary raw materials.
+              </p>
+            </div>
+            <span className="bg-purple-950/60 border border-purple-500/40 text-purple-300 text-xs font-mono font-bold px-3 py-1.5 rounded-xl self-start md:self-auto">
+              Total Processing Capacity: 1,930 Tons/Day
+            </span>
+          </div>
+
           {/* Header Controls & Filter */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/70 border border-slate-800 p-4 rounded-2xl">
             <div className="flex flex-wrap items-center gap-3">
@@ -473,7 +525,7 @@ export const MunicipalityDashboard = () => {
                   type="text"
                   value={recyclerSearch}
                   onChange={(e) => setRecyclerSearch(e.target.value)}
-                  placeholder="Search recycler name, license, locality..."
+                  placeholder="Search factory name, license, area..."
                   className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
                 />
               </div>
@@ -580,7 +632,7 @@ export const MunicipalityDashboard = () => {
                     {/* License Details */}
                     <div className="bg-slate-950 border border-slate-800/80 rounded-xl p-3 mt-4 space-y-2">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="text-slate-400">CPCB Reg No:</span>
+                        <span className="text-slate-400">Govt. License (CPCB):</span>
                         <span className="font-mono text-purple-300 font-semibold text-[11px]">
                           {license}
                         </span>
@@ -592,7 +644,7 @@ export const MunicipalityDashboard = () => {
                         </span>
                       </div>
                       <div className="flex items-center justify-between text-xs">
-                        <span className="text-slate-400">Primary Stream:</span>
+                        <span className="text-slate-400">Waste It Handles:</span>
                         <span className="font-mono text-emerald-400 font-bold text-[11px] truncate max-w-[150px]">
                           {categoryStr}
                         </span>
@@ -602,9 +654,9 @@ export const MunicipalityDashboard = () => {
                     {/* Capacity vs Daily Intake Meter */}
                     <div className="mt-4 space-y-1.5">
                       <div className="flex items-center justify-between text-xs font-semibold">
-                        <span className="text-slate-300">Daily Intake Load</span>
+                        <span className="text-slate-300">Daily Processing Workload</span>
                         <span className="font-mono text-purple-400">
-                          {intake} / {cap} TPD ({utilization}%)
+                          {intake} of {cap} Tons/Day ({utilization}% full)
                         </span>
                       </div>
                       <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
@@ -651,7 +703,7 @@ export const MunicipalityDashboard = () => {
       )}
 
       {/* ========================================================================= */}
-      {/* TAB 2: WASTE COLLECTED WITH CATEGORIES                                    */}
+      {/* TAB 2: 8 WASTE TYPES & WHERE THEY GO                                      */}
       {/* ========================================================================= */}
       {activeTab === 'categories' && (
         <div className="space-y-6">
@@ -661,22 +713,22 @@ export const MunicipalityDashboard = () => {
               <div>
                 <h2 className="text-lg font-bold text-white flex items-center gap-2">
                   <BarChart3 className="w-5 h-5 text-purple-400" />
-                  City-Wide Waste Collection Telemetry (8 Scientific Categories)
+                  City Waste Breakdown (8 Types & Where They Go)
                 </h2>
                 <p className="text-xs text-slate-400 mt-1">
-                  Daily quantified intake across municipal transfer stations, primary collection tippers, and mechanized MRFs.
+                  Every morning, city garbage is segregated into 8 streams so it can be turned into clean energy, compost, and raw materials instead of rotting in landfills.
                 </p>
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-xs text-slate-400">Aggregate Collection:</span>
+                <span className="text-xs text-slate-400">Doorstep Pickup:</span>
                 <span className="bg-purple-950/60 border border-purple-500/40 text-purple-300 text-xs font-mono font-bold px-3 py-1 rounded-xl">
-                  {totalCollected} / {totalGenerated} TPD (98.0%)
+                  {totalCollected} / {totalGenerated} Tons/Day (98.0% Coverage)
                 </span>
               </div>
             </div>
 
-            {/* 8 Categories Grid */}
+            {/* 8 Categories Grid with Real-World Outcomes */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {rawCategories.map((cat, idx) => {
                 const tons = cat.tons || cat.collectedTons || 100;
@@ -684,10 +736,23 @@ export const MunicipalityDashboard = () => {
                 const dest = cat.destination || cat.targetRecycler || 'Authorized Recycling MRF';
                 const color = cat.color || '#10b981';
 
+                const categoryBenefits = {
+                  "Organic Wet Food Waste": "Turned into Compressed Biogas (CBG) for city buses and organic compost",
+                  "Construction & Demolition (C&D)": "Crushed into manufactured eco-sand and aggregate for roads",
+                  "Plastic Packaging (PET/HDPE/MLP)": "Melted into recycled polymer pellets for new packaging",
+                  "Paper & Corrugated Cardboard": "Hydropulped into strong recycled kraft packaging boxes",
+                  "Drain Silt & Desilted Sludge": "Sun-dried and used for non-structural municipal ground fill",
+                  "Metal Scrap & Beverage Cans": "Smelted into recycled aluminum and steel ingots",
+                  "Glass Bottles & Cullet": "Melted in furnaces to produce new beverage glass containers",
+                  "Hazardous, Batteries & E-Waste": "Safely neutralized; precious metals reclaimed without ground toxins"
+                };
+
+                const benefit = categoryBenefits[cat.name] || "Processed into certified circular economy materials";
+
                 return (
                   <div
                     key={idx}
-                    className="bg-slate-950 border border-slate-800 rounded-xl p-4 flex flex-col justify-between hover:border-slate-700 transition-all"
+                    className="bg-slate-950 border border-slate-800 rounded-xl p-4 flex flex-col justify-between hover:border-slate-700 transition-all shadow-md"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2">
@@ -696,16 +761,16 @@ export const MunicipalityDashboard = () => {
                           style={{ backgroundColor: color }}
                         />
                         <span className="text-[11px] font-mono font-bold text-white ml-auto">
-                          {pct}% of City
+                          {pct}% of City Trash
                         </span>
                       </div>
 
                       <h4 className="font-bold text-sm text-slate-100">{cat.name}</h4>
 
-                      <div className="mt-4 space-y-2">
+                      <div className="mt-3 space-y-2">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-slate-400">Collected Intake:</span>
-                          <span className="font-mono font-bold text-white">{tons} TPD</span>
+                          <span className="text-slate-400">Daily Amount:</span>
+                          <span className="font-mono font-bold text-white">{tons} Tons/Day</span>
                         </div>
 
                         {/* Mini Recovery Bar */}
@@ -719,13 +784,23 @@ export const MunicipalityDashboard = () => {
                           />
                         </div>
                       </div>
+
+                      {/* What It Becomes (Clear Plain English) */}
+                      <div className="mt-3 p-2 bg-slate-900/80 rounded-lg border border-slate-800/80">
+                        <span className="text-[10px] text-purple-300 font-bold block">
+                          What this becomes:
+                        </span>
+                        <p className="text-[11px] text-slate-300 mt-0.5 leading-tight">
+                          {benefit}
+                        </p>
+                      </div>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-slate-900 text-[11px] text-slate-400">
+                    <div className="mt-3 pt-2.5 border-t border-slate-900 text-[11px] text-slate-400">
                       <span className="text-slate-500 block text-[10px] uppercase font-semibold">
-                        Designated Facility:
+                        Destination Factory:
                       </span>
-                      <span className="font-medium text-purple-300 truncate block mt-0.5">
+                      <span className="font-medium text-emerald-400 truncate block mt-0.5">
                         {dest}
                       </span>
                     </div>
@@ -735,23 +810,23 @@ export const MunicipalityDashboard = () => {
             </div>
           </div>
 
-          {/* Ward-Wise Collection & Segregation Heat Table */}
+          {/* Ward-Wise Collection & Cleanliness Table */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl">
             <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
               <Layers className="w-4 h-4 text-purple-400" />
-              Zonal Ward-Wise Collection & Segregation Audit
+              Zonal Ward Cleanliness & Waste Segregation Table
             </h3>
             <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
               <table className="min-w-[680px] w-full text-left text-xs text-slate-300">
                 <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-800">
                   <tr>
-                    <th className="px-4 py-3">Ward Jurisdiction</th>
-                    <th className="px-4 py-3">Population</th>
-                    <th className="px-4 py-3">Daily Generation</th>
-                    <th className="px-4 py-3">Segregation Compliance</th>
-                    <th className="px-4 py-3">Dominant Category</th>
-                    <th className="px-4 py-3">Ward Supervisor</th>
-                    <th className="px-4 py-3 text-right">Status</th>
+                    <th className="px-4 py-3">Ward Name</th>
+                    <th className="px-4 py-3">Residents Living Here</th>
+                    <th className="px-4 py-3">Daily Garbage</th>
+                    <th className="px-4 py-3">Segregation Score</th>
+                    <th className="px-4 py-3">Main Waste Collected</th>
+                    <th className="px-4 py-3">Ward Health Officer</th>
+                    <th className="px-4 py-3 text-right">Cleanliness Status</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60 font-mono">
@@ -828,84 +903,84 @@ export const MunicipalityDashboard = () => {
       )}
 
       {/* ========================================================================= */}
-      {/* TAB 3: AMOUNT OF WASTE GONE FOR RECYCLING & CIRCULAR DIVERSION            */}
+      {/* TAB 3: LANDFILL SAVINGS & TRUCK WEIGHBRIDGE                               */}
       {/* ========================================================================= */}
       {activeTab === 'diversion' && (
         <div className="space-y-6">
           {/* Circular Loop Flow Cards */}
           <div className="bg-gradient-to-br from-slate-900 via-purple-950/30 to-slate-900 border border-purple-500/30 rounded-2xl p-6 shadow-xl">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
                 <h2 className="text-lg font-bold text-white flex items-center gap-2">
                   <Recycle className="w-5 h-5 text-purple-400" />
-                  Circular Economy Mass Balance & Landfill Diversion Rate
+                  Keeping Waste Out of Landfills (City Mass Balance)
                 </h2>
                 <p className="text-xs text-slate-400 mt-0.5">
-                  Cryptographically audited daily mass-balance from doorstep collection to secondary recycled raw materials.
+                  Tracking how 1,750 tons of daily trash is picked up, weighed, and converted into clean electricity and recycled goods.
                 </p>
               </div>
 
-              <div className="text-right">
+              <div className="text-left sm:text-right">
                 <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">
-                  MoHUA National Benchmark
+                  Swachh Bharat National Benchmark
                 </span>
                 <span className="text-xs font-mono font-bold text-emerald-400">
-                  Exceeding by +6.1%
+                  Exceeding National Goal by +6.1%
                 </span>
               </div>
             </div>
 
-            {/* Mass Balance Steps */}
+            {/* Mass Balance Steps (Plain English) */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
-              <div className="bg-slate-950 border border-slate-800 rounded-xl p-4">
+              <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 shadow-md">
                 <span className="text-[10px] text-slate-400 font-mono font-bold uppercase block mb-1">
-                  Step 1: Generation
+                  1. Produced by Citizens
                 </span>
                 <div className="text-2xl font-black text-white font-mono">
-                  {totalGenerated} <span className="text-xs text-slate-400 font-normal">TPD</span>
+                  {totalGenerated} <span className="text-xs text-slate-400 font-normal">Tons/Day</span>
                 </div>
                 <p className="text-xs text-slate-400 mt-2">
                   Total daily civic & commercial refuse produced across 198 municipal wards.
                 </p>
               </div>
 
-              <div className="bg-slate-950 border border-slate-800 rounded-xl p-4">
+              <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 shadow-md">
                 <span className="text-[10px] text-slate-400 font-mono font-bold uppercase block mb-1">
-                  Step 2: Collection
+                  2. Picked Up by Trucks
                 </span>
                 <div className="text-2xl font-black text-white font-mono">
-                  {totalCollected} <span className="text-xs text-slate-400 font-normal">TPD</span>
+                  {totalCollected} <span className="text-xs text-slate-400 font-normal">Tons/Day</span>
                 </div>
                 <p className="text-xs text-slate-400 mt-2">
-                  Mechanized fleet pickup efficiency: <strong className="text-emerald-400">98.0%</strong>.
+                  Mechanized fleet doorstep pickup: <strong className="text-emerald-400">98.0% coverage</strong>.
                 </p>
               </div>
 
-              <div className="bg-purple-950/40 border border-purple-500/50 rounded-xl p-4 relative overflow-hidden">
+              <div className="bg-purple-950/40 border border-purple-500/50 rounded-xl p-4 relative overflow-hidden shadow-md">
                 <div className="absolute top-2 right-2 bg-purple-500/20 text-purple-300 text-[10px] px-2 py-0.5 rounded font-mono font-bold">
-                  {diversionRate} DIVERSION
+                  {diversionRate} SAVED
                 </div>
                 <span className="text-[10px] text-purple-300 font-mono font-bold uppercase block mb-1">
-                  Step 3: Recycled / Processed
+                  3. Recycled & Reused
                 </span>
                 <div className="text-2xl font-black text-purple-400 font-mono">
-                  {totalRecycled} <span className="text-xs text-purple-300 font-normal">TPD</span>
+                  {totalRecycled} <span className="text-xs text-purple-300 font-normal">Tons/Day</span>
                 </div>
                 <p className="text-xs text-purple-200/80 mt-2">
-                  Diverted away from landfills to certified biological & industrial recyclers.
+                  Kept away from smelly landfills; sent directly to certified recycling factories.
                 </p>
               </div>
 
-              <div className="bg-slate-950 border border-slate-800 rounded-xl p-4">
+              <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 shadow-md">
                 <span className="text-[10px] text-slate-400 font-mono font-bold uppercase block mb-1">
-                  Step 4: Residual Inert
+                  4. Safe Inert Residue
                 </span>
                 <div className="text-2xl font-black text-amber-400 font-mono">
                   {totalCollected - totalRecycled}{' '}
-                  <span className="text-xs text-slate-400 font-normal">TPD</span>
+                  <span className="text-xs text-slate-400 font-normal">Tons/Day</span>
                 </div>
                 <p className="text-xs text-slate-400 mt-2">
-                  Only non-recyclable inert silt sent to engineered scientific landfills.
+                  Only non-recyclable inert stones/silt sent to safe engineered landfills.
                 </p>
               </div>
             </div>
@@ -918,7 +993,7 @@ export const MunicipalityDashboard = () => {
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-400 uppercase font-semibold block">
-                    Bio-CBG Clean Energy
+                    Clean Electricity Made
                   </span>
                   <span className="font-mono font-bold text-sm text-white">{(cleanEnergyKwh / 1000).toFixed(1)}k kWh / Day</span>
                   <span className="text-[10px] text-slate-500 block">Powers 3,200 streetlights</span>
@@ -931,10 +1006,10 @@ export const MunicipalityDashboard = () => {
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-400 uppercase font-semibold block">
-                    Polymer Pellets Yield
+                    Recycled Plastic Pellets
                   </span>
                   <span className="font-mono font-bold text-sm text-white">295 Tons / Day</span>
-                  <span className="text-[10px] text-slate-500 block">Delivered to FMCG EPR Brands</span>
+                  <span className="text-[10px] text-slate-500 block">Supplied for new product packaging</span>
                 </div>
               </div>
 
@@ -944,10 +1019,10 @@ export const MunicipalityDashboard = () => {
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-400 uppercase font-semibold block">
-                    Trees Preserved
+                    Trees Saved From Chopping
                   </span>
                   <span className="font-mono font-bold text-sm text-white">3,315 Trees / Day</span>
-                  <span className="text-[10px] text-slate-500 block">Via 195 TPD Paper Recovery</span>
+                  <span className="text-[10px] text-slate-500 block">By recycling 185 tons of paper</span>
                 </div>
               </div>
 
@@ -957,10 +1032,10 @@ export const MunicipalityDashboard = () => {
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-400 uppercase font-semibold block">
-                    Recycled C&D Aggregate
+                    Eco-Concrete for Roads
                   </span>
                   <span className="font-mono font-bold text-sm text-white">95 Tons / Day</span>
-                  <span className="text-[10px] text-slate-500 block">Road Sub-base Infrastructure</span>
+                  <span className="text-[10px] text-slate-500 block">Recycled building demolition rubble</span>
                 </div>
               </div>
             </div>
@@ -972,15 +1047,24 @@ export const MunicipalityDashboard = () => {
               <div>
                 <h3 className="text-base font-bold text-white flex items-center gap-2">
                   <Scale className="w-4 h-4 text-purple-400" />
-                  Live Weighbridge Intake & Cryptographic Custody Ledger
+                  Live Digital Weighbridge Scale Records (Truck Weights & Verification)
                 </h3>
                 <p className="text-xs text-slate-400 mt-0.5">
-                  Automated electronic weighbridge capture with SHA-256 tamper-proof chain of custody for CPCB auditing.
+                  Automated electronic scales record exact truck weights at city gates, guaranteeing that zero garbage is lost or dumped illegally.
                 </p>
               </div>
-              <span className="text-xs text-slate-400 font-mono">
-                Showing Last 5 Verified Municipal Batches
+              <span className="text-xs text-slate-400 font-mono self-start sm:self-auto">
+                Showing Last 5 Verified Truck Batches
               </span>
+            </div>
+
+            {/* Weighbridge Explainer Box */}
+            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-start gap-3 text-xs text-slate-300 mb-4">
+              <Info className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
+              <div>
+                <strong className="text-white block">What is an Electronic Weighbridge?</strong>
+                A digital truck scale at municipal plant gates. Each garbage truck is weighed twice: once when arriving full (Full Truck) and once after unloading (Empty Truck). The difference is the exact net waste delivered, ensuring complete transparency and zero cheating.
+              </div>
             </div>
 
             <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
@@ -989,12 +1073,12 @@ export const MunicipalityDashboard = () => {
                   <tr>
                     <th className="px-4 py-3">Batch ID</th>
                     <th className="px-4 py-3">Time</th>
-                    <th className="px-4 py-3">Vehicle No</th>
-                    <th className="px-4 py-3">Category</th>
-                    <th className="px-4 py-3">Weights (Gross / Tare / Net)</th>
-                    <th className="px-4 py-3">Receiving Recycler</th>
-                    <th className="px-4 py-3">SHA-256 Audit Hash</th>
-                    <th className="px-4 py-3 text-right">Audit Status</th>
+                    <th className="px-4 py-3">Truck No</th>
+                    <th className="px-4 py-3">Waste Category</th>
+                    <th className="px-4 py-3">Weights (Full / Empty = Actual Waste)</th>
+                    <th className="px-4 py-3">Destination Factory</th>
+                    <th className="px-4 py-3">Anti-Tamper Code</th>
+                    <th className="px-4 py-3 text-right">Inspection Status</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60 font-mono text-xs">
@@ -1048,21 +1132,24 @@ export const MunicipalityDashboard = () => {
       {/* ========================================================================= */}
       {/* TAB 4: REGISTERED LARGE WASTE COLLECTOR TECHNOLOGY                        */}
       {/* ========================================================================= */}
+      {/* ========================================================================= */}
+      {/* TAB 4: CITY ECO-MACHINES & HIGH-TECH CLEAN EQUIPMENT                      */}
+      {/* ========================================================================= */}
       {activeTab === 'technology' && (
         <div className="space-y-6">
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
                 <Cpu className="w-5 h-5 text-purple-400" />
-                Registered Large Waste Collector & Industrial Sorting Technology
+                City Eco-Machines & High-Tech Clean Equipment
               </h2>
               <p className="text-xs text-slate-400 mt-1">
-                Centralized registry of automated NIR optical sorting machines, hydraulic super-suckers, dual-shaft shredders, and smart compactor IoT networks.
+                Central registry of modern automated machines deployed across the city to quickly sort recycling, unblock stormwater drains, and compress city waste.
               </p>
             </div>
             <div className="flex items-center gap-2">
               <span className="bg-purple-950/60 border border-purple-500/40 text-purple-300 text-xs font-mono font-bold px-3 py-1 rounded-xl">
-                {technologies.length} Industrial Units Registered
+                {technologies.length} Machines Operating
               </span>
             </div>
           </div>
@@ -1076,6 +1163,16 @@ export const MunicipalityDashboard = () => {
               const units = tech.unitsDeployed || 4;
               const features = tech.features || ['Automated Sorting', 'CPCB Cloud Telemetry'];
               const status = tech.status || 'Operational';
+
+              // Plain-English 1-line explainer for each equipment
+              const plainExplainer = {
+                'TECH-01': 'Uses laser cameras & air jets to separate bottles by plastic type in milliseconds.',
+                'TECH-02': 'Heavy vacuum tanker that extracts deep drain sludge & flushes underground culverts to prevent street flooding.',
+                'TECH-03': 'Industrial hydraulic press that crushes dry plastic & cardboard into compact blocks for transport.',
+                'TECH-04': 'Public solar dustbins that automatically crush trash inside, holding 5x more waste without overflowing.',
+                'TECH-05': 'Crushes brick & concrete debris into certified manufactured sand (M-Sand) for new roads and homes.',
+                'TECH-06': 'Satellite GPS trackers & radio tags on trucks that beam live speed and route progress to city control.'
+              }[tech.id] || 'High-tech municipal equipment helping city teams process recyclable materials cleaner and faster.';
 
               return (
                 <div
@@ -1104,31 +1201,44 @@ export const MunicipalityDashboard = () => {
 
                     {/* Body Content */}
                     <div className="p-5 space-y-4">
+                      {/* Simple Words Explainer Box */}
+                      <div className="bg-purple-950/40 border border-purple-800/60 rounded-xl p-3 text-[11px] text-purple-200 flex items-start gap-2.5">
+                        <Sparkles className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+                        <div>
+                          <strong className="text-purple-300 font-semibold block text-[10px] uppercase tracking-wider">
+                            In Plain Words: What It Does
+                          </strong>
+                          <p className="mt-0.5 text-slate-300 leading-relaxed font-sans">
+                            {plainExplainer}
+                          </p>
+                        </div>
+                      </div>
+
                       {/* Telemetry Stats Grid */}
                       <div className="grid grid-cols-2 gap-2 bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs font-mono">
                         <div>
                           <span className="text-[10px] text-slate-500 block uppercase font-sans">
-                            Throughput Speed
+                            Speed / Capacity
                           </span>
                           <span className="font-bold text-white text-xs">{speed}</span>
                         </div>
                         <div>
                           <span className="text-[10px] text-slate-500 block uppercase font-sans">
-                            Separation Purity
+                            Sorting Accuracy
                           </span>
                           <span className="font-bold text-emerald-400 text-xs">{accuracy}</span>
                         </div>
                         <div className="mt-2 pt-2 border-t border-slate-900">
                           <span className="text-[10px] text-slate-500 block uppercase font-sans">
-                            Active Units
+                            Units in Operation
                           </span>
                           <span className="font-bold text-indigo-300 text-xs">
-                            {units} Units Deployed
+                            {units} Working in City
                           </span>
                         </div>
                         <div className="mt-2 pt-2 border-t border-slate-900">
                           <span className="text-[10px] text-slate-500 block uppercase font-sans">
-                            Energy Rating
+                            Eco-Power Rating
                           </span>
                           <span className="font-bold text-amber-300 text-xs truncate block">
                             {tech.energyRating || 'Green Star'}
@@ -1139,7 +1249,7 @@ export const MunicipalityDashboard = () => {
                       {/* Deployment Location */}
                       <div className="flex items-center gap-1.5 text-xs text-slate-300">
                         <MapPin className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                        <span className="truncate">{depot}</span>
+                        <span className="truncate">Station: <strong>{depot}</strong></span>
                       </div>
 
                       {/* Features Tags */}
@@ -1149,7 +1259,7 @@ export const MunicipalityDashboard = () => {
                             key={idx}
                             className="bg-slate-800/80 text-slate-300 text-[10px] px-2 py-0.5 rounded border border-slate-700/60"
                           >
-                            {f}
+                            ✓ {f}
                           </span>
                         ))}
                       </div>
@@ -1159,8 +1269,8 @@ export const MunicipalityDashboard = () => {
                   {/* Footer Info */}
                   <div className="p-5 pt-0">
                     <div className="pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
-                      <span>Mfr: <strong>{tech.manufacturer}</strong></span>
-                      <span className="font-mono text-[10px] text-slate-500">Service: {tech.nextServiceDue || 'Q2 2026'}</span>
+                      <span>Maker: <strong>{tech.manufacturer}</strong></span>
+                      <span className="font-mono text-[10px] text-slate-500">Next Checkup: {tech.nextServiceDue || 'Q2 2026'}</span>
                     </div>
                   </div>
                 </div>
@@ -1176,6 +1286,69 @@ export const MunicipalityDashboard = () => {
       {activeTab === 'fleet' && (
         <div className="space-y-6">
           {/* Header Controls & Filter */}
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                <Truck className="w-5 h-5 text-purple-400" />
+                Garbage Collection Trucks & Real-Time GPS Tracking
+              </h2>
+              <p className="text-xs text-slate-400 mt-1">
+                Official registry of municipal garbage trucks, tippers, and electric sweepers. Track live vehicle speed, assigned drivers, and pollution certifications.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold px-3 py-1 rounded-xl flex items-center gap-1.5">
+                <BatteryCharging className="w-3.5 h-3.5 text-emerald-400" />
+                100% Green Fleets (EV & CNG)
+              </span>
+              <span className="bg-purple-950/60 border border-purple-500/40 text-purple-300 text-xs font-mono font-bold px-3 py-1 rounded-xl">
+                {vehicles.length} Trucks Monitored
+              </span>
+            </div>
+          </div>
+
+          {/* Quick Fleet Highlights */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
+              <span className="text-[10px] text-slate-400 font-semibold uppercase block">Total Garbage Fleet</span>
+              <div className="flex items-baseline gap-1 mt-1">
+                <span className="text-lg font-bold text-white font-mono">{vehicles.length}</span>
+                <span className="text-xs text-slate-400">Trucks</span>
+              </div>
+              <span className="text-[10px] text-emerald-400 font-mono">100% Operational Today</span>
+            </div>
+
+            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
+              <span className="text-[10px] text-slate-400 font-semibold uppercase block">Green Clean Energy</span>
+              <div className="flex items-baseline gap-1 mt-1">
+                <span className="text-lg font-bold text-emerald-400 font-mono">
+                  {vehicles.filter(v => v.fuelType?.includes('Electric') || v.fuelType?.includes('CNG')).length}
+                </span>
+                <span className="text-xs text-emerald-300">EV & CNG Vehicles</span>
+              </div>
+              <span className="text-[10px] text-emerald-400 font-mono">Zero Smoke & Low Carbon</span>
+            </div>
+
+            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
+              <span className="text-[10px] text-slate-400 font-semibold uppercase block">Daily Route Coverage</span>
+              <div className="flex items-baseline gap-1 mt-1">
+                <span className="text-lg font-bold text-cyan-400 font-mono">98.4%</span>
+                <span className="text-xs text-cyan-300">City Wards</span>
+              </div>
+              <span className="text-[10px] text-cyan-300 font-mono">Door-to-Door Every Morning</span>
+            </div>
+
+            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
+              <span className="text-[10px] text-slate-400 font-semibold uppercase block">Pollution Check (PUC)</span>
+              <div className="flex items-baseline gap-1 mt-1">
+                <span className="text-lg font-bold text-purple-400 font-mono">100% Pass</span>
+                <span className="text-xs text-purple-300">Govt Verified</span>
+              </div>
+              <span className="text-[10px] text-purple-300 font-mono">0 Emission Violations</span>
+            </div>
+          </div>
+
+          {/* Search & Filter Toolbar */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/70 border border-slate-800 p-4 rounded-2xl">
             <div className="flex flex-wrap items-center gap-3">
               <div className="relative min-w-[240px]">
@@ -1209,12 +1382,12 @@ export const MunicipalityDashboard = () => {
                 onClick={() => setShowFleetMap(!showFleetMap)}
                 className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                   showFleetMap
-                    ? 'bg-purple-600 text-white'
+                    ? 'bg-purple-600 text-white shadow-lg shadow-purple-900/40'
                     : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'
                 }`}
               >
                 <Compass className="w-4 h-4" />
-                <span>{showFleetMap ? 'Hide GPS Map' : 'Track All on Live GPS Map'}</span>
+                <span>{showFleetMap ? 'Hide Live Map' : 'Track All Trucks on Live GPS Map'}</span>
               </button>
             </div>
           </div>
@@ -1230,7 +1403,7 @@ export const MunicipalityDashboard = () => {
                   </span>
                 </div>
                 <span className="text-[11px] text-purple-300 font-mono">
-                  RTK High-Precision Geofence
+                  Live Satellite GPS Signal
                 </span>
               </div>
               <GoogleMapContainer
@@ -1247,10 +1420,10 @@ export const MunicipalityDashboard = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <FileText className="w-4 h-4 text-purple-400" />
-                Official Municipal Vehicle Registry & Regulatory Compliance Ledger
+                Garbage Trucks & Inspection Pass Status
               </h3>
               <span className="text-xs text-slate-400 font-mono">
-                {filteredVehicles.length} Vehicles Displayed
+                {filteredVehicles.length} Trucks Listed
               </span>
             </div>
 
@@ -1258,15 +1431,15 @@ export const MunicipalityDashboard = () => {
               <table className="min-w-[760px] w-full text-left text-xs text-slate-300">
                 <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-800">
                   <tr>
-                    <th className="px-4 py-3">Plate Registration</th>
-                    <th className="px-4 py-3">Vehicle Type</th>
-                    <th className="px-4 py-3">Fuel / Energy</th>
-                    <th className="px-4 py-3">Assigned Depot & Ward</th>
-                    <th className="px-4 py-3">Driver & Contact</th>
-                    <th className="px-4 py-3">Odometer</th>
-                    <th className="px-4 py-3">PUC Validity</th>
-                    <th className="px-4 py-3">Fitness Cert</th>
-                    <th className="px-4 py-3 text-right">GPS Status</th>
+                    <th className="px-4 py-3">Truck Plate No.</th>
+                    <th className="px-4 py-3">Vehicle Model & Duty</th>
+                    <th className="px-4 py-3">Eco-Fuel</th>
+                    <th className="px-4 py-3">Depot & Area Ward</th>
+                    <th className="px-4 py-3">Driver & Mobile No.</th>
+                    <th className="px-4 py-3">Total Km Driven</th>
+                    <th className="px-4 py-3">Pollution Pass (PUC)</th>
+                    <th className="px-4 py-3">Road Fitness Pass</th>
+                    <th className="px-4 py-3 text-right">Live GPS & Speed</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60 font-mono text-xs">
