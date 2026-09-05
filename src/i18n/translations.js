@@ -6,7 +6,7 @@ export const TRANSLATIONS = {
     // Brand & General
     appName: "Swachhta Sangam",
     tagline: "Smart Waste & Circular Economy Management",
-    sihBadge: "SIH 2026",
+    sihBadge: "PS-26195",
     radarBanner: "LIVE VEHICLE RADAR",
     truckNear: "Compactor Truck",
     away: "from your sector. ETA",
@@ -154,7 +154,7 @@ export const TRANSLATIONS = {
     // Brand & General
     appName: "स्वच्छता संगम",
     tagline: "स्मार्ट अपशिष्ट एवं चक्रीय अर्थव्यवस्था प्रबंधन",
-    sihBadge: "एसआईएच 2026",
+    sihBadge: "पीएस-26195",
     radarBanner: "लाइव कचरा वाहन रडार",
     truckNear: "कॉम्पैक्टर ट्रक",
     away: "आपके क्षेत्र से दूर। अनुमानित समय",
@@ -302,7 +302,7 @@ export const TRANSLATIONS = {
     // Brand & General
     appName: "ಸ್ವಚ್ಛತಾ ಸಂಗಮ",
     tagline: "ಸ್ಮಾರ್ಟ್ ತ್ಯಾಜ್ಯ ಮತ್ತು ವೃತ್ತಾಕಾರದ ಆರ್ಥಿಕ ನಿರ್ವಹಣೆ",
-    sihBadge: "ಎಸ್.ಐ.ಎಚ್ 2026",
+    sihBadge: "ಪಿ.ಎಸ್-26195",
     radarBanner: "ಲೈವ್ ವಾಹನ ರೇಡಾರ್",
     truckNear: "ಕಾಂಪ್ಯಾಕ್ಟರ್ ವಾಹನ",
     away: "ನಿಮ್ಮ ಬಡಾವಣೆಯ ಸಮೀಪದಲ್ಲಿದೆ. ಆಗಮನ",
@@ -450,7 +450,7 @@ export const TRANSLATIONS = {
     // Brand & General
     appName: "ஸ்வச்சதா சங்கமம்",
     tagline: "ஸ்மார்ட் கழிவு மேலாண்மை & சுழற்சிப் பொருளாதாரம்",
-    sihBadge: "SIH 2026",
+    sihBadge: "PS-26195",
     radarBanner: "நேரடி குப்பை வாகன ரேடார்",
     truckNear: "காம்பாக்டர் வாகனம்",
     away: "உங்கள் பகுதிக்கு அருகில். வருகை நேரம்",
@@ -598,7 +598,7 @@ export const TRANSLATIONS = {
     // Brand & General
     appName: "స్వచ్ఛతా సంగమం",
     tagline: "స్మార్ట్ వ్యర్థాల నిర్వహణ & సర్క్యులర్ ఎకానమీ",
-    sihBadge: "SIH 2026",
+    sihBadge: "PS-26195",
     radarBanner: "లైవ్ చెత్త వాహన రాడార్",
     truckNear: "కాంపాక్టర్ ట్రక్",
     away: "మీ ప్రాంతానికి చేరువలో ఉంది. రాక సమయం",

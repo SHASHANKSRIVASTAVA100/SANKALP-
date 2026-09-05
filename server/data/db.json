@@ -451,7 +451,7 @@
       "rating": 4.9,
       "reviewsCount": 142,
       "attendance": "punched_in",
-      "punchInTime": "07:30 AM",
+      "punchInTime": "06:35 pm",
       "activeTasksCount": 1,
       "completedToday": 4,
       "totalKgClearedToday": 200,
@@ -501,14 +501,14 @@
       "driverPhone": "+91 94480 77121",
       "ward": "Ward 12 - Indiranagar",
       "currentLocation": {
-        "lat": 12.953517611239239,
-        "lng": 77.64470576895097
+        "lat": 12.952298571168187,
+        "lng": 77.64319277796923
       },
       "currentStreet": "Near 12th Main Road, 80 Feet Road Junction",
       "speedKmH": 18,
       "status": "collecting",
-      "routeProgress": 34,
-      "distanceFromUserMeters": 260,
+      "routeProgress": 77,
+      "distanceFromUserMeters": 230,
       "estimatedArrivalMinutes": 3,
       "capacityPercent": 74,
       "stopsRemaining": 5
@@ -521,15 +521,15 @@
       "driverPhone": "+91 98861 88345",
       "ward": "Ward 14 - Koramangala",
       "currentLocation": {
-        "lat": 12.928797602419012,
-        "lng": 77.62146189821189
+        "lat": 12.925326193659831,
+        "lng": 77.61854634388298
       },
       "currentStreet": "80 Feet Road, 4th Block",
       "speedKmH": 22,
       "status": "in_transit",
-      "routeProgress": 51,
-      "distanceFromUserMeters": 95,
-      "estimatedArrivalMinutes": 1,
+      "routeProgress": 94,
+      "distanceFromUserMeters": 320,
+      "estimatedArrivalMinutes": 4,
       "capacityPercent": 88,
       "stopsRemaining": 2
     }

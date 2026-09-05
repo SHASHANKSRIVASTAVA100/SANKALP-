@@ -1,5 +1,5 @@
-// Service Worker for Swachhta Sangam (SIH 2026) PWA
-const CACHE_NAME = 'swachhta-sangam-v2';
+// Service Worker for Swachhta Sangam (AICTE PS-26195) PWA
+const CACHE_NAME = 'swachhta-sangam-v3-ps26195';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

@@ -44,9 +44,9 @@ export const CitizenDashboard = () => {
   const awaitingCount = filteredComplaints.filter(c => c.status === 'awaiting_verification').length;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-6 w-full max-w-full overflow-hidden">
       {/* Citizen Hero Header */}
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-950 border border-emerald-500/30 p-6 md:p-8 shadow-2xl">
+      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-950 border border-emerald-500/30 p-4 sm:p-6 md:p-8 shadow-2xl">
         <div className="relative z-10 flex flex-wrap items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
@@ -180,9 +180,9 @@ export const CitizenDashboard = () => {
 
       {/* Awaiting Verification Banner Alert (if any complaint needs confirmation) */}
       {awaitingCount > 0 && (
-        <div className="bg-gradient-to-r from-amber-950/80 via-slate-900 to-slate-950 border-2 border-amber-500/50 rounded-2xl p-4 flex items-center justify-between shadow-xl">
+        <div className="bg-gradient-to-r from-amber-950/80 via-slate-900 to-slate-950 border-2 border-amber-500/50 rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xl">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
               <FileCheck className="w-5 h-5 animate-pulse" />
             </div>
             <div>
@@ -199,7 +199,7 @@ export const CitizenDashboard = () => {
               const item = filteredComplaints.find(c => c.status === 'awaiting_verification');
               if (item) setSelectedComplaint(item);
             }}
-            className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-all shadow cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-all shadow cursor-pointer self-stretch sm:self-auto text-center"
           >
             {t('reviewEvidenceNow')}
           </button>

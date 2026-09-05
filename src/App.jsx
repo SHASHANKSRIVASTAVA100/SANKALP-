@@ -32,12 +32,12 @@ const AppContent = () => {
   const userRole = currentUser.role;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-white relative">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-white relative w-full max-w-full overflow-x-hidden">
       {/* Top Header customized to current authenticated user */}
       <Header />
 
       {/* Main Content: Edge-to-Edge Responsive Layout on Mobile and Desktop */}
-      <main className="flex-1 pb-28 md:pb-12 px-3 sm:px-6 max-w-7xl mx-auto w-full">
+      <main className="flex-1 pb-28 md:pb-12 px-2.5 sm:px-6 max-w-7xl mx-auto w-full max-w-full overflow-x-hidden">
         {userRole === 'citizen' && <CitizenDashboard />}
         {userRole === 'worker' && <WorkerDashboard />}
         {userRole === 'supervisor' && <SupervisorDashboard />}

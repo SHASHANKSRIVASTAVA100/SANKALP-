@@ -98,7 +98,7 @@ export const InstallAppModal = ({ isOpen, onClose }) => {
               <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30 uppercase">
                 Official PWA App
               </span>
-              <span className="text-[11px] text-slate-400 font-mono">SIH 2026</span>
+              <span className="text-[11px] text-slate-400 font-mono">AICTE PS-26195</span>
             </div>
             <h3 className="text-xl font-black text-white tracking-tight mt-0.5">
               Install Swachhta Sangam App

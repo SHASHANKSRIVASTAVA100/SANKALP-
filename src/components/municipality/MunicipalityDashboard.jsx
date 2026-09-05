@@ -272,7 +272,7 @@ export const MunicipalityDashboard = () => {
             </button>
             <div className="px-3.5 py-2 rounded-xl bg-purple-900/40 border border-purple-500/40 text-purple-200 text-xs font-mono font-bold flex items-center gap-1.5">
               <Calendar className="w-4 h-4 text-purple-400" />
-              <span>Today • SIH 2026</span>
+              <span>Today • MoSJE Portal</span>
             </div>
           </div>
         </div>
@@ -736,13 +736,13 @@ export const MunicipalityDashboard = () => {
           </div>
 
           {/* Ward-Wise Collection & Segregation Heat Table */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl">
             <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
               <Layers className="w-4 h-4 text-purple-400" />
               Zonal Ward-Wise Collection & Segregation Audit
             </h3>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-300">
+            <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+              <table className="min-w-[680px] w-full text-left text-xs text-slate-300">
                 <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-800">
                   <tr>
                     <th className="px-4 py-3">Ward Jurisdiction</th>
@@ -967,7 +967,7 @@ export const MunicipalityDashboard = () => {
           </div>
 
           {/* Cryptographic Weighbridge Audit Ledger */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
               <div>
                 <h3 className="text-base font-bold text-white flex items-center gap-2">
@@ -983,8 +983,8 @@ export const MunicipalityDashboard = () => {
               </span>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-300">
+            <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+              <table className="min-w-[680px] w-full text-left text-xs text-slate-300">
                 <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-800">
                   <tr>
                     <th className="px-4 py-3">Batch ID</th>
@@ -1243,8 +1243,8 @@ export const MunicipalityDashboard = () => {
           )}
 
           {/* Vehicle Records Ledger Table */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-            <div className="flex items-center justify-between mb-4">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <FileText className="w-4 h-4 text-purple-400" />
                 Official Municipal Vehicle Registry & Regulatory Compliance Ledger
@@ -1254,8 +1254,8 @@ export const MunicipalityDashboard = () => {
               </span>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-300">
+            <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+              <table className="min-w-[760px] w-full text-left text-xs text-slate-300">
                 <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-800">
                   <tr>
                     <th className="px-4 py-3">Plate Registration</th>

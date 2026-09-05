@@ -407,33 +407,34 @@ export const GoogleMapContainer = ({
           )}
 
           {/* Status Overlay Note */}
-          <div className="absolute top-3 left-3 bg-slate-900/90 border border-slate-700/80 rounded-xl px-2.5 py-1.5 text-[10px] font-mono text-slate-300 flex items-center gap-2 shadow-lg backdrop-blur-sm z-30">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>GOOGLE MAPS GIS ENGINE: <strong className="text-cyan-300">ACTIVE</strong></span>
+          <div className="absolute top-2.5 left-2.5 bg-slate-900/90 border border-slate-700/80 rounded-xl px-2 py-1 text-[9px] sm:text-[10px] font-mono text-slate-300 flex items-center gap-1.5 shadow-lg backdrop-blur-sm z-30 pointer-events-none">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+            <span><span className="hidden md:inline">GOOGLE MAPS </span>GIS: <strong className="text-cyan-300">ACTIVE</strong></span>
           </div>
         </div>
       )}
 
       {/* Top Action Toolbar */}
       {showControls && (
-        <div className="absolute top-3 right-3 flex items-center gap-1.5 z-30">
+        <div className="absolute top-2.5 right-2.5 flex items-center gap-1 z-30">
           {/* Map Style Selector */}
-          <div className="bg-slate-900/90 border border-slate-700/80 rounded-xl p-1 flex items-center gap-1 shadow-lg backdrop-blur-sm text-xs">
+          <div className="bg-slate-900/90 border border-slate-700/80 rounded-xl p-0.5 sm:p-1 flex items-center gap-0.5 shadow-lg backdrop-blur-sm text-xs">
             <button
               onClick={() => setMapType('dark')}
-              className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all cursor-pointer ${
+              className={`px-2 py-1 rounded-lg text-[9px] sm:text-[10px] font-bold transition-all cursor-pointer ${
                 mapType === 'dark' ? 'bg-cyan-500 text-slate-950 shadow' : 'text-slate-300 hover:text-white'
               }`}
             >
-              Tactical Dark
+              <span className="hidden sm:inline">Tactical </span>Dark
             </button>
             <button
               onClick={() => setMapType('satellite')}
-              className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all cursor-pointer ${
+              className={`px-2 py-1 rounded-lg text-[9px] sm:text-[10px] font-bold transition-all cursor-pointer ${
                 mapType === 'satellite' ? 'bg-cyan-500 text-slate-950 shadow' : 'text-slate-300 hover:text-white'
               }`}
             >
-              Satellite
+              <span className="hidden sm:inline">Satellite</span>
+              <span className="sm:hidden">Sat</span>
             </button>
           </div>
 
@@ -441,7 +442,7 @@ export const GoogleMapContainer = ({
           {showTrafficOption && (
             <button
               onClick={() => setTrafficActive(!trafficActive)}
-              className={`px-2.5 py-1.5 rounded-xl border text-[10px] font-bold shadow-lg transition-all backdrop-blur-sm cursor-pointer ${
+              className={`px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl border text-[9px] sm:text-[10px] font-bold shadow-lg transition-all backdrop-blur-sm cursor-pointer ${
                 trafficActive
                   ? 'bg-amber-500/20 text-amber-300 border-amber-500/50'
                   : 'bg-slate-900/90 text-slate-300 border-slate-700/80 hover:text-white'
@@ -452,10 +453,10 @@ export const GoogleMapContainer = ({
             </button>
           )}
 
-          {/* API Key Modal Button */}
+          {/* API Key Modal Button - hidden on tiny mobile, accessible via sm or desktop */}
           <button
             onClick={() => setIsKeyModalOpen(true)}
-            className="p-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-cyan-300 border border-slate-700/80 shadow-lg backdrop-blur-sm transition-all cursor-pointer"
+            className="hidden sm:flex p-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-cyan-300 border border-slate-700/80 shadow-lg backdrop-blur-sm transition-all cursor-pointer"
             title="Configure Google Maps API Key"
           >
             <Key className="w-3.5 h-3.5" />
@@ -464,7 +465,7 @@ export const GoogleMapContainer = ({
           {/* Open in Google Maps External */}
           <button
             onClick={openGoogleMapsExternal}
-            className="p-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-emerald-400 border border-slate-700/80 shadow-lg backdrop-blur-sm transition-all cursor-pointer"
+            className="p-1 sm:p-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-emerald-400 border border-slate-700/80 shadow-lg backdrop-blur-sm transition-all cursor-pointer"
             title="Open in Google Maps App"
           >
             <ExternalLink className="w-3.5 h-3.5" />

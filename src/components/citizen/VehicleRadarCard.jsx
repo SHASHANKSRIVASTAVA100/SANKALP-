@@ -45,29 +45,29 @@ export const VehicleRadarCard = () => {
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 sm:p-5 shadow-xl space-y-4 w-full max-w-full overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0">
             <Truck className="w-5 h-5" />
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="font-bold text-sm text-white">{t('vehicleRadarTitle')}</h3>
-              <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-mono px-2 py-0.5 rounded-full border border-emerald-500/30 flex items-center gap-1">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="font-bold text-sm text-white truncate">{t('vehicleRadarTitle')}</h3>
+              <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-mono px-2 py-0.5 rounded-full border border-emerald-500/30 flex items-center gap-1 shrink-0">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 {t('liveSatellite')}
               </span>
             </div>
-            <p className="text-xs text-slate-400">{t('vehicleRadarDesc')}</p>
+            <p className="text-xs text-slate-400 truncate">{t('vehicleRadarDesc')}</p>
           </div>
         </div>
 
         {/* Chime Bell Trigger */}
         <button
           onClick={handleTestChime}
-          className="flex items-center gap-1.5 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-600/50 text-emerald-300 text-xs font-semibold px-3 py-1.5 rounded-xl shadow-lg transition-all cursor-pointer"
+          className="flex items-center gap-1.5 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-600/50 text-emerald-300 text-xs font-semibold px-3 py-1.5 rounded-xl shadow-lg transition-all cursor-pointer shrink-0 self-start sm:self-auto"
         >
           <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
           <span>{t('simulateArrivalBell')}</span>
@@ -75,30 +75,30 @@ export const VehicleRadarCard = () => {
       </div>
 
       {/* Proximity Banner */}
-      <div className="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-slate-950 border border-emerald-500/30 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="relative flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-mono font-bold text-sm">
+      <div className="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-slate-950 border border-emerald-500/30 rounded-xl p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full max-w-full overflow-hidden">
+        <div className="flex items-center gap-3 min-w-0 w-full sm:w-auto">
+          <div className="relative shrink-0 flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-mono font-bold text-xs sm:text-sm">
             <span className="animate-ping absolute inset-0 rounded-full bg-emerald-400/20"></span>
             {distance}m
           </div>
-          <div>
-            <div className="text-xs text-slate-400">{t('proximityToDoorstep')}:</div>
-            <div className="text-sm font-bold text-white flex items-center gap-2">
-              <span>{activeVehicle.registrationNo}</span>
-              <span className="text-emerald-400 font-normal text-xs">({activeVehicle.type})</span>
+          <div className="min-w-0 flex-1">
+            <div className="text-[11px] sm:text-xs text-slate-400 truncate">{t('proximityToDoorstep')}:</div>
+            <div className="text-xs sm:text-sm font-bold text-white flex flex-wrap items-center gap-1.5">
+              <span className="truncate">{activeVehicle.registrationNo}</span>
+              <span className="text-emerald-400 font-normal text-[11px] sm:text-xs truncate">({activeVehicle.type})</span>
             </div>
-            <div className="text-xs text-emerald-300 flex items-center gap-1 mt-0.5">
-              <Clock className="w-3 h-3" />
-              {t('estArrival')}: <strong className="font-bold">~{eta} Minutes</strong>
+            <div className="text-[11px] sm:text-xs text-emerald-300 flex items-center gap-1 mt-0.5">
+              <Clock className="w-3 h-3 shrink-0" />
+              <span>{t('estArrival')}: <strong className="font-bold">~{eta} Min</strong></span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700">
+        <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+          <span className="text-[10px] sm:text-[11px] bg-slate-800 text-slate-300 px-2 py-1 rounded-lg border border-slate-700 whitespace-nowrap">
             {t('speed')}: <strong className="text-white font-mono">{activeVehicle.speedKmH} km/h</strong>
           </span>
-          <span className="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700">
+          <span className="text-[10px] sm:text-[11px] bg-slate-800 text-slate-300 px-2 py-1 rounded-lg border border-slate-700 whitespace-nowrap">
             {t('routeDone')}: <strong className="text-emerald-400 font-mono">{activeVehicle.routeProgress}%</strong>
           </span>
         </div>
@@ -151,19 +151,19 @@ export const VehicleRadarCard = () => {
       {/* Driver Card & Route Steps */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-xs">
         {/* Driver Contact */}
-        <div className="bg-slate-950/60 border border-slate-800 rounded-xl p-3 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center font-bold text-slate-200">
+        <div className="bg-slate-950/60 border border-slate-800 rounded-xl p-3 flex items-center justify-between gap-2 min-w-0">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center font-bold text-slate-200 shrink-0">
               SG
             </div>
-            <div>
-              <div className="font-semibold text-white">{activeVehicle.driverName}</div>
-              <div className="text-[11px] text-slate-400">Primary Ward Driver</div>
+            <div className="min-w-0">
+              <div className="font-semibold text-white truncate">{activeVehicle.driverName}</div>
+              <div className="text-[11px] text-slate-400 truncate">Primary Ward Driver</div>
             </div>
           </div>
           <a
             href={`tel:${activeVehicle.driverPhone}`}
-            className="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 px-2.5 py-1 rounded-lg text-xs"
+            className="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 px-2.5 py-1 rounded-lg text-xs shrink-0 whitespace-nowrap"
           >
             <Phone className="w-3 h-3" />
             <span>{t('callDriver')}</span>
@@ -171,12 +171,12 @@ export const VehicleRadarCard = () => {
         </div>
 
         {/* Current Street Status */}
-        <div className="bg-slate-950/60 border border-slate-800 rounded-xl p-3 flex items-center justify-between">
-          <div>
+        <div className="bg-slate-950/60 border border-slate-800 rounded-xl p-3 flex items-center justify-between gap-2 min-w-0">
+          <div className="min-w-0">
             <div className="text-[11px] text-slate-400">{t('currentStreet')}</div>
-            <div className="font-medium text-white truncate max-w-[220px]">{activeVehicle.currentStreet}</div>
+            <div className="font-medium text-white truncate">{activeVehicle.currentStreet}</div>
           </div>
-          <span className="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800 px-2 py-0.5 rounded font-mono">
+          <span className="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800 px-2 py-0.5 rounded font-mono shrink-0 whitespace-nowrap">
             {activeVehicle.stopsRemaining} {t('stopsLeft')}
           </span>
         </div>
