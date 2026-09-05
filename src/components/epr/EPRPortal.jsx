@@ -23,7 +23,8 @@ import {
   ChevronUp,
   Factory,
   Truck,
-  Recycle
+  Recycle,
+  Scale
 } from 'lucide-react';
 
 export const EPRPortal = () => {
