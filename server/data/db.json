@@ -69,7 +69,7 @@
         "slaHours": 4,
         "recommendedAction": "Desilting Crew with High-Pressure Jetting Vehicle"
       },
-      "beforeImage": "blob:http://localhost:5173/e5f09068-6a5b-4df5-8bab-97f966b3abfe",
+      "beforeImage": "https://images.unsplash.com/photo-1590496793929-36417d3117de?auto=format&fit=crop&w=800&q=80",
       "afterImage": null,
       "reportedBy": {
         "name": "Aarav Sharma (Citizen)",
@@ -204,7 +204,7 @@
         "slaHours": 4,
         "recommendedAction": "Dispatch Tipper Truck with 2 Sanitary Workers & Disinfectant Spray"
       },
-      "beforeImage": "blob:http://localhost:5173/69cb4549-c163-4c35-8c89-08e728f6a784",
+      "beforeImage": "https://images.unsplash.com/photo-1526951521990-620dc14c214b?auto=format&fit=crop&w=800&q=80",
       "afterImage": null,
       "reportedBy": {
         "name": "Aarav Sharma (Citizen)",
@@ -249,7 +249,7 @@
         "slaHours": 4,
         "recommendedAction": "Dispatch Tipper Truck with 2 Sanitary Workers & Disinfectant Spray"
       },
-      "beforeImage": "blob:http://localhost:5173/40a70b30-8680-4cf6-b5fc-9dc51536d087",
+      "beforeImage": "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80",
       "afterImage": null,
       "reportedBy": {
         "name": "Aarav Sharma (Citizen)",
@@ -293,16 +293,16 @@
         "recommendedAction": "Dispatch Tipper Truck with 2 Sanitary Workers & Disinfectant Spray"
       },
       "beforeImage": "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80",
-      "afterImage": "blob:http://localhost:5173/1d05d3cf-9004-4a05-b9f6-256f69c1ba38",
+      "afterImage": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80",
       "reportedBy": {
         "name": "Aakash Mehta",
         "phone": "+91 98450 12345",
         "isCitizenVerified": false,
         "citizenRating": null
       },
-      "assignedWorkerId": "WRK-01",
-      "assignedWorkerName": "Ramesh Kumar",
-      "assignedTeam": "Zone 12 Alpha Crew",
+      "assignedWorkerId": "WRK-02",
+      "assignedWorkerName": "Vikram Singh",
+      "assignedTeam": "Rapid Response Unit",
       "collectedWeightKg": 15,
       "mrfDestination": "Municipal MRF Unit #12 - Indiranagar",
       "supervisorNotes": "Ground sanitary inspector dispatched for manual audit.",
@@ -386,9 +386,9 @@
         "isCitizenVerified": false,
         "citizenRating": null
       },
-      "assignedWorkerId": "WRK-03",
-      "assignedWorkerName": "Sunita Devi",
-      "assignedTeam": "Drainage & Desilting Squad",
+      "assignedWorkerId": "WRK-02",
+      "assignedWorkerName": "Vikram Singh",
+      "assignedTeam": "Rapid Response Unit",
       "collectedWeightKg": null,
       "mrfDestination": null,
       "supervisorNotes": null,
@@ -469,7 +469,7 @@
       "reviewsCount": 98,
       "attendance": "punched_in",
       "punchInTime": "08:00 AM",
-      "activeTasksCount": 1,
+      "activeTasksCount": 3,
       "completedToday": 2,
       "totalKgClearedToday": 240,
       "earningsToday": 850
@@ -501,15 +501,15 @@
       "driverPhone": "+91 94480 77121",
       "ward": "Ward 12 - Indiranagar",
       "currentLocation": {
-        "lat": 12.956158632034171,
-        "lng": 77.6299652112472
+        "lat": 12.958149556011278,
+        "lng": 77.62731080908821
       },
       "currentStreet": "Near 12th Main Road, 80 Feet Road Junction",
       "speedKmH": 18,
       "status": "collecting",
-      "routeProgress": 90,
-      "distanceFromUserMeters": 260,
-      "estimatedArrivalMinutes": 3,
+      "routeProgress": 33,
+      "distanceFromUserMeters": 185,
+      "estimatedArrivalMinutes": 2,
       "capacityPercent": 74,
       "stopsRemaining": 5
     },
@@ -521,15 +521,15 @@
       "driverPhone": "+91 98861 88345",
       "ward": "Ward 14 - Koramangala",
       "currentLocation": {
-        "lat": 12.924628963532152,
-        "lng": 77.62026218695796
+        "lat": 12.922731974755855,
+        "lng": 77.61852190186141
       },
       "currentStreet": "80 Feet Road, 4th Block",
       "speedKmH": 22,
       "status": "in_transit",
-      "routeProgress": 23,
-      "distanceFromUserMeters": 95,
-      "estimatedArrivalMinutes": 1,
+      "routeProgress": 50,
+      "distanceFromUserMeters": 275,
+      "estimatedArrivalMinutes": 3,
       "capacityPercent": 88,
       "stopsRemaining": 2
     }

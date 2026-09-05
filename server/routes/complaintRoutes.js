@@ -52,7 +52,10 @@ router.post('/report', upload.single('photo'), (req, res) => {
   const { title, description, ward, locationName, customImageUrl, coordinates, aiAnalysis, priority, slaHours } = req.body;
   const db = getDB();
 
-  let beforeImage = customImageUrl || req.body.beforeImage || "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80";
+  let beforeImage = customImageUrl || req.body.beforeImage || "https://images.unsplash.com/photo-1526951521990-620dc14c214b?auto=format&fit=crop&w=800&q=80";
+  if (!beforeImage || typeof beforeImage !== 'string' || beforeImage.startsWith('blob:')) {
+    beforeImage = "https://images.unsplash.com/photo-1526951521990-620dc14c214b?auto=format&fit=crop&w=800&q=80";
+  }
   if (req.file) {
     beforeImage = `/uploads/${req.file.filename}`;
   }
@@ -158,6 +161,9 @@ router.post('/:id/evidence', upload.single('afterPhoto'), (req, res) => {
   const db = getDB();
 
   let afterImage = afterImageUrl || "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80";
+  if (!afterImage || typeof afterImage !== 'string' || afterImage.startsWith('blob:')) {
+    afterImage = "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80";
+  }
   if (req.file) {
     afterImage = `/uploads/${req.file.filename}`;
   }

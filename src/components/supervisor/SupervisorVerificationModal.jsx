@@ -13,6 +13,12 @@ import {
   Send,
   Eye
 } from 'lucide-react';
+import {
+  getValidPhotoUrl,
+  handleImageError,
+  REAL_WASTE_FALLBACK,
+  REAL_CLEAN_FALLBACK
+} from '../../utils/photoUtils';
 
 export const SupervisorVerificationModal = ({ complaint, isOpen, onClose }) => {
   const { supervisorAction } = useApp();
@@ -82,7 +88,12 @@ export const SupervisorVerificationModal = ({ complaint, isOpen, onClose }) => {
                 </span>
               </div>
               <div className="relative rounded-xl overflow-hidden border border-rose-900/40 aspect-[4/3] bg-slate-950">
-                <img src={complaint.beforeImage} alt="Before" className="w-full h-full object-cover" />
+                <img
+                  src={getValidPhotoUrl(complaint.beforeImage, REAL_WASTE_FALLBACK)}
+                  alt="Before"
+                  onError={(e) => handleImageError(e, REAL_WASTE_FALLBACK)}
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute bottom-2 left-2 bg-slate-950/90 text-white text-[10px] px-2 py-0.5 rounded font-mono">
                   Reported by: {complaint.reportedBy?.name}
                 </div>
@@ -102,7 +113,12 @@ export const SupervisorVerificationModal = ({ complaint, isOpen, onClose }) => {
               </div>
               <div className="relative rounded-xl overflow-hidden border border-emerald-900/40 aspect-[4/3] bg-slate-950 flex items-center justify-center">
                 {complaint.afterImage ? (
-                  <img src={complaint.afterImage} alt="After" className="w-full h-full object-cover" />
+                  <img
+                    src={getValidPhotoUrl(complaint.afterImage, REAL_CLEAN_FALLBACK)}
+                    alt="After"
+                    onError={(e) => handleImageError(e, REAL_CLEAN_FALLBACK)}
+                    className="w-full h-full object-cover"
+                  />
                 ) : (
                   <div className="text-center p-6 text-slate-500 text-xs">
                     Evidence not yet submitted by worker

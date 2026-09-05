@@ -22,6 +22,12 @@ import {
 } from 'lucide-react';
 import { GoogleMapContainer } from '../common/GoogleMapContainer';
 import { classifyWaste, WASTE_CATEGORIES } from '../../services/aiWasteClassifier';
+import {
+  compressImageFile,
+  getValidPhotoUrl,
+  handleImageError,
+  REAL_WASTE_FALLBACK
+} from '../../utils/photoUtils';
 
 export const ReportComplaintModal = ({ isOpen, onClose }) => {
   const { addComplaint, wardFilter, playChime } = useApp();
@@ -149,14 +155,18 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
     }, 750);
   };
 
-  // Handle custom image file upload
-  const handleCustomFileUpload = (e) => {
+  // Handle custom image file upload with client-side compression to Base64
+  const handleCustomFileUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      const url = URL.createObjectURL(file);
-      setCustomImage(url);
-      setTitle(`Citizen Report: ${file.name.replace(/\.[^/.]+$/, "")}`);
-      triggerAiInference(null, `Citizen Report: ${file.name}`, description, file.name);
+      try {
+        const base64Url = await compressImageFile(file);
+        setCustomImage(base64Url);
+        setTitle(`Citizen Report: ${file.name.replace(/\.[^/.]+$/, "")}`);
+        triggerAiInference(null, `Citizen Report: ${file.name}`, description, file.name);
+      } catch (err) {
+        console.error("Error processing photo:", err);
+      }
     }
   };
 
@@ -260,8 +270,9 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
             {/* Main Image Display with Scanning HUD Overlay */}
             <div className="relative rounded-2xl overflow-hidden border border-slate-700 bg-slate-950 aspect-[4/3] flex items-center justify-center group shadow-2xl">
               <img
-                src={currentImage}
+                src={getValidPhotoUrl(currentImage, REAL_WASTE_FALLBACK)}
                 alt="Waste Preview"
+                onError={(e) => handleImageError(e, REAL_WASTE_FALLBACK)}
                 className="w-full h-full object-cover"
               />
 

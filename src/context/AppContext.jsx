@@ -13,6 +13,12 @@ import {
 } from '../data/mockData';
 import { TRANSLATIONS } from '../i18n/translations';
 import { apiClient } from '../services/api';
+import {
+  sanitizeComplaints,
+  getValidPhotoUrl,
+  REAL_WASTE_FALLBACK,
+  REAL_CLEAN_FALLBACK
+} from '../utils/photoUtils';
 
 const AppContext = createContext();
 
@@ -60,7 +66,8 @@ export const AppProvider = ({ children }) => {
     } catch (e) {}
 
     const saved = localStorage.getItem('swachhta_sangam_complaints_v5');
-    return saved ? JSON.parse(saved) : INITIAL_COMPLAINTS;
+    const parsed = saved ? JSON.parse(saved) : INITIAL_COMPLAINTS;
+    return sanitizeComplaints(parsed);
   });
 
   // Workers State
@@ -142,7 +149,7 @@ export const AppProvider = ({ children }) => {
           apiClient.fleet.getAll().catch(() => null)
         ]);
         if (backendComplaints && backendComplaints.length > 0) {
-          setComplaints(backendComplaints);
+          setComplaints(sanitizeComplaints(backendComplaints));
         }
         if (backendWorkers && backendWorkers.length > 0) {
           setWorkers(backendWorkers);
@@ -277,9 +284,11 @@ export const AppProvider = ({ children }) => {
   const addComplaint = async (complaintData) => {
     const uniqueSuffix = Math.floor(200 + Math.random() * 800);
     const newId = `CMP-2026-${uniqueSuffix}`;
+    const sanitizedBeforeImage = getValidPhotoUrl(complaintData.beforeImage, REAL_WASTE_FALLBACK);
     const newRecord = {
       id: newId,
       ...complaintData,
+      beforeImage: sanitizedBeforeImage,
       reportedAt: new Date().toISOString(),
       status: "pending",
       assignedWorkerId: null,
@@ -297,7 +306,7 @@ export const AppProvider = ({ children }) => {
     addNotification("Complaint Registered", `Ticket ${newId} logged with AI analysis. Dispatched to Ward Control Room.`, "info");
 
     // Async sync with backend
-    apiClient.complaints.report({ ...complaintData, customImageUrl: complaintData.beforeImage });
+    apiClient.complaints.report({ ...complaintData, customImageUrl: sanitizedBeforeImage });
     return newRecord;
   };
 
@@ -330,7 +339,7 @@ export const AppProvider = ({ children }) => {
 
   // Worker: Upload Evidence with Backend API Sync
   const uploadEvidence = (complaintId, afterImage, weightKg, mrfDestination) => {
-    const verifiedCleanPhoto = afterImage || "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80";
+    const verifiedCleanPhoto = getValidPhotoUrl(afterImage, REAL_CLEAN_FALLBACK);
 
     setComplaints(prev => prev.map(c => {
       if (c.id === complaintId) {

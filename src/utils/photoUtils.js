@@ -1,4 +1,92 @@
-// Utility for robust photo handling, fallback SVG placeholders, and cross-platform image downloads
+// Utility for robust photo handling, real documentary photography fallbacks, and cross-platform image downloads
+
+// Authentic Documentary Photography Fallbacks (100% genuine street waste & clean curb photos, NO AI GENERATIONS)
+export const REAL_WASTE_FALLBACK = "https://images.unsplash.com/photo-1526951521990-620dc14c214b?auto=format&fit=crop&w=800&q=80"; // Street plastic bottles & garbage
+export const REAL_CLEAN_FALLBACK = "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80"; // Spotless clean paved road & curb
+export const REAL_DRAIN_FALLBACK = "https://images.unsplash.com/photo-1590496793929-36417d3117de?auto=format&fit=crop&w=800&q=80"; // Desilted municipal drain
+export const REAL_ORGANIC_FALLBACK = "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80"; // Mandi compostable green waste
+
+/**
+ * Returns a valid, loadable photo URL, replacing dead blob: URLs, nulls, or empty strings with real documentary photos
+ */
+export const getValidPhotoUrl = (url, fallback = REAL_WASTE_FALLBACK) => {
+  if (!url || typeof url !== 'string') return fallback;
+  const trimmed = url.trim();
+  if (!trimmed || trimmed.startsWith('blob:') || trimmed === 'null' || trimmed === 'undefined') {
+    return fallback;
+  }
+  return trimmed;
+};
+
+/**
+ * Handles image load errors gracefully by switching to authentic photography fallback
+ */
+export const handleImageError = (event, fallback = REAL_WASTE_FALLBACK) => {
+  if (event && event.currentTarget) {
+    event.currentTarget.onerror = null; // Prevent infinite loop
+    event.currentTarget.src = fallback;
+  }
+};
+
+/**
+ * Compresses an image client-side to a lightweight Base64 string (~50KB).
+ * Eliminates blob: URLs and prevents localStorage quota exceeded errors on mobile.
+ */
+export const compressImageFile = (file, maxWidth = 800, maxHeight = 800, quality = 0.75) => {
+  return new Promise((resolve) => {
+    if (!file) {
+      resolve(REAL_WASTE_FALLBACK);
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        try {
+          let { width, height } = img;
+          if (width > maxWidth || height > maxHeight) {
+            if (width > height) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            } else {
+              width = Math.round((width * maxHeight) / height);
+              height = maxHeight;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/jpeg', quality);
+          resolve(dataUrl);
+        } catch (err) {
+          resolve(e.target.result || REAL_WASTE_FALLBACK);
+        }
+      };
+      img.onerror = () => resolve(REAL_WASTE_FALLBACK);
+      img.src = e.target.result;
+    };
+    reader.onerror = () => resolve(REAL_WASTE_FALLBACK);
+    reader.readAsDataURL(file);
+  });
+};
+
+/**
+ * Sanitizes an array of complaints so that all dead blob: URLs are replaced with real documentary photos
+ */
+export const sanitizeComplaints = (complaintsList) => {
+  if (!Array.isArray(complaintsList)) return [];
+  return complaintsList.map((c) => {
+    const beforeImage = getValidPhotoUrl(c.beforeImage, REAL_WASTE_FALLBACK);
+    const afterImage = c.afterImage ? getValidPhotoUrl(c.afterImage, REAL_CLEAN_FALLBACK) : null;
+    return {
+      ...c,
+      beforeImage,
+      afterImage
+    };
+  });
+};
 
 // Clean high-contrast SVG fallback for garbage/waste reporting photos
 export const FALLBACK_WASTE_IMAGE = `data:image/svg+xml;utf8,${encodeURIComponent(`

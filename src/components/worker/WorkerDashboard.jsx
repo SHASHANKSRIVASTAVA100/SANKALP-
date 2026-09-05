@@ -23,6 +23,12 @@ import {
   ShieldCheck,
   Star
 } from 'lucide-react';
+import {
+  getValidPhotoUrl,
+  handleImageError,
+  REAL_WASTE_FALLBACK,
+  REAL_CLEAN_FALLBACK
+} from '../../utils/photoUtils';
 
 export const WorkerDashboard = () => {
   const {
@@ -437,7 +443,12 @@ export const WorkerDashboard = () => {
                   {/* Location & Photo */}
                   <div className="grid grid-cols-12 gap-3 items-center">
                     <div className="col-span-4 relative rounded-xl overflow-hidden aspect-video bg-slate-950 border border-slate-800">
-                      <img src={task.beforeImage} alt="Task" className="w-full h-full object-cover" />
+                      <img
+                        src={getValidPhotoUrl(task.beforeImage, REAL_WASTE_FALLBACK)}
+                        alt="Task"
+                        onError={(e) => handleImageError(e, REAL_WASTE_FALLBACK)}
+                        className="w-full h-full object-cover"
+                      />
                       <div className="absolute bottom-1 left-1 bg-slate-950/90 text-[9px] text-white px-1.5 py-0.2 rounded font-mono">
                         Citizen Photo
                       </div>
@@ -640,7 +651,12 @@ export const WorkerDashboard = () => {
               >
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-lg overflow-hidden bg-slate-900 border border-slate-700 shrink-0">
-                    <img src={c.afterImage || c.beforeImage} alt="Resolved" className="w-full h-full object-cover" />
+                    <img
+                      src={getValidPhotoUrl(c.afterImage || c.beforeImage, REAL_CLEAN_FALLBACK)}
+                      alt="Resolved"
+                      onError={(e) => handleImageError(e, REAL_CLEAN_FALLBACK)}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">

@@ -15,6 +15,16 @@ export const getDB = () => {
       if (fs.existsSync(DB_FILE)) {
         const raw = fs.readFileSync(DB_FILE, 'utf8');
         cachedDB = JSON.parse(raw);
+        if (cachedDB && Array.isArray(cachedDB.complaints)) {
+          cachedDB.complaints.forEach((c) => {
+            if (!c.beforeImage || typeof c.beforeImage !== 'string' || c.beforeImage.startsWith('blob:')) {
+              c.beforeImage = "https://images.unsplash.com/photo-1526951521990-620dc14c214b?auto=format&fit=crop&w=800&q=80";
+            }
+            if (c.afterImage && (typeof c.afterImage !== 'string' || c.afterImage.startsWith('blob:'))) {
+              c.afterImage = "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80";
+            }
+          });
+        }
       } else {
         cachedDB = {
           users: {},

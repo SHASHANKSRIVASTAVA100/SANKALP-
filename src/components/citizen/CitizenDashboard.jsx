@@ -22,6 +22,7 @@ import {
   ChevronRight,
   FileCheck
 } from 'lucide-react';
+import { getValidPhotoUrl, handleImageError, REAL_WASTE_FALLBACK } from '../../utils/photoUtils';
 
 export const CitizenDashboard = () => {
   const {
@@ -258,8 +259,9 @@ export const CitizenDashboard = () => {
                       {/* Photo Thumbnail */}
                       <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-slate-950 border border-slate-700 shrink-0">
                         <img
-                          src={c.beforeImage}
-                          alt="Thumbnail"
+                          src={getValidPhotoUrl(c.beforeImage, REAL_WASTE_FALLBACK)}
+                          alt={c.title || "Waste Report"}
+                          onError={(e) => handleImageError(e, REAL_WASTE_FALLBACK)}
                           className="w-full h-full object-cover"
                         />
                         {c.afterImage && (

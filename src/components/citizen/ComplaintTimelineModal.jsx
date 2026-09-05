@@ -13,6 +13,12 @@ import {
   ArrowRight,
   ShieldCheck
 } from 'lucide-react';
+import {
+  getValidPhotoUrl,
+  handleImageError,
+  REAL_WASTE_FALLBACK,
+  REAL_CLEAN_FALLBACK
+} from '../../utils/photoUtils';
 
 export const ComplaintTimelineModal = ({ complaint, onClose }) => {
   const { citizenConfirm, role } = useApp();
@@ -197,8 +203,9 @@ export const ComplaintTimelineModal = ({ complaint, onClose }) => {
                   </div>
                   <div className="relative rounded-xl overflow-hidden border border-rose-900/50 aspect-[4/3] bg-slate-950">
                     <img
-                      src={complaint.beforeImage}
+                      src={getValidPhotoUrl(complaint.beforeImage, REAL_WASTE_FALLBACK)}
                       alt="Before Cleanup"
+                      onError={(e) => handleImageError(e, REAL_WASTE_FALLBACK)}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute bottom-2 left-2 bg-slate-950/80 text-white text-[10px] px-2 py-0.5 rounded font-mono">
@@ -221,8 +228,9 @@ export const ComplaintTimelineModal = ({ complaint, onClose }) => {
                   <div className="relative rounded-xl overflow-hidden border border-emerald-900/50 aspect-[4/3] bg-slate-950 flex items-center justify-center">
                     {complaint.afterImage ? (
                       <img
-                        src={complaint.afterImage}
+                        src={getValidPhotoUrl(complaint.afterImage, REAL_CLEAN_FALLBACK)}
                         alt="After Cleanup"
+                        onError={(e) => handleImageError(e, REAL_CLEAN_FALLBACK)}
                         className="w-full h-full object-cover"
                       />
                     ) : (
@@ -243,8 +251,9 @@ export const ComplaintTimelineModal = ({ complaint, onClose }) => {
               /* Interactive Comparison Slider */
               <div className="relative rounded-xl overflow-hidden border border-slate-700 aspect-[16/9] bg-slate-950 select-none">
                 <img
-                  src={complaint.beforeImage}
+                  src={getValidPhotoUrl(complaint.beforeImage, REAL_WASTE_FALLBACK)}
                   alt="Before"
+                  onError={(e) => handleImageError(e, REAL_WASTE_FALLBACK)}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 {complaint.afterImage && (
@@ -253,8 +262,9 @@ export const ComplaintTimelineModal = ({ complaint, onClose }) => {
                     style={{ clipPath: `inset(0 0 0 ${sliderPosition}%)` }}
                   >
                     <img
-                      src={complaint.afterImage}
+                      src={getValidPhotoUrl(complaint.afterImage, REAL_CLEAN_FALLBACK)}
                       alt="After"
+                      onError={(e) => handleImageError(e, REAL_CLEAN_FALLBACK)}
                       className="w-full h-full object-cover"
                     />
                   </div>

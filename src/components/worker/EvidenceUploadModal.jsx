@@ -10,6 +10,13 @@ import {
   Send,
   Sparkles
 } from 'lucide-react';
+import {
+  compressImageFile,
+  getValidPhotoUrl,
+  handleImageError,
+  REAL_WASTE_FALLBACK,
+  REAL_CLEAN_FALLBACK
+} from '../../utils/photoUtils';
 
 export const EvidenceUploadModal = ({ complaint, isOpen, onClose }) => {
   const { uploadEvidence } = useApp();
@@ -38,10 +45,15 @@ export const EvidenceUploadModal = ({ complaint, isOpen, onClose }) => {
     "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80"
   ];
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setAfterImage(URL.createObjectURL(file));
+      try {
+        const base64 = await compressImageFile(file);
+        setAfterImage(base64);
+      } catch (err) {
+        console.error("Error processing evidence photo:", err);
+      }
     }
   };
 
@@ -88,8 +100,9 @@ export const EvidenceUploadModal = ({ complaint, isOpen, onClose }) => {
               </span>
               <div className="relative rounded-xl overflow-hidden border border-slate-700 aspect-[4/3] bg-slate-950">
                 <img
-                  src={complaint.beforeImage}
+                  src={getValidPhotoUrl(complaint.beforeImage, REAL_WASTE_FALLBACK)}
                   alt="Before"
+                  onError={(e) => handleImageError(e, REAL_WASTE_FALLBACK)}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -110,8 +123,9 @@ export const EvidenceUploadModal = ({ complaint, isOpen, onClose }) => {
 
               <div className="relative rounded-xl overflow-hidden border border-emerald-500/50 aspect-[4/3] bg-slate-950">
                 <img
-                  src={afterImage}
+                  src={getValidPhotoUrl(afterImage, REAL_CLEAN_FALLBACK)}
                   alt="After Cleaning"
+                  onError={(e) => handleImageError(e, REAL_CLEAN_FALLBACK)}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute bottom-2 left-2 bg-emerald-950/90 text-emerald-300 text-[10px] px-2 py-0.5 rounded font-mono border border-emerald-700">
