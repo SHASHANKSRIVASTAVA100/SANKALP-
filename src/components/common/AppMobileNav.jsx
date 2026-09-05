@@ -15,11 +15,12 @@ import {
   Flame,
   FileText,
   Recycle,
-  Factory
+  Factory,
+  LogOut
 } from 'lucide-react';
 
 export const AppMobileNav = () => {
-  const { currentUser, setActiveModal, playChime } = useApp();
+  const { currentUser, setActiveModal, playChime, logout } = useApp();
 
   if (!currentUser) return null;
 
@@ -46,14 +47,14 @@ export const AppMobileNav = () => {
   };
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 px-3 py-2 shadow-2xl safe-area-bottom">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 px-2 sm:px-3 py-2 shadow-2xl safe-area-bottom">
       <div className="max-w-md mx-auto flex items-center justify-around text-slate-400">
         {/* Citizen Mobile Navigation */}
         {role === 'citizen' && (
           <>
             <button
               onClick={() => handleAction('top')}
-              className="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl hover:text-emerald-400 transition-colors active:scale-95"
+              className="flex flex-col items-center gap-1 py-1 px-2 rounded-xl hover:text-emerald-400 transition-colors active:scale-95"
             >
               <Home className="w-5 h-5 text-emerald-400" />
               <span className="text-[10px] font-bold text-slate-200">Home</span>
@@ -61,35 +62,37 @@ export const AppMobileNav = () => {
 
             <button
               onClick={() => handleAction('radar')}
-              className="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl hover:text-emerald-400 transition-colors active:scale-95"
+              className="flex flex-col items-center gap-1 py-1 px-2 rounded-xl hover:text-emerald-400 transition-colors active:scale-95"
             >
               <Radio className="w-5 h-5 text-emerald-400" />
-              <span className="text-[10px] font-bold text-slate-200">GPS Radar</span>
+              <span className="text-[10px] font-bold text-slate-200">Radar</span>
             </button>
 
             {/* Prominent Center AI Camera Action */}
             <button
               onClick={() => handleAction('report')}
-              className="relative -top-4 w-12 h-12 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-xl shadow-emerald-600/40 border-2 border-slate-900 active:scale-90 transition-transform cursor-pointer"
+              className="relative -top-3.5 w-11 h-11 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-xl shadow-emerald-600/40 border-2 border-slate-900 active:scale-90 transition-transform cursor-pointer"
               title="Report Garbage Dump with AI Detection"
             >
-              <Camera className="w-6 h-6" />
+              <Camera className="w-5 h-5" />
             </button>
 
             <button
               onClick={() => handleAction('leaderboard')}
-              className="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl hover:text-emerald-400 transition-colors active:scale-95"
+              className="flex flex-col items-center gap-1 py-1 px-2 rounded-xl hover:text-emerald-400 transition-colors active:scale-95"
             >
               <Award className="w-5 h-5 text-emerald-400" />
               <span className="text-[10px] font-bold text-slate-200">Rewards</span>
             </button>
 
+            {/* Red Logout Button */}
             <button
-              onClick={() => handleAction('paid')}
-              className="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl hover:text-emerald-400 transition-colors active:scale-95"
+              onClick={logout}
+              className="flex flex-col items-center gap-1 py-1 px-2 rounded-xl text-rose-400 hover:text-rose-300 transition-colors active:scale-95"
+              title="Log Out"
             >
-              <CalendarCheck className="w-5 h-5 text-emerald-400" />
-              <span className="text-[10px] font-bold text-slate-200">Paid Pick</span>
+              <LogOut className="w-5 h-5 text-rose-400" />
+              <span className="text-[10px] font-bold text-rose-300">Logout</span>
             </button>
           </>
         )}
@@ -118,6 +121,13 @@ export const AppMobileNav = () => {
               <Layers className="w-5 h-5 text-amber-400" />
               <span className="text-[10px] font-bold text-slate-200">Proof</span>
             </button>
+            <button
+              onClick={logout}
+              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-rose-400 hover:text-rose-300 transition-colors active:scale-95"
+            >
+              <LogOut className="w-5 h-5 text-rose-400" />
+              <span className="text-[10px] font-bold text-rose-300">Logout</span>
+            </button>
           </>
         )}
 
@@ -129,7 +139,7 @@ export const AppMobileNav = () => {
               className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-cyan-400 font-bold"
             >
               <ShieldAlert className="w-5 h-5" />
-              <span className="text-[10px]">Grievances</span>
+              <span className="text-[10px]">Tickets</span>
             </button>
             <button
               onClick={() => window.scrollTo({ top: 600, behavior: 'smooth' })}
@@ -144,6 +154,13 @@ export const AppMobileNav = () => {
             >
               <Flame className="w-5 h-5 text-cyan-400" />
               <span className="text-[10px] font-bold text-slate-200">Hotspots</span>
+            </button>
+            <button
+              onClick={logout}
+              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-rose-400 hover:text-rose-300 transition-colors active:scale-95"
+            >
+              <LogOut className="w-5 h-5 text-rose-400" />
+              <span className="text-[10px] font-bold text-rose-300">Logout</span>
             </button>
           </>
         )}
@@ -170,7 +187,14 @@ export const AppMobileNav = () => {
               className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl hover:text-indigo-400 transition-colors"
             >
               <FileText className="w-5 h-5 text-indigo-400" />
-              <span className="text-[10px] font-bold text-slate-200">Certificates</span>
+              <span className="text-[10px] font-bold text-slate-200">Certs</span>
+            </button>
+            <button
+              onClick={logout}
+              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-rose-400 hover:text-rose-300 transition-colors active:scale-95"
+            >
+              <LogOut className="w-5 h-5 text-rose-400" />
+              <span className="text-[10px] font-bold text-rose-300">Logout</span>
             </button>
           </>
         )}
@@ -198,6 +222,13 @@ export const AppMobileNav = () => {
             >
               <Truck className="w-5 h-5 text-purple-400" />
               <span className="text-[10px] font-bold text-slate-200">Fleet</span>
+            </button>
+            <button
+              onClick={logout}
+              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-rose-400 hover:text-rose-300 transition-colors active:scale-95"
+            >
+              <LogOut className="w-5 h-5 text-rose-400" />
+              <span className="text-[10px] font-bold text-rose-300">Logout</span>
             </button>
           </>
         )}

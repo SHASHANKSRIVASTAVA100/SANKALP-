@@ -4,7 +4,6 @@ import {
   Truck,
   MapPin,
   Bell,
-  Volume2,
   Navigation,
   Phone,
   Clock,
@@ -15,7 +14,7 @@ import {
 import { GoogleMapContainer } from '../common/GoogleMapContainer';
 
 export const VehicleRadarCard = () => {
-  const { vehicles, playChime, addNotification, t } = useApp();
+  const { vehicles, t } = useApp();
 
   // Active Vehicle in Focus
   const [activeVehicle, setActiveVehicle] = useState(vehicles[0]);
@@ -34,15 +33,6 @@ export const VehicleRadarCard = () => {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
-
-  const handleTestChime = () => {
-    playChime('alert');
-    addNotification(
-      "Doorstep Vehicle Alert! 🔔",
-      `Truck ${activeVehicle.registrationNo} has entered your lane (12th Main Road). Please bring out segregated wet and dry bins!`,
-      "radar"
-    );
-  };
 
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 sm:p-5 shadow-xl space-y-4 w-full max-w-full overflow-hidden">
@@ -63,15 +53,6 @@ export const VehicleRadarCard = () => {
             <p className="text-xs text-slate-400 truncate">{t('vehicleRadarDesc')}</p>
           </div>
         </div>
-
-        {/* Chime Bell Trigger */}
-        <button
-          onClick={handleTestChime}
-          className="flex items-center gap-1.5 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-600/50 text-emerald-300 text-xs font-semibold px-3 py-1.5 rounded-xl shadow-lg transition-all cursor-pointer shrink-0 self-start sm:self-auto"
-        >
-          <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
-          <span>{t('simulateArrivalBell')}</span>
-        </button>
       </div>
 
       {/* Proximity Banner */}

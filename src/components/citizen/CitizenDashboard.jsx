@@ -173,7 +173,7 @@ export const CitizenDashboard = () => {
           <div>
             <span className="text-[10px] text-slate-400 font-medium block">3-Bin Accuracy</span>
             <span className="text-base font-black text-cyan-300 font-mono">92.8%</span>
-            <span className="text-[9px] text-cyan-400 font-bold block">MoSJE Citizen Standard</span>
+            <span className="text-[9px] text-cyan-400 font-bold block">AICTE Citizen Standard</span>
           </div>
         </div>
       </div>

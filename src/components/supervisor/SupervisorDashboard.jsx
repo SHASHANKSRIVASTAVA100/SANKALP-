@@ -56,9 +56,9 @@ export const SupervisorDashboard = () => {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-6 w-full max-w-full overflow-x-hidden">
       {/* Supervisor Command Hub Banner */}
-      <div className="bg-gradient-to-r from-cyan-950 via-slate-900 to-slate-950 border border-cyan-500/30 rounded-3xl p-6 shadow-2xl space-y-6">
+      <div className="bg-gradient-to-r from-cyan-950 via-slate-900 to-slate-950 border border-cyan-500/30 rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6 w-full max-w-full overflow-hidden">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
@@ -70,7 +70,7 @@ export const SupervisorDashboard = () => {
                 Jurisdiction: {wardFilter}
               </span>
             </div>
-            <h1 className="text-2xl font-black text-white mt-1">
+            <h1 className="text-xl sm:text-2xl font-black text-white mt-1">
               {t('supervisorTitle')}
             </h1>
             <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
@@ -86,7 +86,7 @@ export const SupervisorDashboard = () => {
         </div>
 
         {/* Top KPI Ribbon */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-4 border-t border-slate-800/80">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 pt-4 border-t border-slate-800/80">
           <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
             <span className="text-[11px] text-slate-400 block font-medium">{t('totalComplaints')}</span>
             <span className="text-xl font-bold text-white font-mono">{totalComplaints}</span>
@@ -100,28 +100,27 @@ export const SupervisorDashboard = () => {
             <span className="text-xl font-bold text-cyan-400 font-mono">{inProgressComplaints}</span>
           </div>
           <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
-            <span className="text-[11px] text-slate-400 block font-medium">{t('awaitingVerification')}</span>
-            <span className="text-xl font-bold text-emerald-400 font-mono">{awaitingVerificationComplaints}</span>
+            <span className="text-[11px] text-slate-400 block font-medium">{t('awaitingReviewTitle')}</span>
+            <span className="text-xl font-bold text-purple-400 font-mono">{awaitingVerificationComplaints}</span>
           </div>
           <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
             <span className="text-[11px] text-slate-400 block font-medium">{t('verifiedClean')}</span>
-            <span className="text-xl font-bold text-emerald-300 font-mono">{verifiedComplaints}</span>
+            <span className="text-xl font-bold text-emerald-400 font-mono">{verifiedComplaints}</span>
           </div>
-          <div className="bg-slate-950/70 p-3 rounded-xl border border-rose-900/40">
-            <span className="text-[11px] text-rose-400 block font-medium flex items-center gap-1">
-              <AlertTriangle className="w-3 h-3 text-rose-400" />
-              {t('slaOverdues')}
+          <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
+            <span className="text-[11px] text-slate-400 block font-medium">{t('slaBreaches')}</span>
+            <span className={`text-xl font-bold font-mono ${overdueComplaints > 0 ? 'text-rose-400 animate-pulse' : 'text-slate-400'}`}>
+              {overdueComplaints}
             </span>
-            <span className="text-xl font-bold text-rose-400 font-mono">{overdueComplaints}</span>
           </div>
         </div>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-slate-800 pb-2">
+      <div className="flex items-center gap-2 border-b border-slate-800 pb-2 overflow-x-auto -mx-2 px-2 sm:mx-0 sm:px-0 no-scrollbar">
         <button
           onClick={() => setActiveTab('complaints')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'complaints'
               ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
               : 'bg-slate-900 text-slate-400 hover:text-white'
@@ -133,7 +132,7 @@ export const SupervisorDashboard = () => {
 
         <button
           onClick={() => setActiveTab('escalation')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'escalation'
               ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
               : 'bg-slate-900 text-slate-400 hover:text-white'
@@ -145,7 +144,7 @@ export const SupervisorDashboard = () => {
 
         <button
           onClick={() => setActiveTab('fleet')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'fleet'
               ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
               : 'bg-slate-900 text-slate-400 hover:text-white'
@@ -157,7 +156,7 @@ export const SupervisorDashboard = () => {
 
         <button
           onClick={() => setActiveTab('hotspots')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'hotspots'
               ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
               : 'bg-slate-900 text-slate-400 hover:text-white'
@@ -169,7 +168,7 @@ export const SupervisorDashboard = () => {
 
         <button
           onClick={() => setActiveTab('smart_bins')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'smart_bins'
               ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
               : 'bg-slate-900 text-slate-400 hover:text-white'
@@ -224,8 +223,8 @@ export const SupervisorDashboard = () => {
           </div>
 
           {/* Complaints Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs">
+          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+            <table className="min-w-[720px] w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="border-b border-slate-800 text-slate-400 font-semibold uppercase text-[11px]">
                   <th className="py-3 px-3">Ticket ID & Title</th>

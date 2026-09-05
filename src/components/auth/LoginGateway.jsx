@@ -120,41 +120,41 @@ export const LoginGateway = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-white relative overflow-hidden">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-white relative w-full max-w-full overflow-x-hidden">
       {/* Tricolor National Mission Accent Bar */}
       <div className="h-1.5 w-full bg-gradient-to-r from-amber-500 via-white to-emerald-500 shadow-sm" />
 
       {/* Top Header with Brand and Multilingual Selector */}
-      <header className="border-b border-slate-800/80 bg-slate-900/70 backdrop-blur-md px-4 sm:px-8 py-3.5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl bg-slate-800/90 border border-emerald-500/40 p-1 flex items-center justify-center shadow-lg shadow-emerald-500/20 ring-1 ring-white/10 shrink-0">
+      <header className="border-b border-slate-800/80 bg-slate-900/70 backdrop-blur-md px-3 sm:px-8 py-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 w-full max-w-full">
+        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-slate-800/90 border border-emerald-500/40 p-1 flex items-center justify-center shadow-lg shadow-emerald-500/20 ring-1 ring-white/10 shrink-0">
             <img src="/logo-emblem.png" alt="Swachhta Sangam" className="w-full h-full object-contain filter drop-shadow" />
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="font-black text-xl text-white tracking-tight leading-none">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <h1 className="font-black text-lg sm:text-xl text-white tracking-tight leading-none truncate">
                 Swachhta <span className="text-emerald-400">Sangam</span>
               </h1>
-              <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/30">
-                AICTE PS-26195 • Clean & Green Tech
+              <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30 shrink-0">
+                AICTE PS-26195
               </span>
             </div>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-400 truncate">
               {t('tagline')}
             </p>
           </div>
         </div>
 
         {/* Multilingual Selector */}
-        <div className="flex items-center gap-2 bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-1.5 shadow-inner">
+        <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-700/80 rounded-xl px-2.5 py-1.5 shadow-inner overflow-x-auto max-w-full no-scrollbar shrink-0 self-end sm:self-auto">
           <Globe className="w-4 h-4 text-emerald-400 shrink-0" />
-          <span className="text-xs text-slate-400 font-medium hidden sm:inline">{t('selectLanguage')}:</span>
+          <span className="text-xs text-slate-400 font-medium hidden md:inline">{t('selectLanguage')}:</span>
           <div className="flex items-center gap-1">
             {languages.map((l) => (
               <button
                 key={l.code}
                 onClick={() => setLanguage(l.code)}
-                className={`text-xs px-2 py-0.5 rounded-md font-medium transition-all ${
+                className={`text-xs px-2 py-0.5 rounded-md font-medium transition-all shrink-0 cursor-pointer ${
                   language === l.code
                     ? 'bg-emerald-500 text-slate-950 font-bold shadow'
                     : 'text-slate-300 hover:text-white hover:bg-slate-800'
@@ -168,13 +168,13 @@ export const LoginGateway = () => {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 max-w-6xl mx-auto w-full relative z-10">
+      <main className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 py-6 sm:py-8 max-w-6xl mx-auto w-full relative z-10">
         {/* Gateway Heading */}
-        <div className="text-center max-w-2xl mb-8 flex flex-col items-center">
+        <div className="text-center max-w-2xl mb-6 sm:mb-8 flex flex-col items-center">
           {/* Official Brand Logo Showcase */}
           <div className="mb-4 relative group">
             <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500/30 via-teal-500/30 to-cyan-500/30 rounded-full blur-xl opacity-60 group-hover:opacity-100 transition duration-700 pointer-events-none"></div>
-            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-slate-900/90 border border-emerald-500/40 p-3 shadow-2xl flex items-center justify-center backdrop-blur-md">
+            <div className="relative w-20 h-20 sm:w-28 sm:h-28 rounded-3xl bg-slate-900/90 border border-emerald-500/40 p-3 shadow-2xl flex items-center justify-center backdrop-blur-md">
               <img 
                 src="/logo-emblem.png" 
                 alt="Swachhta Sangam Official Emblem" 
@@ -184,9 +184,9 @@ export const LoginGateway = () => {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
-            <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs px-3 py-1 rounded-full font-semibold">
+            <div className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs px-3 py-1 rounded-full font-semibold">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+              <span>ALL INDIA COUNCIL FOR TECHNICAL EDUCATION (AICTE)</span>
             </div>
             <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 border border-teal-500/40 text-teal-300 text-xs px-3 py-1 rounded-full font-bold">
               <Sparkles className="w-3.5 h-3.5 text-teal-400" />
@@ -667,7 +667,7 @@ export const LoginGateway = () => {
           Swachhta Sangam (स्वच्छता संगम) • AICTE PS-26195 Clean & Green Technology
         </p>
         <p className="text-[11px] text-slate-600 mt-1">
-          Ministry of Social Justice and Empowerment (MoSJE) • National Sanitation Governance Platform
+          All India Council for Technical Education (AICTE) • National Clean & Green Tech Governance Platform
         </p>
       </footer>
     </div>

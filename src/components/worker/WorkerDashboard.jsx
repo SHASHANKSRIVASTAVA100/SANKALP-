@@ -111,37 +111,37 @@ export const WorkerDashboard = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-6 w-full max-w-full overflow-x-hidden">
       {/* Worker Hero Status Card */}
-      <div className="bg-gradient-to-r from-amber-950/70 via-slate-900 to-slate-950 border border-amber-500/30 rounded-3xl p-6 shadow-2xl space-y-6">
+      <div className="bg-gradient-to-r from-amber-950/70 via-slate-900 to-slate-950 border border-amber-500/30 rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6 w-full max-w-full overflow-hidden">
         <div className="flex flex-wrap items-center justify-between gap-4">
           {/* Worker Profile Info */}
-          <div className="flex items-center gap-4">
-            <div className="relative">
+          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+            <div className="relative shrink-0">
               <img
                 src={currentWorker.avatar}
                 alt={currentWorker.name}
-                className="w-16 h-16 rounded-2xl object-cover border-2 border-amber-400/50 shadow-lg shadow-amber-950"
+                className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl object-cover border-2 border-amber-400/50 shadow-lg shadow-amber-950"
               />
               <span className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-slate-900 ${
                 currentWorker.attendance === 'punched_in' ? 'bg-emerald-400' : 'bg-slate-600'
               }`}></span>
             </div>
 
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-xl font-bold text-white">{currentWorker.name}</h1>
-                <span className="bg-amber-500/20 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-500/30">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <h1 className="text-lg sm:text-xl font-bold text-white truncate">{currentWorker.name}</h1>
+                <span className="bg-amber-500/20 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-500/30 shrink-0">
                   {currentWorker.role}
                 </span>
               </div>
-              <div className="text-xs text-slate-400 flex items-center gap-2 mt-0.5">
-                <span className="flex items-center gap-1">
-                  <MapPin className="w-3 h-3 text-amber-400" />
+              <div className="text-xs text-slate-400 flex flex-wrap items-center gap-2 mt-0.5">
+                <span className="flex items-center gap-1 truncate">
+                  <MapPin className="w-3 h-3 text-amber-400 shrink-0" />
                   {currentWorker.ward} ({currentWorker.team})
                 </span>
                 <span>•</span>
-                <span className="text-amber-300 font-bold flex items-center gap-1">
+                <span className="text-amber-300 font-bold flex items-center gap-1 shrink-0">
                   <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                   {currentWorker.rating} ★ ({currentWorker.reviewsCount} reviews)
                 </span>
@@ -150,13 +150,13 @@ export const WorkerDashboard = () => {
           </div>
 
           {/* Quick Worker Selector (For Demo Testing) */}
-          <div className="flex items-center gap-3">
-            <div className="bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-1.5 text-xs">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
+            <div className="bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-1.5 text-xs w-full sm:w-auto">
               <span className="text-slate-400 text-[11px] block">Select Field Worker:</span>
               <select
                 value={activeWorkerId}
                 onChange={(e) => setActiveWorkerId(e.target.value)}
-                className="bg-transparent text-amber-300 font-semibold focus:outline-none cursor-pointer"
+                className="bg-transparent text-amber-300 font-semibold focus:outline-none cursor-pointer w-full"
               >
                 {workers.map(w => (
                   <option key={w.id} value={w.id} className="bg-slate-900 text-slate-200">
@@ -169,7 +169,7 @@ export const WorkerDashboard = () => {
             {/* Attendance Punch-In / Punch-Out Toggle */}
             <button
               onClick={() => toggleAttendance(currentWorker.id)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-lg flex items-center gap-2 ${
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-lg flex items-center justify-center gap-2 w-full sm:w-auto cursor-pointer ${
                 currentWorker.attendance === 'punched_in'
                   ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-emerald-500/20'
                   : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'
@@ -216,14 +216,14 @@ export const WorkerDashboard = () => {
         </div>
       </div>
 
-      {/* AICTE PS-26195: Pillar 3 National Sanitization Worker Safety & PPE Protocol (MoSJE / NAMASTE Mandate) */}
+      {/* AICTE PS-26195: Pillar 3 National Sanitization Worker Safety & PPE Protocol */}
       <div className="bg-gradient-to-r from-amber-950/50 via-slate-900 to-slate-950 border border-amber-500/40 rounded-2xl p-4 shadow-xl space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
             <h3 className="text-xs font-black uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-amber-400" />
-              Pillar 3: Frontline Worker Safety & PPE Compliance (MoSJE / NAMASTE)
+              Pillar 3: Frontline Worker Safety & PPE Compliance (AICTE PS-26195)
             </h3>
           </div>
           <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">
@@ -257,7 +257,7 @@ export const WorkerDashboard = () => {
           </div>
         </div>
 
-        <div className="p-2.5 rounded-xl bg-amber-950/30 border border-amber-800/40 text-[11px] text-amber-200 flex items-center justify-between">
+        <div className="p-3 rounded-xl bg-amber-950/30 border border-amber-800/40 text-[11px] text-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5">
           <div className="flex items-center gap-2">
             <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
             <span>Encountering hazardous chemical waste, dead animal, or deep drain blockage?</span>
@@ -265,18 +265,18 @@ export const WorkerDashboard = () => {
           <button
             type="button"
             onClick={() => setSosModalComplaint(activeTasks[0] || complaints[0])}
-            className="px-3 py-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs transition-all shadow cursor-pointer shrink-0"
+            className="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs transition-all shadow cursor-pointer shrink-0 self-stretch sm:self-auto text-center"
           >
             Escalate to Mechanized JCB / Suction
           </button>
         </div>
       </div>
 
-      {/* Tabs Navigation */}
-      <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
+      {/* Tabs Navigation (Scrollable on mobile) */}
+      <div className="flex items-center gap-2 border-b border-slate-800 pb-2 overflow-x-auto -mx-2 px-2 sm:mx-0 sm:px-0 no-scrollbar">
         <button
           onClick={() => setActiveTab('tasks')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'tasks'
               ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
               : 'bg-slate-900 text-slate-400 hover:text-white'
@@ -288,7 +288,7 @@ export const WorkerDashboard = () => {
 
         <button
           onClick={() => setActiveTab('checklist')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'checklist'
               ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
               : 'bg-slate-900 text-slate-400 hover:text-white'
@@ -300,7 +300,7 @@ export const WorkerDashboard = () => {
 
         <button
           onClick={() => setActiveTab('gigs')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'gigs'
               ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
               : 'bg-slate-900 text-slate-400 hover:text-white'
@@ -312,7 +312,7 @@ export const WorkerDashboard = () => {
 
         <button
           onClick={() => setActiveTab('archive')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'archive'
               ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
               : 'bg-slate-900 text-slate-400 hover:text-white'

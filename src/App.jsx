@@ -63,7 +63,7 @@ const AppContent = () => {
           </p>
         </div>
         <p className="text-[11px] text-slate-600">
-          Ministry of Social Justice and Empowerment (MoSJE) • National Sanitation Governance Platform
+          All India Council for Technical Education (AICTE) • National Clean & Green Tech Governance Platform
         </p>
       </footer>
     </div>

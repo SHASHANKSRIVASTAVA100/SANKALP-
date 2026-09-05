@@ -90,7 +90,7 @@ export const OfficialSbmAuditModal = ({ isOpen, onClose, municipalStats = {} }) 
                 </div>
                 <div>
                   <h3 className="text-xs font-black uppercase tracking-widest text-emerald-400 print:text-emerald-700">
-                    Government of India • MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE) • AICTE PS-26195
+                    Government of India • ALL INDIA COUNCIL FOR TECHNICAL EDUCATION (AICTE) • PS-26195
                   </h3>
                   <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white print:text-slate-950">
                     SWACHH BHARAT MISSION (URBAN 2.0)
@@ -287,7 +287,7 @@ export const OfficialSbmAuditModal = ({ isOpen, onClose, municipalStats = {} }) 
 
         {/* Footer */}
         <div className="bg-slate-950 px-6 py-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 shrink-0 print:hidden">
-          <span>Ministry of Social Justice and Empowerment (MoSJE) • AICTE PS-26195 Clean & Green Tech Governance</span>
+          <span>All India Council for Technical Education (AICTE) • PS-26195 Clean & Green Tech Governance</span>
           <button
             onClick={onClose}
             className="text-slate-400 hover:text-white transition-colors"

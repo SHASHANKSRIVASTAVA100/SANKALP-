@@ -195,7 +195,7 @@ export const DemoGuideModal = ({ isOpen, onClose }) => {
                     </span>
                   </div>
                   <span className="text-xs text-slate-400 font-mono">
-                    AICTE, MIC-Student Innovation | MoSJE Mandate
+                    AICTE, MIC-Student Innovation | Clean & Green Tech
                   </span>
                 </div>
                 <div>
@@ -203,7 +203,7 @@ export const DemoGuideModal = ({ isOpen, onClose }) => {
                     "Solutions could be in the form of waste segregation, disposal, and improve sanitization system."
                   </h3>
                   <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
-                    Swachhta Sangam is custom-engineered to directly target and exhaustively solve all three mandated pillars of AICTE PS-26195 under the administrative framework of the Ministry of Social Justice and Empowerment (MoSJE).
+                    Swachhta Sangam is custom-engineered to directly target and exhaustively solve all three mandated pillars of AICTE PS-26195 under the All India Council for Technical Education (AICTE) Student Innovation initiative.
                   </p>
                 </div>
               </div>
@@ -293,7 +293,7 @@ export const DemoGuideModal = ({ isOpen, onClose }) => {
                     </div>
                     <h4 className="font-bold text-sm text-white">Frontline Worker Dignity & Safety</h4>
                     <p className="text-xs text-slate-300 leading-relaxed">
-                      Improves municipal sanitization through institutional protection under the MoSJE / NAMASTE framework:
+                      Improves municipal sanitization through institutional protection under the AICTE PS-26195 framework:
                     </p>
                     <ul className="text-xs space-y-1.5 text-slate-400 pt-1">
                       <li className="flex items-center gap-2">
@@ -329,7 +329,7 @@ export const DemoGuideModal = ({ isOpen, onClose }) => {
                   <ol className="list-decimal list-inside space-y-1 pl-2 text-slate-300">
                     <li><strong>Segregation:</strong> Computer vision instantly enforces the 3-bin color standard at source before mixed dumping occurs.</li>
                     <li><strong>Disposal:</strong> Real-time \(CO_2\) offset formulas and GPS doorstep collection ensure clean, verified routing directly to authorized recyclers via CPCB-compliant EPR certificates.</li>
-                    <li><strong>Sanitization Improvement:</strong> Under the Ministry of Social Justice and Empowerment (MoSJE), we protect frontline sanitation heroes with mandatory PPE compliance, 1-click mechanized machinery escalation (eradicating manual contact with hazardous waste), and geofenced dual-photo verification.</li>
+                    <li><strong>Sanitization Improvement:</strong> Under the AICTE PS-26195 mandate, we protect frontline sanitation heroes with mandatory PPE compliance, 1-click mechanized machinery escalation (eradicating manual contact with hazardous waste), and geofenced dual-photo verification.</li>
                   </ol>
                 </div>
               </div>

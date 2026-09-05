@@ -272,7 +272,7 @@ export const MunicipalityDashboard = () => {
             </button>
             <div className="px-3.5 py-2 rounded-xl bg-purple-900/40 border border-purple-500/40 text-purple-200 text-xs font-mono font-bold flex items-center gap-1.5">
               <Calendar className="w-4 h-4 text-purple-400" />
-              <span>Today • MoSJE Portal</span>
+              <span>Today • AICTE Portal</span>
             </div>
           </div>
         </div>

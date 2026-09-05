@@ -75,15 +75,9 @@ export const Header = () => {
             </span>
           </div>
           <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
-            <button
-              onClick={() => playChime('alert')}
-              className="flex items-center gap-1 text-emerald-400 hover:text-emerald-300 bg-emerald-900/40 border border-emerald-700/50 px-2 py-0.5 rounded text-[11px] transition-all cursor-pointer"
-              title="Simulate Doorstep Collection Bell"
-            >
-              <Volume2 className="w-3 h-3" />
-              <span>{t('testBell')}</span>
-            </button>
-            <span className="text-slate-400 hidden lg:inline text-[11px]">MoSJE ID: <strong>SBM-IND-2026</strong></span>
+            <span className="text-slate-400 text-[11px] font-mono">
+              AICTE ID: <strong className="text-emerald-400">SBM-IND-2026</strong>
+            </span>
           </div>
         </div>
       )}
@@ -306,14 +300,14 @@ export const Header = () => {
                 </div>
               </div>
 
-              {/* Strict Logout Button (Icon on small mobile, Icon+Text on tablet/desktop) */}
+              {/* High-Visibility Logout Button */}
               <button
                 onClick={logout}
-                className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 border border-rose-800/60 text-rose-300 hover:text-white transition-all text-xs font-bold flex items-center gap-1 cursor-pointer shadow-sm"
+                className="px-2.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 active:bg-rose-700 border border-rose-500 text-white transition-all text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-md shadow-rose-950/40 shrink-0 active:scale-95"
                 title="Log Out and return to Login Gateway"
               >
-                <LogOut className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">{t('logoutBtn')}</span>
+                <LogOut className="w-3.5 h-3.5 text-white" />
+                <span className="text-[11px] sm:text-xs font-bold">{t('logoutBtn') || 'Logout'}</span>
               </button>
             </div>
           )}

@@ -14,7 +14,7 @@ export const FALLBACK_WASTE_IMAGE = `data:image/svg+xml;utf8,${encodeURIComponen
     Swachhta Sangam Evidence Image
   </text>
   <text x="300" y="295" fill="#64748b" font-family="monospace" font-size="12" text-anchor="middle">
-    MoSJE Geostamped Photographic Record
+    AICTE PS-26195 Geostamped Photographic Record
   </text>
 </svg>
 `)}`;

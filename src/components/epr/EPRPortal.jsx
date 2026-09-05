@@ -23,9 +23,9 @@ export const EPRPortal = () => {
   const [activeTab, setActiveTab] = useState('dashboard'); // 'dashboard' | 'certificate' | 'network'
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-6 w-full max-w-full overflow-x-hidden">
       {/* EPR Header Banner */}
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-indigo-950 via-slate-900 to-slate-950 border border-indigo-500/40 p-6 md:p-8 shadow-2xl space-y-4">
+      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-indigo-950 via-slate-900 to-slate-950 border border-indigo-500/40 p-4 sm:p-6 md:p-8 shadow-2xl space-y-4 w-full max-w-full">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
@@ -37,7 +37,7 @@ export const EPRPortal = () => {
                 CPCB COMPLIANT
               </span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-black text-white mt-1">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-white mt-1">
               Circular Economy & Digital Compliance Ledger
             </h1>
             <p className="text-xs md:text-sm text-slate-300 max-w-2xl leading-relaxed">
@@ -46,11 +46,11 @@ export const EPRPortal = () => {
           </div>
         </div>
 
-        {/* Tab Switcher */}
-        <div className="flex items-center gap-2 pt-2 border-t border-slate-800">
+        {/* Tab Switcher (Scrollable on Mobile) */}
+        <div className="flex items-center gap-2 pt-2 border-t border-slate-800 overflow-x-auto pb-1 -mx-2 px-2 sm:mx-0 sm:px-0 no-scrollbar">
           <button
             onClick={() => setActiveTab('dashboard')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
               activeTab === 'dashboard'
                 ? 'bg-indigo-500 text-white shadow-md shadow-indigo-500/20'
                 : 'bg-slate-900/80 text-slate-400 hover:text-white'
@@ -60,7 +60,7 @@ export const EPRPortal = () => {
           </button>
           <button
             onClick={() => setActiveTab('certificate')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
               activeTab === 'certificate'
                 ? 'bg-indigo-500 text-white shadow-md shadow-indigo-500/20'
                 : 'bg-slate-900/80 text-slate-400 hover:text-white'
@@ -70,7 +70,7 @@ export const EPRPortal = () => {
           </button>
           <button
             onClick={() => setActiveTab('network')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
               activeTab === 'network'
                 ? 'bg-indigo-500 text-white shadow-md shadow-indigo-500/20'
                 : 'bg-slate-900/80 text-slate-400 hover:text-white'
@@ -85,15 +85,15 @@ export const EPRPortal = () => {
       {activeTab === 'dashboard' && (
         <div className="space-y-6">
           {/* Company Switcher */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-slate-400 font-medium">Select Registered Producer:</span>
-              <div className="flex gap-2">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full max-w-full overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 min-w-0">
+              <span className="text-xs text-slate-400 font-medium shrink-0">Select Registered Producer:</span>
+              <div className="flex gap-2 overflow-x-auto pb-1 max-w-full no-scrollbar">
                 {EPR_COMPANIES.map((c) => (
                   <button
                     key={c.id}
                     onClick={() => setSelectedCompany(c)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border shrink-0 whitespace-nowrap cursor-pointer ${
                       selectedCompany.id === c.id
                         ? 'bg-indigo-950/80 border-indigo-500 text-indigo-200 ring-2 ring-indigo-500/20'
                         : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'
@@ -105,7 +105,7 @@ export const EPRPortal = () => {
               </div>
             </div>
 
-            <span className="text-xs font-mono text-emerald-400 bg-emerald-950 border border-emerald-800 px-3 py-1 rounded-full">
+            <span className="text-xs font-mono text-emerald-400 bg-emerald-950 border border-emerald-800 px-3 py-1 rounded-full shrink-0 self-start sm:self-auto">
               Status: {selectedCompany.status}
             </span>
           </div>
@@ -255,14 +255,14 @@ export const EPRPortal = () => {
             </div>
 
             {/* Certificate Footer */}
-            <div className="flex items-center justify-between pt-4 border-t border-slate-800 text-xs">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-4 border-t border-slate-800 text-xs">
               <div className="flex items-center gap-2 text-slate-400">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Verified by Swachhta Sangam Municipal Node & State Pollution Control Board</span>
+                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span className="text-[11px] sm:text-xs">Verified by Swachhta Sangam Municipal Node & State Pollution Control Board</span>
               </div>
               <button
                 onClick={() => alert("Digital Certificate downloaded as PDF.")}
-                className="px-4 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow"
+                className="px-4 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow shrink-0 self-stretch sm:self-auto justify-center cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
                 Download PDF
