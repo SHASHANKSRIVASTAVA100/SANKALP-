@@ -153,7 +153,7 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
 
               {/* Dynamic input for event vs commercial */}
               {selectedService.id === 'PAID-01' ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-3">
                   <div>
                     <label className="text-[11px] text-slate-300 font-medium block mb-1">
                       Event / Function Date
@@ -166,19 +166,121 @@ export const PaidServicesModal = ({ isOpen, onClose }) => {
                       className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-teal-500"
                     />
                   </div>
-                  <div>
-                    <label className="text-[11px] text-slate-300 font-medium block mb-1">
-                      Estimated Guests ({guestCount} guests)
-                    </label>
-                    <input
-                      type="range"
-                      min="50"
-                      max="1000"
-                      step="50"
-                      value={guestCount}
-                      onChange={(e) => setGuestCount(Number(e.target.value))}
-                      className="w-full mt-2 accent-teal-500"
-                    />
+
+                  {/* Bullet-Point Type Opening Guest & Scale Selector */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[11px] text-slate-300 font-medium block">
+                        Gathering Scale & Logistics (Bullet-Point Type Opening):
+                      </label>
+                      <span className="font-mono text-[11px] font-bold text-teal-300 bg-teal-950/60 px-2 py-0.5 rounded border border-teal-500/40">
+                        {guestCount} Guests Selected
+                      </span>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      {[
+                        {
+                          guests: 75,
+                          label: '• Intimate Event (50 – 100 Guests)',
+                          tag: 'COMPACT GATHERING',
+                          waste: '~35 kg expected refuse',
+                          inclusions: '2 Color-coded 120L mobile bins + 1 Dedicated sanitation staff',
+                          detail: 'Perfect for birthday celebrations, housewarmings, pujas & small family dinners.'
+                        },
+                        {
+                          guests: 200,
+                          label: '• Mid-Scale Function (150 – 250 Guests)',
+                          tag: 'COMMUNITY SCALE',
+                          waste: '~110 kg expected refuse',
+                          inclusions: '4 Heavy-duty 240L bins + 2 Sanitation crew + Composting handover',
+                          detail: 'Best for engagement parties, society meetings, cultural programs & clubs.'
+                        },
+                        {
+                          guests: 500,
+                          label: '• Grand Banquet / Wedding (400 – 600 Guests)',
+                          tag: 'LARGE BANQUET',
+                          waste: '~280 kg expected refuse',
+                          inclusions: '8 Heavy-duty 240L bins + 4 Sanitation crew + On-site segregation desk',
+                          detail: 'Engineered for wedding receptions, large community feasts & corporate galas.'
+                        },
+                        {
+                          guests: 1000,
+                          label: '• Mega Public Festival (800 – 1,200+ Guests)',
+                          tag: 'MEGA EVENT',
+                          waste: '~650 kg expected refuse',
+                          inclusions: '1 Dedicated compactor truck on standby + 8 Crew + Road washdown',
+                          detail: 'Designed for public melas, concerts, college festivals & sports events.'
+                        }
+                      ].map((tier) => {
+                        const isSelected = guestCount === tier.guests;
+                        return (
+                          <div
+                            key={tier.guests}
+                            className={`rounded-xl border transition-all overflow-hidden ${
+                              isSelected
+                                ? 'bg-slate-900 border-teal-500/60 shadow-md shadow-teal-950/30'
+                                : 'bg-slate-900/40 border-slate-800 hover:border-slate-700'
+                            }`}
+                          >
+                            <button
+                              type="button"
+                              onClick={() => setGuestCount(tier.guests)}
+                              className="w-full text-left p-2.5 flex items-center justify-between gap-2 cursor-pointer"
+                            >
+                              <div className="flex items-center gap-2.5">
+                                <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${isSelected ? 'bg-teal-400 ring-4 ring-teal-500/20' : 'bg-slate-600'}`} />
+                                <span className={`text-xs font-bold ${isSelected ? 'text-teal-300' : 'text-slate-200'}`}>
+                                  {tier.label}
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800 hidden sm:inline">
+                                  {tier.tag}
+                                </span>
+                                <span className="text-[11px] text-teal-400 font-bold">
+                                  {isSelected ? '✓ Opened' : 'Open Details'}
+                                </span>
+                              </div>
+                            </button>
+
+                            {isSelected && (
+                              <div className="p-3 pt-0 border-t border-slate-800/60 bg-slate-950/50 space-y-2 mt-1">
+                                <p className="text-[11px] text-slate-300">
+                                  {tier.detail}
+                                </p>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+                                  <div className="bg-slate-900 p-2 rounded-lg border border-slate-800 text-slate-300">
+                                    <span className="text-[10px] text-slate-500 block uppercase font-medium">Estimated Bulk Weight</span>
+                                    <span className="font-mono text-emerald-400 font-bold">{tier.waste}</span>
+                                  </div>
+                                  <div className="bg-slate-900 p-2 rounded-lg border border-slate-800 text-slate-300">
+                                    <span className="text-[10px] text-slate-500 block uppercase font-medium">Dedicated Logistics</span>
+                                    <span className="text-white font-medium">{tier.inclusions}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Custom Exact Count Input */}
+                    <div className="flex items-center justify-between bg-slate-900/60 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-300">
+                      <span>Exact Specific Guest Count:</span>
+                      <div className="flex items-center gap-1.5">
+                        <input
+                          type="number"
+                          min="10"
+                          max="5000"
+                          value={guestCount}
+                          onChange={(e) => setGuestCount(Math.max(1, Number(e.target.value)))}
+                          className="w-20 bg-slate-950 border border-slate-700 rounded px-2 py-0.5 text-right font-mono text-white text-xs focus:outline-none focus:border-teal-500"
+                        />
+                        <span className="text-[10px] text-slate-500">guests</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ) : (

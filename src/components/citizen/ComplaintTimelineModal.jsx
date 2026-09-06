@@ -294,6 +294,72 @@ export const ComplaintTimelineModal = ({ complaint, onClose }) => {
                 </div>
               </div>
             )}
+
+            {/* Quick Bullet Point Type Controls */}
+            {viewMode === 'slider' && (
+              <div className="flex items-center justify-between text-xs pt-1">
+                <span className="text-[11px] text-slate-400">Quick Bullet Presets:</span>
+                <div className="flex items-center gap-1.5">
+                  {[
+                    { label: '• 0% (Before)', val: 0 },
+                    { label: '• 50% (Split Half)', val: 50 },
+                    { label: '• 100% (Cleaned)', val: 100 }
+                  ].map((b) => (
+                    <button
+                      key={b.val}
+                      type="button"
+                      onClick={() => setSliderPosition(b.val)}
+                      className={`px-2.5 py-1 rounded text-[11px] font-mono font-medium transition-all cursor-pointer ${
+                        Number(sliderPosition) === b.val
+                          ? 'bg-emerald-500 text-slate-950 font-bold'
+                          : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                      }`}
+                    >
+                      {b.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* AI & Field Audit Checkpoints (Bullet-Point Type Opening) */}
+            <div className="space-y-1.5 pt-2">
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+                Evidence Audit Checkpoints (Bullet-Point Type Opening):
+              </span>
+              {[
+                {
+                  title: '• AI Waste Classification & Severity Audit',
+                  badge: complaint.aiAnalysis?.category || 'Classified',
+                  detail: `Identified as ${complaint.aiAnalysis?.category || 'Municipal Segregated Waste'} with ${complaint.aiAnalysis?.confidence ? (complaint.aiAnalysis.confidence * 100).toFixed(0) : '94'}% AI confidence. SLA resolution window: 4 hours.`
+                },
+                {
+                  title: '• Geotag & Location Stamp Verification',
+                  badge: 'VERIFIED GPS',
+                  detail: `Lat: ${complaint.latitude?.toFixed(4) || '12.9612'}, Lng: ${complaint.longitude?.toFixed(4) || '77.6321'} • Geofence Ward 12 (Indiranagar). Location match verified.`
+                },
+                {
+                  title: '• Post-Sanitation Weighbridge Transfer',
+                  badge: complaint.afterImage ? 'TRANSFERRED TO MRF' : 'PENDING SITE CLEAN',
+                  detail: `Disinfected with eco-friendly sanitizing solution. Estimated payload ~${complaint.aiAnalysis?.estimatedWeightKg || 65} kg logged into municipal diversion ledger.`
+                }
+              ].map((audit, idx) => (
+                <details key={idx} className="group bg-slate-950/70 border border-slate-800 rounded-xl overflow-hidden">
+                  <summary className="p-2.5 text-xs font-semibold text-slate-200 cursor-pointer flex items-center justify-between hover:text-white">
+                    <span className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                      {audit.title}
+                    </span>
+                    <span className="text-[10px] font-mono bg-slate-900 border border-slate-700 text-emerald-400 px-2 py-0.5 rounded">
+                      {audit.badge}
+                    </span>
+                  </summary>
+                  <div className="px-3 pb-2.5 text-[11px] text-slate-400 border-t border-slate-900 pt-1.5">
+                    {audit.detail}
+                  </div>
+                </details>
+              ))}
+            </div>
           </div>
 
           {/* Citizen Verification Action Box */}

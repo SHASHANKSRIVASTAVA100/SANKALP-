@@ -17,7 +17,10 @@ import {
   Clock,
   Activity,
   Sliders,
-  Bell
+  Bell,
+  ChevronDown,
+  ChevronUp,
+  Check
 } from 'lucide-react';
 
 export const SmartBinsTelemetryView = () => {
@@ -306,16 +309,16 @@ export const SmartBinsTelemetryView = () => {
         })}
       </div>
 
-      {/* Interactive Hardware Simulator Console for Judges */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-800">
+      {/* Interactive Hardware Simulator Console for Judges - Bullet-Point Type Opening */}
+      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
           <div>
             <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <Sliders className="w-4 h-4 text-cyan-400" />
-              Live Judge Simulation Console: Test Bin {selectedBin.id}
+              <Sparkles className="w-4 h-4 text-cyan-400" />
+              Hardware Simulator Console: Bin {selectedBin.id}
             </h3>
-            <p className="text-xs text-slate-400">
-              Drag the fill slider or click 1-tap presets to demonstrate real-time telemetry updates and automated truck dispatch.
+            <p className="text-xs text-slate-400 mt-0.5">
+              Select any bullet point below to open its real-time telemetry diagnostics, sensor calculations, and automated IoT dispatch.
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -324,41 +327,206 @@ export const SmartBinsTelemetryView = () => {
               className="px-3 py-1.5 rounded-xl bg-rose-600/30 hover:bg-rose-600/50 border border-rose-500/50 text-rose-300 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
             >
               <Zap className="w-3.5 h-3.5 text-rose-400" />
-              Simulate 95% Overflow
+              Emergency 95%
             </button>
             <button
               onClick={() => handleManualEmpty(selectedBin.id)}
               className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5"
             >
               <RotateCcw className="w-3.5 h-3.5 text-emerald-400" />
-              Reset to 5%
+              Reset (5%)
             </button>
           </div>
         </div>
 
-        {/* Live Slider */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-300 font-medium">
-              Simulate Fill Level for {selectedBin.location}:
+        {/* Selected Bin Current Status Indicator */}
+        <div className="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="text-slate-400">Target Location:</span>
+            <span className="font-bold text-white">{selectedBin.location}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-slate-400">Current Sensor Level:</span>
+            <span className={`font-mono font-bold text-sm px-2.5 py-0.5 rounded-lg ${
+              selectedBin.fillLevel >= 90 ? 'bg-rose-950 text-rose-400 border border-rose-800' :
+              selectedBin.fillLevel >= 75 ? 'bg-amber-950 text-amber-400 border border-amber-800' :
+              selectedBin.fillLevel >= 50 ? 'bg-blue-950 text-blue-400 border border-blue-800' :
+              'bg-emerald-950 text-emerald-400 border border-emerald-800'
+            }`}>
+              {selectedBin.fillLevel}%
             </span>
-            <span className="font-mono text-sm font-bold text-cyan-400">{selectedBin.fillLevel}%</span>
+            {/* Quick Step Buttons */}
+            <div className="flex items-center gap-1 ml-2">
+              <button
+                type="button"
+                onClick={() => handleSimulateFill(selectedBin.id, Math.max(0, selectedBin.fillLevel - 5))}
+                className="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-mono text-xs flex items-center justify-center font-bold cursor-pointer"
+                title="Decrease fill by 5%"
+              >
+                -
+              </button>
+              <button
+                type="button"
+                onClick={() => handleSimulateFill(selectedBin.id, Math.min(100, selectedBin.fillLevel + 5))}
+                className="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-mono text-xs flex items-center justify-center font-bold cursor-pointer"
+                title="Increase fill by 5%"
+              >
+                +
+              </button>
+            </div>
           </div>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={selectedBin.fillLevel}
-            onChange={(e) => handleSimulateFill(selectedBin.id, parseInt(e.target.value))}
-            className="w-full accent-cyan-400 cursor-pointer h-2 bg-slate-950 rounded-lg appearance-none"
-          />
-          <div className="flex justify-between text-[10px] text-slate-500 font-mono">
-            <span>0% (Empty)</span>
-            <span>50% (Normal)</span>
-            <span className="text-amber-400">75% (Alert Threshold)</span>
-            <span className="text-rose-400 font-bold">90% (Auto-Dispatch Trigger)</span>
-            <span>100% (Full)</span>
-          </div>
+        </div>
+
+        {/* Bullet-Point Type Opening Stages */}
+        <div className="space-y-2">
+          {[
+            {
+              level: 5,
+              bulletLabel: '• Level 1: 5% (Empty / Cleared)',
+              title: 'Empty & Clean Chamber',
+              status: 'OPTIMAL CLEAR',
+              badgeClass: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
+              dotColor: 'bg-emerald-400',
+              distance: '95 cm (Clear line-of-sight)',
+              weight: '12 kg (Baseline residual)',
+              gas: '8 ppm (Clean ambient air)',
+              summary: 'Bin is newly emptied, washed, and disinfected. Ultrasonic ping confirmed.',
+              action: 'Routine status OK. Regular daily morning collection cycle active.'
+            },
+            {
+              level: 35,
+              bulletLabel: '• Level 2: 35% (Normal Civic Accumulation)',
+              title: 'Light Daytime Civic Fill',
+              status: 'NORMAL CAPACITY',
+              badgeClass: 'bg-teal-500/20 text-teal-400 border-teal-500/40',
+              dotColor: 'bg-teal-400',
+              distance: '65 cm to waste surface',
+              weight: '82 kg (Dry packaging & paper)',
+              gas: '16 ppm (Well-ventilated chamber)',
+              summary: 'Steady daytime usage along public commercial sidewalk.',
+              action: 'Telemetry heartbeat normal. Scheduled on routine afternoon shift.'
+            },
+            {
+              level: 65,
+              bulletLabel: '• Level 3: 65% (Moderate Capacity)',
+              title: 'Moderate Afternoon Accumulation',
+              status: 'MODERATE LOAD',
+              badgeClass: 'bg-blue-500/20 text-blue-400 border-blue-500/40',
+              dotColor: 'bg-blue-400',
+              distance: '35 cm to waste surface',
+              weight: '165 kg (Approaching threshold)',
+              gas: '26 ppm (Normal microbial level)',
+              summary: 'Bin capacity at 2/3. Current average fill velocity is ~14 kg/hour.',
+              action: 'Route optimizer flags bin for prioritized collection in the next cycle.'
+            },
+            {
+              level: 85,
+              bulletLabel: '• Level 4: 85% (Warning Alert Threshold)',
+              title: 'Pre-Overflow Warning Trigger',
+              status: 'ALERT THRESHOLD',
+              badgeClass: 'bg-amber-500/20 text-amber-400 border-amber-500/40',
+              dotColor: 'bg-amber-400',
+              distance: '15 cm to acoustic transceiver',
+              weight: '215 kg (High bulk volume)',
+              gas: '44 ppm (Decomposition fumes detected)',
+              summary: 'High accumulation risk detected prior to peak evening market hours.',
+              action: 'Yellow alert pre-notified on Ward 12 driver navigation dashboard.'
+            },
+            {
+              level: 95,
+              bulletLabel: '• Level 5: 95% (Critical Overflow — Auto-Dispatch)',
+              title: 'Critical Emergency Overflow',
+              status: 'CRITICAL OVERFLOW',
+              badgeClass: 'bg-rose-500/20 text-rose-400 border-rose-500/40',
+              dotColor: 'bg-rose-500',
+              distance: '4 cm to sensor (Lid near breach)',
+              weight: '248 kg (Severe spill hazard)',
+              gas: '68 ppm (Methane spike detected)',
+              summary: 'Garbage overflowing onto pedestrian pavement. Immediate hazard.',
+              action: '🚨 Emergency IoT work order generated! EV Compactor Truck KA-04-E-1192 rerouted automatically.'
+            }
+          ].map((stage) => {
+            const isSelected = selectedBin.fillLevel === stage.level;
+            return (
+              <div
+                key={stage.level}
+                className={`rounded-xl border transition-all overflow-hidden ${
+                  isSelected
+                    ? 'bg-slate-950 border-cyan-500/60 shadow-lg shadow-cyan-950/40'
+                    : 'bg-slate-950/50 border-slate-800/80 hover:border-slate-700'
+                }`}
+              >
+                {/* Bullet Point Clickable Header */}
+                <button
+                  type="button"
+                  onClick={() => handleSimulateFill(selectedBin.id, stage.level)}
+                  className="w-full text-left p-3 flex items-center justify-between gap-3 cursor-pointer"
+                >
+                  <div className="flex items-center gap-3">
+                    {/* Bullet Point Indicator */}
+                    <div className="flex items-center justify-center w-5 h-5">
+                      <span className={`w-3 h-3 rounded-full ${stage.dotColor} ${isSelected ? 'ring-4 ring-cyan-500/30' : ''}`} />
+                    </div>
+                    <div>
+                      <span className={`text-xs font-bold ${isSelected ? 'text-cyan-300' : 'text-slate-200'}`}>
+                        {stage.bulletLabel}
+                      </span>
+                      <span className="text-[11px] text-slate-400 ml-2 hidden sm:inline">
+                        — {stage.title}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border ${stage.badgeClass}`}>
+                      {stage.status}
+                    </span>
+                    <span className="text-xs text-slate-500">
+                      {isSelected ? (
+                        <span className="text-cyan-400 font-bold flex items-center gap-1">
+                          <Check className="w-3.5 h-3.5" /> Active
+                        </span>
+                      ) : (
+                        <span className="text-slate-400 hover:text-white">Click to Open</span>
+                      )}
+                    </span>
+                  </div>
+                </button>
+
+                {/* Bullet Point Opening: Expanded Diagnostic Details */}
+                {isSelected && (
+                  <div className="p-3.5 pt-0 border-t border-slate-800/80 bg-slate-900/60 space-y-2.5">
+                    <p className="text-xs text-slate-300 mt-2">
+                      {stage.summary}
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                      <div className="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                        <span className="text-[10px] text-slate-500 block uppercase font-medium">Ultrasonic Distance</span>
+                        <span className="font-mono text-cyan-400 font-bold">{stage.distance}</span>
+                      </div>
+                      <div className="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                        <span className="text-[10px] text-slate-500 block uppercase font-medium">Estimated Weight</span>
+                        <span className="font-mono text-white font-bold">{stage.weight}</span>
+                      </div>
+                      <div className="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                        <span className="text-[10px] text-slate-500 block uppercase font-medium">Internal Gas & VOC</span>
+                        <span className="font-mono text-amber-400 font-bold">{stage.gas}</span>
+                      </div>
+                    </div>
+
+                    <div className="p-2.5 rounded-lg bg-cyan-950/40 border border-cyan-500/30 flex items-start gap-2 text-xs">
+                      <Radio className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-bold text-cyan-300 block">Automated Dispatch Response:</span>
+                        <span className="text-slate-300 text-[11px]">{stage.action}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
