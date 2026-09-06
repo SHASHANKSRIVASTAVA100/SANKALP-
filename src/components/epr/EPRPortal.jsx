@@ -59,7 +59,7 @@ export const EPRPortal = () => {
               Company Waste Cleanup & Recycling Proof (EPR)
             </h1>
             <p className="text-xs md:text-sm text-slate-300 max-w-2xl leading-relaxed mt-1">
-              By law, companies that package goods (like beverage bottles & electronics) must pay to clean up equal amounts of plastic. Here, brands track their real cleanup progress, reward waste workers with bonus wages, and receive verified digital certificates.
+              By law, companies that package goods (like beverage bottles & electronics) must pay to clean up equal amounts of plastic. Here, brands track their real cleanup progress, guarantee frontline sanitation workers fair formal wages, and receive verified digital certificates.
             </p>
           </div>
 
@@ -94,10 +94,10 @@ export const EPRPortal = () => {
               <div className="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 space-y-1">
                 <div className="flex items-center gap-2 text-emerald-400 font-bold">
                   <span className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center text-[11px]">2</span>
-                  <span>Workers Collect & Get Bonus Pay</span>
+                  <span>Workers Collect & Earn Fair Wages</span>
                 </div>
                 <p className="text-slate-300 text-[11px] leading-relaxed">
-                  Municipal sanitation heroes collect the plastic from streets. Corporate EPR funds pay them direct cash bonuses per kg!
+                  Municipal sanitation heroes collect the plastic from streets. Corporate EPR funds guarantee them direct formal wages per kg!
                 </p>
               </div>
 
@@ -242,7 +242,7 @@ export const EPRPortal = () => {
 
             <div className="bg-slate-900 border border-amber-900/40 rounded-2xl p-5 space-y-2 hover:border-amber-700/50 transition-all shadow-md">
               <div className="flex items-center justify-between">
-                <span className="text-xs text-amber-400 font-medium">Worker Bonus Cash Paid</span>
+                <span className="text-xs text-amber-400 font-medium">Worker Wages Paid</span>
                 <span className="text-[10px] bg-amber-950 text-amber-400 px-2 py-0.5 rounded font-bold">
                   Direct Benefit
                 </span>
@@ -254,7 +254,7 @@ export const EPRPortal = () => {
                 Distributed to 45 Sanitation Heroes
               </span>
               <p className="text-[10px] text-slate-400 pt-1 border-t border-slate-800">
-                Extra income above their salary for keeping streets clean
+                Guaranteed formal wages for their vital municipal sanitation beat
               </p>
             </div>
           </div>
@@ -428,9 +428,9 @@ export const EPRPortal = () => {
               <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
                 <DollarSign className="w-5 h-5" />
               </div>
-              <h4 className="font-bold text-sm text-white">Workers Paid Extra Bonus</h4>
+              <h4 className="font-bold text-sm text-white">Workers Paid Fair Formal Wages</h4>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Brand money doesn't disappear into government fees. It goes directly to frontline sanitation workers as bonus cash per kg of clean waste collected.
+                Brand money doesn't disappear into government fees. It goes directly to frontline sanitation workers as fair wages per kg of clean waste collected.
               </p>
             </div>
 
@@ -482,7 +482,7 @@ export const EPRPortal = () => {
                 <span className="text-2xl">👷</span>
                 <div className="font-bold text-xs text-white">1. Sanitation Heroes</div>
                 <span className="text-[10px] text-emerald-400 font-semibold block">Ground Collection</span>
-                <p className="text-[11px] text-slate-400">Collects and segregates waste on streets, earning direct bonus money per kg.</p>
+                <p className="text-[11px] text-slate-400">Collects and segregates waste on streets, earning direct fair wages per kg.</p>
               </div>
 
               <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5">

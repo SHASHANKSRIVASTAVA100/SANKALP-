@@ -53,7 +53,7 @@
       },
       "reportedAt": "2026-09-04T11:26:49.217Z",
       "status": "pending",
-      "priority": "high",
+      "priority": "critical",
       "slaHours": 4,
       "slaDeadline": "2026-09-04T15:26:49.217Z",
       "aiAnalysis": {
@@ -84,7 +84,11 @@
       "mrfDestination": null,
       "supervisorNotes": null,
       "supervisorRating": null,
-      "sosAlert": null
+      "sosAlert": {
+        "reason": "Aggressive Stray Dogs / Threat to Worker Safety",
+        "notes": "Dump includes large reinforced concrete chunks and buried metal pipes exceeding manual shovel capacity.",
+        "reportedAt": "2026-09-05T17:03:03.481Z"
+      }
     },
     {
       "id": "CMP-2026-5578",
@@ -277,7 +281,7 @@
         "lng": 77.6408
       },
       "reportedAt": "2026-09-04T08:30:00.000Z",
-      "status": "in_progress",
+      "status": "awaiting_verification",
       "priority": "high",
       "slaHours": 4,
       "slaDeadline": "2026-09-04T12:30:00.000Z",
@@ -303,7 +307,7 @@
       "assignedWorkerId": "WRK-02",
       "assignedWorkerName": "Vikram Singh",
       "assignedTeam": "Rapid Response Unit",
-      "collectedWeightKg": 15,
+      "collectedWeightKg": 45,
       "mrfDestination": "Municipal MRF Unit #12 - Indiranagar",
       "supervisorNotes": "Ground sanitary inspector dispatched for manual audit.",
       "supervisorRating": null,
@@ -450,8 +454,8 @@
       "role": "Senior Sanitation Hero",
       "rating": 4.9,
       "reviewsCount": 142,
-      "attendance": "punched_in",
-      "punchInTime": "06:35 pm",
+      "attendance": "punched_out",
+      "punchInTime": null,
       "activeTasksCount": 1,
       "completedToday": 4,
       "totalKgClearedToday": 200,
@@ -469,10 +473,10 @@
       "reviewsCount": 98,
       "attendance": "punched_in",
       "punchInTime": "08:00 AM",
-      "activeTasksCount": 3,
-      "completedToday": 2,
-      "totalKgClearedToday": 240,
-      "earningsToday": 850
+      "activeTasksCount": 2,
+      "completedToday": 3,
+      "totalKgClearedToday": 285,
+      "earningsToday": 1100
     },
     {
       "id": "WRK-03",
@@ -501,15 +505,15 @@
       "driverPhone": "+91 94480 77121",
       "ward": "Ward 12 - Indiranagar",
       "currentLocation": {
-        "lat": 12.958149556011278,
-        "lng": 77.62731080908821
+        "lat": 12.961426467981957,
+        "lng": 77.62977481582183
       },
       "currentStreet": "Near 12th Main Road, 80 Feet Road Junction",
       "speedKmH": 18,
       "status": "collecting",
-      "routeProgress": 33,
-      "distanceFromUserMeters": 185,
-      "estimatedArrivalMinutes": 2,
+      "routeProgress": 90,
+      "distanceFromUserMeters": 290,
+      "estimatedArrivalMinutes": 4,
       "capacityPercent": 74,
       "stopsRemaining": 5
     },
@@ -521,15 +525,15 @@
       "driverPhone": "+91 98861 88345",
       "ward": "Ward 14 - Koramangala",
       "currentLocation": {
-        "lat": 12.922731974755855,
-        "lng": 77.61852190186141
+        "lat": 12.924244603703011,
+        "lng": 77.61335244884974
       },
       "currentStreet": "80 Feet Road, 4th Block",
       "speedKmH": 22,
       "status": "in_transit",
-      "routeProgress": 50,
-      "distanceFromUserMeters": 275,
-      "estimatedArrivalMinutes": 3,
+      "routeProgress": 23,
+      "distanceFromUserMeters": 125,
+      "estimatedArrivalMinutes": 2,
       "capacityPercent": 88,
       "stopsRemaining": 2
     }

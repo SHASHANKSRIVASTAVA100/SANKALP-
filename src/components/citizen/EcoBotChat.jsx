@@ -40,8 +40,38 @@ export const EcoBotChat = ({ isOpen, onClose }) => {
     "Where do coconut shells go?",
     "How to dispose of tube lights and batteries?",
     "What are the fines for mixed waste?",
-    "When does the truck visit Ward 12?"
+    "When does the truck visit Ward 12?",
+    "Can I dispose of mixed waste?"
   ];
+
+  const getImmediateBotReply = (qText) => {
+    const q = qText.toLowerCase();
+    if (q.includes('coconut') || q.includes('shell') || q.includes('नारियल') || q.includes('husk') || q.includes('ತೆಂಗಿನ') || q.includes('தேங்காய்')) {
+      return "🥥 Coconut shells & dry husks belong to the 🟢 GREEN BIN (Organic Wet Waste). In municipal processing, dry coconut husks are shredded for eco-coir or routed to biomass briquette processing to produce clean fuel!";
+    }
+    if (q.includes('tube') || q.includes('light') || q.includes('cfl') || q.includes('bulb') || q.includes('battery') || q.includes('batteries') || q.includes('mercury') || q.includes('बैटरी')) {
+      return "⚡ Tube lights, CFL bulbs, and batteries contain toxic heavy metals (mercury & lead). They MUST be put in the 🔴 RED / BLACK BIN (Domestic Hazardous Waste). Never mix them with dry recyclables or kitchen food waste! You can also book a dedicated hazardous pickup in the app.";
+    }
+    if (q.includes('fine') || q.includes('penalty') || q.includes('rule') || q.includes('जुर्माना') || q.includes('bylaw') || q.includes('दंड')) {
+      return "⚖️ Under the Solid Waste Management (SWM) Rules 2016 and Municipal Bylaws, handing over unsegregated mixed waste attracts a spot-fine from ₹200 to ₹1,000 for residential homes and up to ₹10,000 for commercial bulk generators, plus cancellation of civic property tax rebates!";
+    }
+    if (q.includes('mix') || q.includes('unsegregat') || q.includes('mrf') || q.includes('मिश्रित')) {
+      return "🟡 Yes! If you cannot segregate today, declare 'Mixed Waste' in the app. It will receive an Amber/Yellow digital tag and will be routed directly to our High-Tech Material Recovery Facility (MRF), where automated rotary trommel screens and magnetic separators safely recover recyclables before wet organics enter Bio-CNG digestion.";
+    }
+    if (q.includes('truck') || q.includes('time') || q.includes('timing') || q.includes('ward 12') || q.includes('arrive') || q.includes('schedule') || q.includes('गाड़ी')) {
+      return "🚛 Doorstep municipal compactor trucks visit Ward 12 (Indiranagar) daily between 06:30 AM and 09:30 AM. You can check the live GPS Radar on your home screen for real-time vehicle proximity alerts!";
+    }
+    if (q.includes('e-waste') || q.includes('phone') || q.includes('wire') || q.includes('electronic')) {
+      return "📱 E-waste (dead phones, chargers, circuit boards) contains hazardous elements. Book a dedicated E-Waste Pickup in the app or drop it at the Ward 12 MRF to earn verified EPR Green Credits!";
+    }
+    if (q.includes('plastic') || q.includes('bottle') || q.includes('box') || q.includes('cardboard') || q.includes('paper') || q.includes('dry')) {
+      return "🔵 Place clean plastics, beverage cans, and cardboard boxes into the 🔵 BLUE BIN (Dry Recyclable). Rinse food residue first to prevent contaminating recyclers' baling lines!";
+    }
+    if (q.includes('food') || q.includes('vegetable') || q.includes('peel') || q.includes('wet')) {
+      return "🟢 Kitchen food leftovers, fruit/vegetable peels, and tea leaves go into the 🟢 GREEN BIN (Wet Waste). Municipal bio-digesters convert them into Bio-CNG clean fuel and organic compost!";
+    }
+    return null;
+  };
 
   const handleSend = async (textToSend) => {
     const query = textToSend || inputText;
@@ -51,12 +81,16 @@ export const EcoBotChat = ({ isOpen, onClose }) => {
     setMessages(prev => [...prev, userMsg]);
     setInputText("");
 
+    const immediateReply = getImmediateBotReply(query);
+
     try {
       const response = await apiClient.bot.ask(query, language);
-      const reply = response?.reply || "♻️ Swachh Tip: Rinse milk pouches and food plastic before dropping into the blue dry waste bin. Green bin is strictly for wet food!";
-      setMessages(prev => [...prev, { id: "msg-" + (Date.now() + 1), sender: "bot", text: reply }]);
+      const isGeneric = !response?.reply || response.reply.includes("Please ensure segregation");
+      const finalReply = (!isGeneric && response?.reply) ? response.reply : (immediateReply || response?.reply || "♻️ Swachh Tip: Rinse milk pouches and food plastic before dropping into the blue dry waste bin. Green bin is strictly for wet food!");
+      setMessages(prev => [...prev, { id: "msg-" + (Date.now() + 1), sender: "bot", text: finalReply }]);
     } catch (e) {
-      setMessages(prev => [...prev, { id: "msg-" + (Date.now() + 1), sender: "bot", text: "♻️ Please segregate organic wet waste into the green bin and recyclables into the blue bin." }]);
+      const fallback = immediateReply || "♻️ Please segregate organic wet waste into the green bin and recyclables into the blue bin. You can also declare 'Mixed Waste' for High-Tech MRF routing!";
+      setMessages(prev => [...prev, { id: "msg-" + (Date.now() + 1), sender: "bot", text: fallback }]);
     }
   };
 

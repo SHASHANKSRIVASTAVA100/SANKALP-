@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Presentation artifacts (local only)
+*.pdf
+public/sih_assets/
+public/SIH_2026_*
+SIH_2026_*
+

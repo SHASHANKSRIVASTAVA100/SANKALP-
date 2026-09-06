@@ -153,6 +153,25 @@ export const WASTE_CATEGORIES = [
     binTextColor: "text-amber-300",
     segregationTip: "Stack neatly curbside. Do not mix with municipal MSW; book dedicated ULB aggregate crusher pickup.",
     carbonFactor: 0.3
+  },
+  {
+    id: "mixed_waste",
+    name: "Mixed & Unsegregated Waste",
+    icon: "🟡",
+    hazard: "Medium (Automated MRF Sorting Required)",
+    defaultSla: 6,
+    priority: "medium",
+    equipment: "Compactor Truck with Direct High-Tech MRF Ingestion Routing",
+    tags: ["Mixed Food & Plastic (55%)", "Packaging Foil & Scrap (30%)", "Miscellaneous Domestic Refuse (15%)"],
+    avgWeight: 45,
+    recyclable: false,
+    binType: "amber",
+    binName: "Yellow / Amber Tag (High-Tech MRF Facility)",
+    binBg: "bg-amber-950/40 border-amber-500/50 text-amber-400",
+    binColor: "bg-amber-500",
+    binTextColor: "text-amber-300",
+    segregationTip: "Transferred directly to Municipal High-Tech MRF (Material Recovery Facility). Automated rotary trommels and overband magnets safely recover recyclables before wet organics enter Bio-CNG digestion.",
+    carbonFactor: 0.5
   }
 ];
 
@@ -243,6 +262,15 @@ export const classifyWaste = ({
     categoryHint === 'cardboard'
   ) {
     matched = WASTE_CATEGORIES.find(c => c.id === 'cardboard');
+  } else if (
+    query.includes('mixed') ||
+    query.includes('unsegregated') ||
+    query.includes('mrf') ||
+    query.includes('khichdi') ||
+    query.includes('kachra') ||
+    categoryHint === 'mixed_waste'
+  ) {
+    matched = WASTE_CATEGORIES.find(c => c.id === 'mixed_waste');
   } else {
     matched = WASTE_CATEGORIES.find(c => c.id === 'plastic');
   }

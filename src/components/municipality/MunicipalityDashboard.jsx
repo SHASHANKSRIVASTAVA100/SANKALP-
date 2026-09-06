@@ -38,7 +38,8 @@ import {
   Gauge,
   Compass,
   BatteryCharging,
-  Fuel
+  Fuel,
+  Info
 } from 'lucide-react';
 import { GoogleMapContainer } from '../common/GoogleMapContainer';
 import { OfficialSbmAuditModal } from './OfficialSbmAuditModal';

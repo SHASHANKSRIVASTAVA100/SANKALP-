@@ -42,75 +42,14 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
     };
   }, [isOpen]);
 
-  // Presets covering all standard real-world waste streams
-  const PRESET_SAMPLES = [
-    {
-      id: "preset-plastic",
-      title: "PET Bottles & Plastic Litter",
-      categoryHint: "plastic",
-      image: "https://images.unsplash.com/photo-1526951521990-620dc14c214b?auto=format&fit=crop&w=800&q=80",
-      description: "Severe roadside accumulation of discarded mineral water bottles and multi-layered snack packaging."
-    },
-    {
-      id: "preset-organic",
-      title: "Mandi Rotten Vegetable Waste",
-      categoryHint: "organic",
-      image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80",
-      description: "Decomposing wet vegetable greens and fruit scraps emitting foul odor near market stalls."
-    },
-    {
-      id: "preset-hazardous",
-      title: "Chemical Drums & Battery Spills",
-      categoryHint: "hazardous",
-      image: "https://images.unsplash.com/photo-1604187351574-c75ca79f5807?auto=format&fit=crop&w=800&q=80",
-      description: "Discarded solvent canisters and leaking commercial battery casings on public footpath."
-    },
-    {
-      id: "preset-drain",
-      title: "Clogged Stormwater Drain & Silt",
-      categoryHint: "clogged_drain",
-      image: "https://images.unsplash.com/photo-1590496793929-36417d3117de?auto=format&fit=crop&w=800&q=80",
-      description: "Drain grate choked with silt and polythene bags causing black stagnant water overflow."
-    },
-    {
-      id: "preset-metal",
-      title: "Crushed Beverage Cans & Scrap",
-      categoryHint: "metal",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
-      description: "Aluminum soda cans and scrap metal tin containers scattered along the curb."
-    },
-    {
-      id: "preset-glass",
-      title: "Broken Glass Bottles & Cullet",
-      categoryHint: "glass",
-      image: "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&q=80",
-      description: "Shattered beverage glass bottles creating urgent puncture and laceration hazard for pedestrians."
-    },
-    {
-      id: "preset-cardboard",
-      title: "Corrugated Cardboard Cartons",
-      categoryHint: "cardboard",
-      image: "https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=800&q=80",
-      description: "Stacked eCommerce delivery boxes and wet paper packaging blocking pedestrian ramp."
-    },
-    {
-      id: "preset-rubble",
-      title: "Construction & Demolition Rubble",
-      categoryHint: "cd_rubble",
-      image: "https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=800&q=80",
-      description: "Heavy concrete debris, broken ceramic tiles, and masonry plaster dumped on roadway."
-    }
-  ];
-
-  const [selectedPreset, setSelectedPreset] = useState(PRESET_SAMPLES[0]);
   const [customImage, setCustomImage] = useState(null);
   const [activeCategoryHint, setActiveCategoryHint] = useState("plastic");
   const [isScanning, setIsScanning] = useState(false);
   const [scanComplete, setScanComplete] = useState(true);
 
   // Form Fields
-  const [title, setTitle] = useState(PRESET_SAMPLES[0].title);
-  const [description, setDescription] = useState(PRESET_SAMPLES[0].description);
+  const [title, setTitle] = useState("Roadside Plastic & Dry Waste");
+  const [description, setDescription] = useState("Accumulation of discarded packaging and recyclable dry waste.");
   const [landmark, setLandmark] = useState("Opposite Metro Pillar #124, 12th Main Road");
   const [ward, setWard] = useState(wardFilter === 'All Wards' ? 'Ward 12 - Indiranagar' : wardFilter);
   const [selectedCoords, setSelectedCoords] = useState({ lat: 12.9784, lng: 77.6408 });
@@ -119,16 +58,16 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
   // AI Classification Result State
   const [aiResult, setAiResult] = useState(() =>
     classifyWaste({
-      fileName: 'preset-plastic',
-      title: PRESET_SAMPLES[0].title,
-      description: PRESET_SAMPLES[0].description,
+      fileName: 'waste-plastic',
+      title: "Roadside Plastic & Dry Waste",
+      description: "Accumulation of discarded packaging and recyclable dry waste.",
       categoryHint: 'plastic'
     })
   );
 
   if (!isOpen) return null;
 
-  const currentImage = customImage || selectedPreset.image;
+  const currentImage = customImage || REAL_WASTE_FALLBACK;
 
   // Run Real AI Classification Scan
   const triggerAiInference = (overrideCategory = null, overrideTitle = null, overrideDesc = null, overrideImg = null) => {
@@ -170,20 +109,17 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
     }
   };
 
-  // Handle preset selection
-  const handleSelectPreset = (preset) => {
-    setCustomImage(null);
-    setSelectedPreset(preset);
-    setActiveCategoryHint(preset.categoryHint);
-    setTitle(preset.title);
-    setDescription(preset.description);
-    triggerAiInference(preset.categoryHint, preset.title, preset.description, preset.id);
-  };
-
   // Switch category tag manually
   const handleCategorySwitch = (catId) => {
     setActiveCategoryHint(catId);
-    triggerAiInference(catId, title, description);
+    const catObj = WASTE_CATEGORIES.find(c => c.id === catId);
+    if (catObj) {
+      setTitle(`Citizen Report: ${catObj.name}`);
+      setDescription(catObj.segregationTip);
+      triggerAiInference(catId, `Citizen Report: ${catObj.name}`, catObj.segregationTip);
+    } else {
+      triggerAiInference(catId, title, description);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -331,9 +267,9 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
             {/* AI Waste Stream Quick Selectors */}
             <div className="space-y-1.5">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
-                Quick Category Presets (Kaggle & Urban Taxonomy):
+                Select Waste Category (Instant AI Classification & Routing):
               </span>
-              <div className="grid grid-cols-4 sm:grid-cols-8 gap-1.5">
+              <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-1.5">
                 {WASTE_CATEGORIES.map((cat) => (
                   <button
                     key={cat.id}
@@ -348,33 +284,7 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
                   >
                     <span className="text-base">{cat.icon}</span>
                     <span className="text-[9px] font-bold truncate max-w-full block mt-0.5">
-                      {cat.name.split(' ')[0]}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Realistic Street Presets Gallery */}
-            <div>
-              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
-                Or Select from Real Urban Waste Samples:
-              </span>
-              <div className="grid grid-cols-4 gap-2">
-                {PRESET_SAMPLES.slice(0, 4).map((p) => (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => handleSelectPreset(p)}
-                    className={`relative rounded-xl overflow-hidden border p-1 text-left transition-all cursor-pointer ${
-                      selectedPreset.id === p.id && !customImage
-                        ? 'border-emerald-500 bg-emerald-950/40 ring-2 ring-emerald-500/30'
-                        : 'border-slate-800 bg-slate-950/60 hover:border-slate-700'
-                    }`}
-                  >
-                    <img src={p.image} alt={p.title} className="w-full h-11 object-cover rounded-lg" />
-                    <span className="text-[10px] font-semibold text-slate-300 block truncate mt-1">
-                      {p.title}
+                      {cat.id === 'mixed_waste' ? 'Mixed' : cat.name.split(' ')[0]}
                     </span>
                   </button>
                 ))}
