@@ -12,7 +12,8 @@ import {
   MUNICIPAL_WASTE_STATS,
   INITIAL_MARKETPLACE_PRODUCTS,
   INITIAL_FARMER_AGRI_LEDGER,
-  INITIAL_MARKETPLACE_ORDERS
+  INITIAL_MARKETPLACE_ORDERS,
+  INITIAL_REUSABLE_WASTE_LOTS
 } from '../data/mockData';
 import { TRANSLATIONS } from '../i18n/translations';
 import { apiClient } from '../services/api';
@@ -129,6 +130,15 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('swachhta_marketplace_orders_v1', JSON.stringify(marketplaceOrders));
   }, [marketplaceOrders]);
+
+  const [reusableWasteLots, setReusableWasteLots] = useState(() => {
+    const saved = localStorage.getItem('swachhta_reusable_waste_lots_v1');
+    return saved ? JSON.parse(saved) : INITIAL_REUSABLE_WASTE_LOTS;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('swachhta_reusable_waste_lots_v1', JSON.stringify(reusableWasteLots));
+  }, [reusableWasteLots]);
 
   // Dual Engine View Mode: 'website' (Desktop Portal) | 'app' (Mobile Simulator)
   const [viewMode, setViewModeState] = useState(() => {
@@ -712,6 +722,72 @@ export const AppProvider = ({ children }) => {
     return { success: true, intake: newIntake };
   };
 
+  // Procure Reusable Waste Lot from Municipal MRF
+  const procureReusableWasteLot = ({ lotId, quantityTons, buyerName, buyerType, buyerContact, vehicleNumber, intendedReuseProcess }) => {
+    const lot = reusableWasteLots.find(l => l.id === lotId);
+    if (!lot) return { success: false, message: 'Waste lot not found' };
+
+    const tons = parseFloat(quantityTons) || lot.minProcureTons || 1;
+    if (lot.availableQuantityTons < tons) {
+      addNotification("Insufficient Quantity", `Only ${lot.availableQuantityTons} Tons available in lot.`, "warning");
+      return { success: false, message: 'Insufficient quantity' };
+    }
+
+    const pricePerTon = lot.pricePerTon || Math.round((lot.reservePricePerKg || 25) * 1000);
+    const totalAmount = Math.round(pricePerTon * tons);
+
+    // Deduct available quantity
+    setReusableWasteLots(prev => prev.map(l => {
+      if (l.id === lotId) {
+        return {
+          ...l,
+          availableQuantityTons: parseFloat(Math.max(0, l.availableQuantityTons - tons).toFixed(1))
+        };
+      }
+      return l;
+    }));
+
+    const orderId = `MANIFEST-CPCB-${Date.now().toString().slice(-6)}`;
+    const newOrder = {
+      id: orderId,
+      timestamp: "Just now",
+      buyerName: buyerName || "Certified Recycler / Manufacturer",
+      buyerType: buyerType || "Authorized Industrial Recycler",
+      buyerContact: buyerContact || "+91 98000 77412",
+      productId: lot.id,
+      productName: `[Reusable Secondary Waste] ${lot.lotName}`,
+      quantity: tons,
+      unit: "Tons",
+      totalAmount,
+      farmerProfitShare40: 0,
+      farmerBeneficiaryCluster: `Procured from ${lot.mrfFacility}`,
+      municipalShare60: totalAmount,
+      status: "Gate Pass Issued • CPCB Manifest Verified",
+      cpcbCertificateNo: `CPCB-FORM6-MANIFEST-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+      paymentMode: "TREDS / Municipal Secondary Tender Escrow",
+      weighbridgeDepot: lot.weighbridgeDepot,
+      vehicleNumber: vehicleNumber || "KA-04-TR-9901",
+      intendedReuseProcess: intendedReuseProcess || lot.reusableApplications,
+      hashSha256: lot.traceabilityHash
+    };
+
+    setMarketplaceOrders(prev => [newOrder, ...prev]);
+
+    confetti({
+      particleCount: 80,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+
+    addNotification(
+      "Waste Consignment Booked!",
+      `${tons} Tons of ${lot.lotName.slice(0, 30)}... booked. CPCB Form-6 Manifest & Weighbridge Gate Pass issued.`,
+      "success"
+    );
+
+    return { success: true, order: newOrder };
+  };
+
   // Reset to Factory Demo State
   const resetDemoData = () => {
     localStorage.clear();
@@ -723,6 +799,7 @@ export const AppProvider = ({ children }) => {
     setMarketplaceProducts(INITIAL_MARKETPLACE_PRODUCTS);
     setFarmerAgriLedger(INITIAL_FARMER_AGRI_LEDGER);
     setMarketplaceOrders(INITIAL_MARKETPLACE_ORDERS);
+    setReusableWasteLots(INITIAL_REUSABLE_WASTE_LOTS);
     setWardFilter('All Wards');
     setRole('citizen');
     setCurrentUser(null);
@@ -764,6 +841,9 @@ export const AppProvider = ({ children }) => {
         setMarketplaceOrders,
         buyMarketplaceProduct,
         logFarmerAgriIntake,
+        reusableWasteLots,
+        setReusableWasteLots,
+        procureReusableWasteLot,
         viewMode,
         setViewMode,
         isInstallModalOpen,

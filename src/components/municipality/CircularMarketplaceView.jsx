@@ -33,7 +33,8 @@ import {
   Download,
   Leaf,
   Factory,
-  Scale
+  Scale,
+  Recycle
 } from 'lucide-react';
 
 export const CircularMarketplaceView = () => {
@@ -41,12 +42,23 @@ export const CircularMarketplaceView = () => {
     marketplaceProducts = [],
     farmerAgriLedger = [],
     marketplaceOrders = [],
+    reusableWasteLots = [],
     buyMarketplaceProduct,
-    logFarmerAgriIntake
+    logFarmerAgriIntake,
+    procureReusableWasteLot
   } = useApp();
 
-  // Active Sub-Tab: 'catalog' | 'farmerLedger' | 'orders'
+  // Active Sub-Tab: 'catalog' | 'reusableWaste' | 'farmerLedger' | 'orders'
   const [subTab, setSubTab] = useState('catalog');
+
+  // Reusable Waste State & Filter
+  const [wasteCategoryFilter, setWasteCategoryFilter] = useState('All');
+  const [wasteSearchQuery, setWasteSearchQuery] = useState('');
+  const [procureWasteModalLot, setProcureWasteModalLot] = useState(null);
+  const [procureWasteTons, setProcureWasteTons] = useState(1);
+  const [wasteVehicleNo, setWasteVehicleNo] = useState('KA-03-TR-9901');
+  const [wasteIntendedProcess, setWasteIntendedProcess] = useState('');
+  const [wasteManifestReceipt, setWasteManifestReceipt] = useState(null);
 
   // Category Filter & Search for Marketplace
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -133,6 +145,60 @@ export const CircularMarketplaceView = () => {
       return matchesState && matchesSearch;
     });
   }, [farmerAgriLedger, farmerStateFilter, farmerSearchQuery]);
+
+  const wasteCategories = [
+    'All',
+    'Plastic Scrap',
+    'Paper & Fiber Scrap',
+    'Glass Salvage',
+    'Metal Scrap',
+    'C&D Debris',
+    'Biomass & Wood',
+    'E-Waste Salvage',
+    'Textile Scrap'
+  ];
+
+  // Filtered Reusable Waste Lots
+  const filteredWasteLots = useMemo(() => {
+    return reusableWasteLots.filter((lot) => {
+      const matchesCat = wasteCategoryFilter === 'All' || lot.materialCategory === wasteCategoryFilter;
+      const matchesSearch =
+        lot.lotName.toLowerCase().includes(wasteSearchQuery.toLowerCase()) ||
+        lot.mrfFacility.toLowerCase().includes(wasteSearchQuery.toLowerCase()) ||
+        lot.reusableApplications.toLowerCase().includes(wasteSearchQuery.toLowerCase()) ||
+        lot.qualityGrade.toLowerCase().includes(wasteSearchQuery.toLowerCase());
+      return matchesCat && matchesSearch;
+    });
+  }, [reusableWasteLots, wasteCategoryFilter, wasteSearchQuery]);
+
+  const handleOpenProcureWasteModal = (lot) => {
+    setProcureWasteModalLot(lot);
+    setProcureWasteTons(lot.minProcureTons || 1);
+    setBuyerName('Bangalore Eco-Fiber & Smelting Works Ltd');
+    setBuyerContact('+91 98450 11982');
+    setWasteVehicleNo('KA-03-TR-9901');
+    setWasteIntendedProcess(lot.reusableApplications);
+    setWasteManifestReceipt(null);
+  };
+
+  const handleConfirmWasteProcurement = (e) => {
+    e.preventDefault();
+    if (!procureWasteModalLot) return;
+
+    const res = procureReusableWasteLot({
+      lotId: procureWasteModalLot.id,
+      quantityTons: procureWasteTons,
+      buyerName,
+      buyerType: 'Authorized Industrial Circular Recycler',
+      buyerContact,
+      vehicleNumber: wasteVehicleNo,
+      intendedReuseProcess: wasteIntendedProcess
+    });
+
+    if (res.success) {
+      setWasteManifestReceipt(res.order);
+    }
+  };
 
   // Handle Buy Product Click
   const handleOpenBuyModal = (product) => {
@@ -384,9 +450,24 @@ export const CircularMarketplaceView = () => {
           }`}
         >
           <Store className="w-4 h-4" />
-          <span>Marketplace Catalog (Buy / Procure)</span>
+          <span>Finished Recycled Goods</span>
           <span className="text-[10px] bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-500/40 text-emerald-300">
             {marketplaceProducts.length} Products
+          </span>
+        </button>
+
+        <button
+          onClick={() => setSubTab('reusableWaste')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shrink-0 ${
+            subTab === 'reusableWaste'
+              ? 'bg-cyan-600 text-white shadow-md shadow-cyan-600/30'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+          }`}
+        >
+          <Recycle className="w-4 h-4 text-cyan-300" />
+          <span>Reusable Waste Procurement (MRF Lots)</span>
+          <span className="text-[10px] bg-cyan-950/80 px-2 py-0.5 rounded-full border border-cyan-500/40 text-cyan-300 font-mono">
+            {reusableWasteLots.length} Bulk Lots
           </span>
         </button>
 
@@ -579,6 +660,128 @@ export const CircularMarketplaceView = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* SUB-TAB: REUSABLE WASTE PROCUREMENT (MRF SECONDARY CONSIGNMENTS)          */}
+      {/* ========================================================================= */}
+      {subTab === 'reusableWaste' && (
+        <div className="space-y-6">
+          {/* Header Description & Controls */}
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <Recycle className="w-5 h-5 text-cyan-400" />
+                Raw Reusable Waste Procurement Desk (MRF Secondary Consignments)
+              </h3>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Bulk segregated waste lots ready for direct reuse, industrial remanufacturing, and authorized smelting/pulping.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="relative w-full md:w-64">
+                <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={wasteSearchQuery}
+                  onChange={(e) => setWasteSearchQuery(e.target.value)}
+                  placeholder="Search waste lots, MRF, paper, PET..."
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                />
+              </div>
+
+              <select
+                value={wasteCategoryFilter}
+                onChange={(e) => setWasteCategoryFilter(e.target.value)}
+                className="bg-slate-950 border border-slate-800 text-slate-300 text-xs rounded-xl px-3 py-1.5 focus:outline-none focus:border-cyan-500"
+              >
+                {wasteCategories.map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Waste Lots Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredWasteLots.map((lot) => (
+              <div
+                key={lot.id}
+                className="bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-3xl p-5 flex flex-col justify-between transition-all hover:shadow-2xl relative"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                      <Recycle className="w-3 h-3" />
+                      {lot.materialCategory}
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+                      Lot ID: {lot.id}
+                    </span>
+                  </div>
+
+                  <h4 className="text-sm font-black text-white leading-snug mb-1">
+                    {lot.lotName}
+                  </h4>
+
+                  <div className="flex items-center gap-1 text-[11px] text-slate-400 mb-3">
+                    <MapPin className="w-3 h-3 text-cyan-400 shrink-0" />
+                    <span className="truncate">{lot.mrfFacility}</span>
+                  </div>
+
+                  {/* Quality & Traceability */}
+                  <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3 space-y-1.5 mb-3 text-[11px]">
+                    <div className="flex items-center justify-between text-slate-300">
+                      <span className="text-slate-500">Quality Spec:</span>
+                      <span className="font-medium text-slate-200 truncate max-w-[170px]" title={lot.qualityGrade}>
+                        {lot.qualityGrade}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-slate-300">
+                      <span className="text-slate-500">Intended Reuse:</span>
+                      <span className="font-medium text-cyan-300 truncate max-w-[170px]" title={lot.reusableApplications}>
+                        {lot.reusableApplications}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-slate-300">
+                      <span className="text-slate-500">Weighbridge:</span>
+                      <span className="font-medium text-emerald-400 truncate max-w-[170px]" title={lot.weighbridgeDepot}>
+                        {lot.weighbridgeDepot}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="text-[10px] text-slate-500 font-mono truncate mb-4" title={lot.traceabilityHash}>
+                    Hash: {lot.traceabilityHash}
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-slate-800 flex items-center justify-between gap-3">
+                  <div>
+                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">Reserve Price</span>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-lg font-black text-white font-mono">
+                        ₹{lot.reservePricePerKg ? `${lot.reservePricePerKg}/kg` : `₹${lot.pricePerTon}/Ton`}
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-emerald-400 font-mono block">
+                      Available: {lot.availableQuantityTons} Tons
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={() => handleOpenProcureWasteModal(lot)}
+                    className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-cyan-600/20 transition-all cursor-pointer shrink-0"
+                  >
+                    <Truck className="w-3.5 h-3.5" />
+                    <span>Book Lot</span>
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -1192,6 +1395,181 @@ export const CircularMarketplaceView = () => {
                 <span>Authorize Intake & Disburse 40% Farmer DBT</span>
               </button>
             </form>
+          </div>
+        </div>
+      )}
+      {/* ========================================================================= */}
+      {/* MODAL 3: PROCURE REUSABLE WASTE LOT & ISSUE CPCB GATE PASS               */}
+      {/* ========================================================================= */}
+      {procureWasteModalLot && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-slate-900 border border-cyan-500/40 rounded-3xl max-w-xl w-full p-6 shadow-2xl relative my-8 animate-in fade-in zoom-in-95 duration-200">
+            <button
+              onClick={() => setProcureWasteModalLot(null)}
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {!wasteManifestReceipt ? (
+              <form onSubmit={handleConfirmWasteProcurement} className="space-y-5">
+                <div className="flex items-start gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shrink-0">
+                    <Recycle className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider">
+                      Municipal MRF Secondary Consignment Desk
+                    </span>
+                    <h3 className="text-lg font-black text-white leading-tight">
+                      {procureWasteModalLot.lotName}
+                    </h3>
+                    <span className="text-xs text-slate-400">
+                      Depot: {procureWasteModalLot.mrfFacility} • Scale: {procureWasteModalLot.weighbridgeDepot}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-300 flex items-center justify-between">
+                    <span>Procurement Consignment Tonnage</span>
+                    <span className="text-slate-400 font-normal">
+                      Available: {procureWasteModalLot.availableQuantityTons} Tons (Min: {procureWasteModalLot.minProcureTons} T)
+                    </span>
+                  </label>
+                  <input
+                    type="number"
+                    step="0.5"
+                    min={procureWasteModalLot.minProcureTons || 1}
+                    max={procureWasteModalLot.availableQuantityTons}
+                    value={procureWasteTons}
+                    onChange={(e) => setProcureWasteTons(Math.max(0.5, parseFloat(e.target.value) || 1))}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white font-mono focus:outline-none focus:border-cyan-500"
+                    required
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-slate-300">Authorized Recycler / Mill</label>
+                    <input
+                      type="text"
+                      value={buyerName}
+                      onChange={(e) => setBuyerName(e.target.value)}
+                      placeholder="e.g. Eco-Fiber Mills Ltd"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-slate-300">Transport Vehicle Number</label>
+                    <input
+                      type="text"
+                      value={wasteVehicleNo}
+                      onChange={(e) => setWasteVehicleNo(e.target.value)}
+                      placeholder="KA-04-TR-1234"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-cyan-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-300">Intended Circular Reuse Process</label>
+                  <input
+                    type="text"
+                    value={wasteIntendedProcess}
+                    onChange={(e) => setWasteIntendedProcess(e.target.value)}
+                    placeholder="e.g. Bottle-to-bottle pelletizing, Kraft paperboard pulp"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500"
+                    required
+                  />
+                </div>
+
+                {/* Price Calculation Box */}
+                {(() => {
+                  const ratePerTon = procureWasteModalLot.pricePerTon || Math.round((procureWasteModalLot.reservePricePerKg || 25) * 1000);
+                  const total = Math.round(ratePerTon * procureWasteTons);
+
+                  return (
+                    <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-2 text-xs">
+                      <div className="flex justify-between text-slate-300">
+                        <span>Reserve Rate:</span>
+                        <span className="font-mono">₹{ratePerTon.toLocaleString('en-IN')} / Metric Ton</span>
+                      </div>
+                      <div className="flex justify-between text-slate-300">
+                        <span>Weighbridge Loading Fee:</span>
+                        <span className="font-mono text-emerald-400">Included (Free Municipal Weighing)</span>
+                      </div>
+                      <div className="flex justify-between text-sm font-bold text-white pt-2 border-t border-slate-800">
+                        <span>Total Consignment Amount:</span>
+                        <span className="font-mono text-base text-cyan-400">₹{total.toLocaleString('en-IN')}</span>
+                      </div>
+                      <p className="text-[10px] text-slate-400 pt-1">
+                        CPCB Form-6 Waste Consignment Manifest & Weighbridge Gate Pass will be generated instantly.
+                      </p>
+                    </div>
+                  );
+                })()}
+
+                <button
+                  type="submit"
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-700/30 transition-all cursor-pointer"
+                >
+                  <Truck className="w-4 h-4" />
+                  <span>Book Consignment & Issue Weighbridge Pass</span>
+                </button>
+              </form>
+            ) : (
+              /* Success Manifest Receipt */
+              <div className="space-y-5 text-center py-2">
+                <div className="w-16 h-16 rounded-full bg-cyan-500/20 border-2 border-cyan-500 flex items-center justify-center text-cyan-400 mx-auto">
+                  <ShieldCheck className="w-8 h-8 animate-bounce" />
+                </div>
+
+                <div>
+                  <span className="text-[11px] font-bold text-cyan-400 uppercase tracking-wider">
+                    Weighbridge Gate Pass & CPCB Manifest Issued
+                  </span>
+                  <h3 className="text-xl font-black text-white mt-1">
+                    Manifest #{wasteManifestReceipt.id}
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-1 font-mono">
+                    CPCB Certificate: {wasteManifestReceipt.cpcbCertificateNo}
+                  </p>
+                </div>
+
+                <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-left space-y-2 text-xs">
+                  <div className="flex justify-between text-slate-300">
+                    <span className="text-slate-400">Material Lot:</span>
+                    <span className="font-semibold text-white truncate max-w-[240px]">{wasteManifestReceipt.productName}</span>
+                  </div>
+                  <div className="flex justify-between text-slate-300">
+                    <span className="text-slate-400">Consignment:</span>
+                    <span className="font-mono">{wasteManifestReceipt.quantity} Tons</span>
+                  </div>
+                  <div className="flex justify-between text-slate-300">
+                    <span className="text-slate-400">Truck Assigned:</span>
+                    <span className="font-mono text-cyan-400">{wasteManifestReceipt.vehicleNumber}</span>
+                  </div>
+                  <div className="flex justify-between text-slate-300">
+                    <span className="text-slate-400">Total Invoice:</span>
+                    <span className="font-mono font-bold text-white">₹{wasteManifestReceipt.totalAmount?.toLocaleString('en-IN')}</span>
+                  </div>
+                  <div className="flex justify-between text-slate-300">
+                    <span className="text-slate-400">Weighbridge Scale:</span>
+                    <span className="text-slate-300">{wasteManifestReceipt.weighbridgeDepot}</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => setProcureWasteModalLot(null)}
+                  className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition-colors cursor-pointer"
+                >
+                  Close Pass
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
