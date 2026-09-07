@@ -42,6 +42,50 @@
   },
   "complaints": [
     {
+      "id": "CMP-2026-1187",
+      "title": "Citizen Report: Plastic & Polymers",
+      "description": "Rinse and crush plastic containers; place in the Blue Dry Recyclable Bin for authorized EPR mechanical baling.",
+      "ward": "Ward 12 - Indiranagar",
+      "locationName": "Opposite Metro Pillar #124, 12th Main Road",
+      "coordinates": {
+        "lat": 12.9784,
+        "lng": 77.6408
+      },
+      "reportedAt": "2026-09-07T07:43:01.187Z",
+      "status": "pending",
+      "priority": "medium",
+      "slaHours": 8,
+      "slaDeadline": "2026-09-07T15:43:01.187Z",
+      "aiAnalysis": {
+        "primaryCategory": "Plastic & Polymers",
+        "detectedTypes": [
+          "PET Plastic Bottles (65%)",
+          "Multilayered Packaging (25%)",
+          "Polythene Carry Bags (10%)"
+        ],
+        "estimatedWeightKg": 25,
+        "confidence": "93.6%",
+        "hazardScore": "Medium",
+        "recommendedAction": "Mini Tipper Truck with Dry Waste Segregation Unit"
+      },
+      "beforeImage": "https://images.unsplash.com/photo-1526951521990-620dc14c214b?auto=format&fit=crop&w=800&q=80",
+      "afterImage": null,
+      "reportedBy": {
+        "name": "Aarav Sharma (Citizen)",
+        "phone": "+91 98450 12345",
+        "isCitizenVerified": false,
+        "citizenRating": null
+      },
+      "assignedWorkerId": null,
+      "assignedWorkerName": null,
+      "assignedTeam": null,
+      "collectedWeightKg": null,
+      "mrfDestination": null,
+      "supervisorNotes": null,
+      "supervisorRating": null,
+      "sosAlert": null
+    },
+    {
       "id": "CMP-2026-9217",
       "title": "Citizen Report: Screenshot 2026-09-04 162235",
       "description": "Severe roadside accumulation of discarded mineral water bottles and multi-layered snack packaging.",
@@ -505,14 +549,14 @@
       "driverPhone": "+91 94480 77121",
       "ward": "Ward 12 - Indiranagar",
       "currentLocation": {
-        "lat": 12.961426467981957,
-        "lng": 77.62977481582183
+        "lat": 12.950786715220433,
+        "lng": 77.62601120404068
       },
       "currentStreet": "Near 12th Main Road, 80 Feet Road Junction",
       "speedKmH": 18,
       "status": "collecting",
-      "routeProgress": 90,
-      "distanceFromUserMeters": 290,
+      "routeProgress": 22,
+      "distanceFromUserMeters": 320,
       "estimatedArrivalMinutes": 4,
       "capacityPercent": 74,
       "stopsRemaining": 5
@@ -525,14 +569,14 @@
       "driverPhone": "+91 98861 88345",
       "ward": "Ward 14 - Koramangala",
       "currentLocation": {
-        "lat": 12.924244603703011,
-        "lng": 77.61335244884974
+        "lat": 12.926343141202658,
+        "lng": 77.62238653845223
       },
       "currentStreet": "80 Feet Road, 4th Block",
       "speedKmH": 22,
       "status": "in_transit",
-      "routeProgress": 23,
-      "distanceFromUserMeters": 125,
+      "routeProgress": 39,
+      "distanceFromUserMeters": 155,
       "estimatedArrivalMinutes": 2,
       "capacityPercent": 88,
       "stopsRemaining": 2

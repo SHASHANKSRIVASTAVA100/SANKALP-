@@ -104,7 +104,7 @@ setInterval(() => {
   }
 }, 3000);
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`=================================================`);
   console.log(`🚀 Swachhta Sangam Backend API is running on port ${PORT}`);
   console.log(`📡 WebSocket GPS Telematics active at ws://localhost:${PORT}`);

@@ -39,10 +39,14 @@ import {
   Compass,
   BatteryCharging,
   Fuel,
-  Info
+  Info,
+  Store,
+  Wheat,
+  Coins
 } from 'lucide-react';
 import { GoogleMapContainer } from '../common/GoogleMapContainer';
 import { OfficialSbmAuditModal } from './OfficialSbmAuditModal';
+import { CircularMarketplaceView } from './CircularMarketplaceView';
 
 export const MunicipalityDashboard = () => {
   const {
@@ -51,13 +55,16 @@ export const MunicipalityDashboard = () => {
     technologies = [],
     municipalStats = {},
     vehicles = [],
+    marketplaceProducts = [],
+    farmerAgriLedger = [],
+    marketplaceOrders = [],
     wardFilter,
     setWardFilter,
     t
   } = useApp();
 
-  // Navigation Sub-tabs: 'recyclers' | 'categories' | 'diversion' | 'technology' | 'fleet'
-  const [activeTab, setActiveTab] = useState('recyclers');
+  // Navigation Sub-tabs: 'marketplace' | 'recyclers' | 'categories' | 'diversion' | 'technology' | 'fleet'
+  const [activeTab, setActiveTab] = useState('marketplace');
 
   // SBM-U 2.0 Compliance Audit Modal
   const [showAuditModal, setShowAuditModal] = useState(false);
@@ -408,8 +415,25 @@ export const MunicipalityDashboard = () => {
         </div>
       </div>
 
-      {/* 5 Navigation Tabs (Human-Friendly Labels) */}
+      {/* 6 Navigation Tabs (Human-Friendly Labels) */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-800 no-scrollbar">
+        <button
+          onClick={() => setActiveTab('marketplace')}
+          className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all shrink-0 cursor-pointer ${
+            activeTab === 'marketplace'
+              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-600/30'
+              : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'
+          }`}
+        >
+          <Store className="w-4 h-4 text-emerald-400" />
+          <span>Recycled Marketplace & Farmer Agri-Share</span>
+          <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
+            activeTab === 'marketplace' ? 'bg-emerald-800 text-amber-300' : 'bg-amber-400/20 text-amber-300 border border-amber-400/30'
+          }`}>
+            🌾 40% Farmer Share
+          </span>
+        </button>
+
         <button
           onClick={() => setActiveTab('recyclers')}
           className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all shrink-0 cursor-pointer ${
@@ -495,6 +519,13 @@ export const MunicipalityDashboard = () => {
           </span>
         </button>
       </div>
+
+      {/* ========================================================================= */}
+      {/* TAB 0: RECYCLED GOODS MARKETPLACE & 40% FARMER AGRI-CIRCULAR EXCHANGE       */}
+      {/* ========================================================================= */}
+      {activeTab === 'marketplace' && (
+        <CircularMarketplaceView />
+      )}
 
       {/* ========================================================================= */}
       {/* TAB 1: CERTIFIED RECYCLING FACTORIES & MATERIAL PROCESSING CENTERS        */}

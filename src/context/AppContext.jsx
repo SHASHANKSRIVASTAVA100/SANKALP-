@@ -9,7 +9,10 @@ import {
   EPR_COMPANIES,
   INITIAL_RECYCLERS,
   MUNICIPAL_TECHNOLOGY_REGISTRY,
-  MUNICIPAL_WASTE_STATS
+  MUNICIPAL_WASTE_STATS,
+  INITIAL_MARKETPLACE_PRODUCTS,
+  INITIAL_FARMER_AGRI_LEDGER,
+  INITIAL_MARKETPLACE_ORDERS
 } from '../data/mockData';
 import { TRANSLATIONS } from '../i18n/translations';
 import { apiClient } from '../services/api';
@@ -98,6 +101,34 @@ export const AppProvider = ({ children }) => {
   const [recyclers, setRecyclers] = useState(INITIAL_RECYCLERS);
   const [technologies, setTechnologies] = useState(MUNICIPAL_TECHNOLOGY_REGISTRY);
   const [municipalStats, setMunicipalStats] = useState(MUNICIPAL_WASTE_STATS);
+
+  // Municipal Marketplace & 40% Farmer Agri-Circular State
+  const [marketplaceProducts, setMarketplaceProducts] = useState(() => {
+    const saved = localStorage.getItem('swachhta_marketplace_products_v1');
+    return saved ? JSON.parse(saved) : INITIAL_MARKETPLACE_PRODUCTS;
+  });
+
+  const [farmerAgriLedger, setFarmerAgriLedger] = useState(() => {
+    const saved = localStorage.getItem('swachhta_farmer_agri_ledger_v1');
+    return saved ? JSON.parse(saved) : INITIAL_FARMER_AGRI_LEDGER;
+  });
+
+  const [marketplaceOrders, setMarketplaceOrders] = useState(() => {
+    const saved = localStorage.getItem('swachhta_marketplace_orders_v1');
+    return saved ? JSON.parse(saved) : INITIAL_MARKETPLACE_ORDERS;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('swachhta_marketplace_products_v1', JSON.stringify(marketplaceProducts));
+  }, [marketplaceProducts]);
+
+  useEffect(() => {
+    localStorage.setItem('swachhta_farmer_agri_ledger_v1', JSON.stringify(farmerAgriLedger));
+  }, [farmerAgriLedger]);
+
+  useEffect(() => {
+    localStorage.setItem('swachhta_marketplace_orders_v1', JSON.stringify(marketplaceOrders));
+  }, [marketplaceOrders]);
 
   // Dual Engine View Mode: 'website' (Desktop Portal) | 'app' (Mobile Simulator)
   const [viewMode, setViewModeState] = useState(() => {
@@ -520,6 +551,167 @@ export const AppProvider = ({ children }) => {
     addNotification("Municipal Action Deployed", `Intervention dispatched for hotspot ${hotspotId}.`, "success");
   };
 
+  // Buy Marketplace Recycled Goods (Supports 40% Farmer Direct Profit Share)
+  const buyMarketplaceProduct = ({ productId, quantity, buyerName, buyerType, buyerContact, paymentMode }) => {
+    const product = marketplaceProducts.find(p => p.id === productId);
+    if (!product) return { success: false, message: 'Product not found' };
+
+    const qty = parseInt(quantity, 10) || product.minOrder || 1;
+    if (product.stock < qty) {
+      addNotification("Insufficient Stock", `Only ${product.stock} ${product.unit} available.`, "warning");
+      return { success: false, message: 'Insufficient stock' };
+    }
+
+    const totalAmount = Math.round(product.pricePerUnit * qty);
+    const farmerProfitShare40 = product.isAgriWaste 
+      ? Math.round(totalAmount * ((product.farmerSharePercent || 40) / 100))
+      : 0;
+    const municipalShare60 = totalAmount - farmerProfitShare40;
+
+    // Deduct stock
+    setMarketplaceProducts(prev => prev.map(p => {
+      if (p.id === productId) {
+        return { ...p, stock: Math.max(0, p.stock - qty) };
+      }
+      return p;
+    }));
+
+    const orderId = `ORD-MKT-${Date.now().toString().slice(-6)}`;
+    const newOrder = {
+      id: orderId,
+      timestamp: "Just now",
+      buyerName: buyerName || "Municipal Contractor / Citizen Buyer",
+      buyerType: buyerType || "Commercial / Municipal",
+      buyerContact: buyerContact || "+91 98000 12345",
+      productId: product.id,
+      productName: product.name,
+      quantity: qty,
+      unit: product.unit,
+      totalAmount,
+      farmerProfitShare40,
+      farmerBeneficiaryCluster: product.sourceCluster || "Local Farmer Cooperative",
+      municipalShare60,
+      status: "Confirmed & Dispatched",
+      cpcbCertificateNo: `CPCB-CIRC-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`,
+      paymentMode: paymentMode || "UPI / GeM Escrow",
+      hashSha256: Array.from({length: 64}, () => Math.floor(Math.random()*16).toString(16)).join('')
+    };
+
+    setMarketplaceOrders(prev => [newOrder, ...prev]);
+
+    // If it's an agricultural waste product, also log direct benefit transfer payout to farmer
+    if (product.isAgriWaste && farmerProfitShare40 > 0) {
+      const dbtEntry = {
+        id: `AGRI-DBT-${Date.now().toString().slice(-6)}`,
+        farmerName: product.sourceCluster.split(',')[0] || "Farmer Cooperative Cluster",
+        farmerId: `FAR-COOP-${Math.floor(1000 + Math.random() * 9000)}`,
+        contactPhone: "+91 98142 XXXXX",
+        aadhaarMasked: "XXXX-XXXX-9901",
+        village: product.sourceCluster,
+        state: "National Agri-Cluster",
+        cropResidueType: product.rawSource,
+        intakeWeightTons: (qty / 1000).toFixed(2),
+        collectionDate: "Today",
+        processedProduct: product.name,
+        unitsProduced: `${qty} ${product.unit}`,
+        marketGrossRevenue: totalAmount,
+        farmerSharePercent: 40,
+        farmerPayoutAmount: farmerProfitShare40,
+        municipalProcessingShare: Math.round(totalAmount * 0.35),
+        greenFundShare: municipalShare60 - Math.round(totalAmount * 0.35),
+        dbtStatus: "Credited via PFMS / Aadhaar (Auto-DBT)",
+        bankUtr: `UTR-DBT-${Math.floor(1000000000 + Math.random() * 9000000000)}`,
+        stubbleBurnAvertedKg: qty,
+        pm25PreventedKg: (qty * 0.0092).toFixed(1),
+        co2OffsetTons: (qty * 0.00142).toFixed(2)
+      };
+      setFarmerAgriLedger(prev => [dbtEntry, ...prev]);
+    }
+
+    confetti({
+      particleCount: 80,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+
+    if (farmerProfitShare40 > 0) {
+      addNotification(
+        "Circular Order Placed!",
+        `Order ${orderId} placed for ₹${totalAmount.toLocaleString('en-IN')}. ₹${farmerProfitShare40.toLocaleString('en-IN')} (40%) disbursed directly to Farmer DBT!`,
+        "success"
+      );
+    } else {
+      addNotification(
+        "Circular Order Placed!",
+        `Order ${orderId} placed for ₹${totalAmount.toLocaleString('en-IN')}. Stock updated.`,
+        "success"
+      );
+    }
+
+    return { success: true, order: newOrder };
+  };
+
+  // Log New Farmer Agricultural Waste Intake Batch
+  const logFarmerAgriIntake = (data) => {
+    const tons = parseFloat(data.intakeWeightTons) || 5.0;
+    const rate = parseFloat(data.ratePerKg) || 6.8;
+    const marketGrossRevenue = Math.round(tons * 1000 * rate);
+    const farmerPayoutAmount = Math.round(marketGrossRevenue * 0.40);
+    const municipalProcessingShare = Math.round(marketGrossRevenue * 0.35);
+    const greenFundShare = marketGrossRevenue - farmerPayoutAmount - municipalProcessingShare;
+    const stubbleBurnAvertedKg = Math.round(tons * 1000);
+    const pm25PreventedKg = parseFloat((tons * 9.2).toFixed(1));
+    const co2OffsetTons = parseFloat((tons * 1.42).toFixed(2));
+
+    const newIntake = {
+      id: `AGRI-DBT-${Date.now().toString().slice(-6)}`,
+      farmerName: data.farmerName || "Farmer Beneficiary",
+      farmerId: data.farmerId || `FAR-${Math.floor(1000 + Math.random() * 9000)}`,
+      contactPhone: data.contactPhone || "+91 98000 00000",
+      aadhaarMasked: data.aadhaar ? `XXXX-XXXX-${data.aadhaar.slice(-4)}` : "XXXX-XXXX-4512",
+      village: data.village || "Rural Agro Cluster",
+      state: data.state || "Punjab",
+      cropResidueType: data.cropResidueType || "Paddy Straw Stubble (Parali)",
+      intakeWeightTons: tons,
+      collectionDate: "Today",
+      processedProduct: data.processedProduct || "Bio-Coal Biomass Briquettes",
+      unitsProduced: `${Math.round(tons * 980)} kg Briquettes`,
+      marketGrossRevenue,
+      farmerSharePercent: 40,
+      farmerPayoutAmount,
+      municipalProcessingShare,
+      greenFundShare,
+      dbtStatus: "Credited via PFMS / Aadhaar",
+      bankUtr: `UTR-DBT-${Math.floor(1000000000 + Math.random() * 9000000000)}`,
+      stubbleBurnAvertedKg,
+      pm25PreventedKg,
+      co2OffsetTons
+    };
+
+    setFarmerAgriLedger(prev => [newIntake, ...prev]);
+
+    setMarketplaceProducts(prev => prev.map(p => {
+      if (p.isAgriWaste && (p.name.toLowerCase().includes(data.cropResidueType?.toLowerCase() || '') || p.id === 'PROD-AGRI-01')) {
+        return { ...p, stock: p.stock + Math.round(tons * 980) };
+      }
+      return p;
+    }));
+
+    confetti({
+      particleCount: 60,
+      spread: 60,
+      origin: { y: 0.6 }
+    });
+
+    addNotification(
+      "Farmer Intake Logged",
+      `${tons} Tons ${data.cropResidueType} intake logged. ₹${farmerPayoutAmount.toLocaleString('en-IN')} (40%) approved for Farmer Direct Transfer!`,
+      "success"
+    );
+
+    return { success: true, intake: newIntake };
+  };
+
   // Reset to Factory Demo State
   const resetDemoData = () => {
     localStorage.clear();
@@ -528,6 +720,9 @@ export const AppProvider = ({ children }) => {
     setVehicles(INITIAL_VEHICLES);
     setHotspots(INITIAL_HOTSPOTS);
     setCitizenPoints(650);
+    setMarketplaceProducts(INITIAL_MARKETPLACE_PRODUCTS);
+    setFarmerAgriLedger(INITIAL_FARMER_AGRI_LEDGER);
+    setMarketplaceOrders(INITIAL_MARKETPLACE_ORDERS);
     setWardFilter('All Wards');
     setRole('citizen');
     setCurrentUser(null);
@@ -561,6 +756,14 @@ export const AppProvider = ({ children }) => {
         recyclers,
         technologies,
         municipalStats,
+        marketplaceProducts,
+        setMarketplaceProducts,
+        farmerAgriLedger,
+        setFarmerAgriLedger,
+        marketplaceOrders,
+        setMarketplaceOrders,
+        buyMarketplaceProduct,
+        logFarmerAgriIntake,
         viewMode,
         setViewMode,
         isInstallModalOpen,
