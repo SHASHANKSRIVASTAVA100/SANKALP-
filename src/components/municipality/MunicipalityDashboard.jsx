@@ -256,366 +256,254 @@ export const MunicipalityDashboard = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-      {/* Commissioner Executive Header */}
-      <div className="bg-gradient-to-r from-purple-950 via-slate-900 to-indigo-950 border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="flex items-start gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-purple-600/20 border-2 border-purple-500/50 flex items-center justify-center text-purple-300 shadow-xl shrink-0">
-              <Landmark className="w-8 h-8" />
-            </div>
-            <div>
-              <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                <span className="bg-purple-500/20 border border-purple-400/40 text-purple-300 text-[11px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
-                  <ShieldCheck className="w-3 h-3 text-purple-400" />
-                  City Municipal Headquarters
-                </span>
-                <span className="bg-slate-800 text-slate-300 text-[11px] font-mono px-2.5 py-0.5 rounded-md border border-slate-700">
-                  City Corporation Code: {currentUser?.ulbOfficeId || 'BBMP/HQ/COMM-01'}
-                </span>
-                <span className="bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 text-[11px] font-semibold px-2.5 py-0.5 rounded-md flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  Live Sensors & GPS Connected
-                </span>
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                Municipality Office • City Waste & Clean City Operations
+      {/* 1. Sleek Modern Executive Command Bar */}
+      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl px-5 py-3.5 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center text-purple-300 shadow-lg shrink-0">
+            <Landmark className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h1 className="text-base sm:text-lg font-black text-white tracking-tight">
+                Sankalp Municipal Command Center
               </h1>
-              <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl">
-                Central executive cockpit for Municipal Commissioner{' '}
-                <strong className="text-purple-300">{currentUser?.name || 'Dr. Rajeshwari Swamy, IAS'}</strong>.
-                Monitoring daily doorstep garbage pickup, 8 waste streams, partner recycling factories, clean green energy, and 12 live GPS garbage trucks.
-              </p>
+              <span className="inline-flex items-center gap-1 bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-[10px] font-semibold px-2 py-0.5 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Live Telemetry Active
+              </span>
             </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2 self-start md:self-auto">
-            <button
-              onClick={() => setShowAuditModal(true)}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-slate-950 text-xs font-black flex items-center gap-2 transition-all cursor-pointer shadow-lg shadow-emerald-950/50 active:scale-95 ring-1 ring-emerald-400/50"
-              title="Export Official SBM-U 2.0 Compliance Audit Certificate"
-            >
-              <FileCheck className="w-4 h-4 text-slate-950" />
-              <span>Download SBM-U 2.0 Inspection Report (PDF)</span>
-            </button>
-            <div className="px-3.5 py-2 rounded-xl bg-purple-900/40 border border-purple-500/40 text-purple-200 text-xs font-mono font-bold flex items-center gap-1.5">
-              <Calendar className="w-4 h-4 text-purple-400" />
-              <span>Today • AICTE Portal</span>
-            </div>
+            <p className="text-xs text-slate-400">
+              Commissioner: <strong className="text-purple-300">{currentUser?.name || 'Dr. Rajeshwari Swamy, IAS'}</strong> • Corporation Code: <span className="font-mono text-slate-300">{currentUser?.ulbOfficeId || 'BBMP/HQ/COMM-01'}</span>
+            </p>
           </div>
         </div>
 
-        {/* City Operations at a Glance (Easy-to-Understand 3-Pillar Summary) */}
-        {/* City Operations & Governance (4 Distinct Pillars) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-800/80">
+        <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
           <button
-            onClick={() => setActiveTab('operations')}
-            className={`flex items-start gap-3 p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
-              activeTab === 'operations'
-                ? 'bg-blue-950/70 border-blue-500/50 shadow-lg shadow-blue-950/50 ring-1 ring-blue-400/40'
-                : 'bg-slate-950/70 border-slate-800 hover:border-slate-700'
-            }`}
+            onClick={() => setShowAuditModal(true)}
+            className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-md shadow-emerald-950/40 active:scale-95"
+            title="Download SBM-U 2.0 Inspection Certificate"
           >
-            <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
-              <Truck className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-[10px] text-blue-300 font-bold uppercase tracking-wider block">1. Live Operations</span>
-              <strong className="text-white text-sm block">98.0% Doorstep Pickup</strong>
-              <p className="text-[11px] text-slate-400 mt-0.5">{vehicles.length} Live GPS trucks & 8 waste streams.</p>
-            </div>
+            <FileCheck className="w-4 h-4 text-slate-950" />
+            <span>SBM-U 2.0 Audit Certificate (PDF)</span>
           </button>
-
-          <button
-            onClick={() => setActiveTab('recycling')}
-            className={`flex items-start gap-3 p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
-              activeTab === 'recycling'
-                ? 'bg-purple-950/70 border-purple-500/50 shadow-lg shadow-purple-950/50 ring-1 ring-purple-400/40'
-                : 'bg-slate-950/70 border-slate-800 hover:border-slate-700'
-            }`}
-          >
-            <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
-              <Factory className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-[10px] text-purple-300 font-bold uppercase tracking-wider block">2. Recycling Centres</span>
-              <strong className="text-white text-sm block">{recyclers.length} Partner Factories</strong>
-              <p className="text-[11px] text-slate-400 mt-0.5">{diversionRate} kept out of landfills.</p>
-            </div>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('marketplace')}
-            className={`flex items-start gap-3 p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
-              activeTab === 'marketplace'
-                ? 'bg-emerald-950/70 border-emerald-500/50 shadow-lg shadow-emerald-950/50 ring-1 ring-emerald-400/40'
-                : 'bg-slate-950/70 border-slate-800 hover:border-slate-700'
-            }`}
-          >
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-              <Store className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-[10px] text-emerald-300 font-bold uppercase tracking-wider block">3. Marketplace</span>
-              <strong className="text-white text-sm block">Finished & Raw Lots</strong>
-              <p className="text-[11px] text-slate-400 mt-0.5">Secondary procurement & CPCB gate passes.</p>
-            </div>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('farmerRegistration')}
-            className={`flex items-start gap-3 p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
-              activeTab === 'farmerRegistration'
-                ? 'bg-amber-950/70 border-amber-500/50 shadow-lg shadow-amber-950/50 ring-1 ring-amber-400/40'
-                : 'bg-slate-950/70 border-slate-800 hover:border-slate-700'
-            }`}
-          >
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
-              <Wheat className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-[10px] text-amber-300 font-bold uppercase tracking-wider block">4. Farmer Portal</span>
-              <strong className="text-white text-sm block">🌾 40% DBT Share</strong>
-              <p className="text-[11px] text-slate-400 mt-0.5">Free baler collection & direct payouts.</p>
-            </div>
-          </button>
-        </div>
-
-        {/* Point 2: Rule of 3 Big Numbers (3 High-Impact Hero Cards + Expandable Secondary Telemetry) */}
-        <div className="mt-5 pt-4 border-t border-slate-800/80">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Hero Metric 1: Doorstep Pickup Coverage */}
-            <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/40 border border-emerald-500/30 rounded-2xl p-5 shadow-lg shadow-emerald-950/20 group hover:border-emerald-500/50 transition-all">
-              <div className="flex items-start justify-between">
-                <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    Doorstep Pickup Coverage
-                  </span>
-                  <div className="flex items-baseline gap-2 mt-2">
-                    <span className="text-3xl lg:text-4xl font-black text-white font-mono tracking-tight">
-                      98.0%
-                    </span>
-                    <span className="text-xs text-emerald-300 font-semibold bg-emerald-950/80 border border-emerald-700/50 px-2 py-0.5 rounded-md">
-                      1,715 TPD
-                    </span>
-                  </div>
-                </div>
-                <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-                  <Truck className="w-5 h-5" />
-                </div>
-              </div>
-              <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                Daily collected from <strong className="text-slate-200 font-semibold">4.2 Lakh homes</strong> across all 5 municipal zones with 100% route verification.
-              </p>
-            </div>
-
-            {/* Hero Metric 2: Landfill Diversion Rate */}
-            <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-purple-950/40 border border-purple-500/30 rounded-2xl p-5 shadow-lg shadow-purple-950/20 group hover:border-purple-500/50 transition-all">
-              <div className="flex items-start justify-between">
-                <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-purple-300 flex items-center gap-1.5">
-                    <Recycle className="w-3.5 h-3.5 text-purple-400" />
-                    Landfill Diversion Rate
-                  </span>
-                  <div className="flex items-baseline gap-2 mt-2">
-                    <span className="text-3xl lg:text-4xl font-black text-purple-400 font-mono tracking-tight">
-                      {diversionRate}
-                    </span>
-                    <span className="text-xs text-purple-300 font-semibold bg-purple-950/80 border border-purple-700/50 px-2 py-0.5 rounded-md">
-                      {totalRecycled} TPD Saved
-                    </span>
-                  </div>
-                </div>
-                <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-              </div>
-              <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                Exceeds national 75% SBM-U 2.0 benchmark by <strong className="text-slate-200 font-semibold">+6.1%</strong> through automated MRF segregation.
-              </p>
-            </div>
-
-            {/* Hero Metric 3: Farmer Profit Share (40% DBT) */}
-            <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/40 border border-amber-500/30 rounded-2xl p-5 shadow-lg shadow-amber-950/20 group hover:border-amber-500/50 transition-all">
-              <div className="flex items-start justify-between">
-                <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
-                    <Wheat className="w-3.5 h-3.5 text-amber-400" />
-                    Farmer Direct Profit Share
-                  </span>
-                  <div className="flex items-baseline gap-2 mt-2">
-                    <span className="text-3xl lg:text-4xl font-black text-amber-400 font-mono tracking-tight">
-                      40% DBT
-                    </span>
-                    <span className="text-xs text-amber-300 font-semibold bg-amber-950/80 border border-amber-700/50 px-2 py-0.5 rounded-md">
-                      ₹3,800/Ton
-                    </span>
-                  </div>
-                </div>
-                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
-                  <Coins className="w-5 h-5" />
-                </div>
-              </div>
-              <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                Guaranteed bank payout per ton of stubble collected via <strong className="text-slate-200 font-semibold">100% free municipal balers</strong>.
-              </p>
-            </div>
-          </div>
-
-          {/* Collapsible Secondary Telemetry Bar */}
-          <div className="mt-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-2.5">
-            <div className="flex items-center gap-2 text-xs text-slate-400">
-              <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-              <span>Real-time environmental telemetry verified against MoHUA SBM-U 2.0 criteria</span>
-            </div>
-            <button
-              onClick={() => setShowAllMetrics(!showAllMetrics)}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-400 hover:text-purple-300 bg-purple-950/50 hover:bg-purple-900/50 border border-purple-800/60 px-3 py-1 rounded-lg transition-all cursor-pointer self-start sm:self-auto"
-            >
-              {showAllMetrics ? (
-                <>
-                  <span>Hide Secondary Telemetry</span>
-                  <ChevronUp className="w-3.5 h-3.5" />
-                </>
-              ) : (
-                <>
-                  <span>View Full Operations & Impact Telemetry (3 Stats)</span>
-                  <ChevronDown className="w-3.5 h-3.5" />
-                </>
-              )}
-            </button>
-          </div>
-
-          {/* Secondary Telemetry Grid (Smoothly Expandable) */}
-          {showAllMetrics && (
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3 pt-3 border-t border-slate-800/60 animate-in fade-in duration-200">
-              <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
-                    Clean Electricity Made
-                  </span>
-                  <Zap className="w-4 h-4 text-amber-400" />
-                </div>
-                <div className="flex items-baseline gap-1 mt-1.5">
-                  <span className="text-xl font-black text-amber-400 font-mono">
-                    {(cleanEnergyKwh / 1000).toFixed(1)}k
-                  </span>
-                  <span className="text-xs text-slate-400 font-medium">kWh/Day</span>
-                </div>
-                <span className="text-[11px] text-amber-300/90 font-mono mt-1 block">
-                  ⚡ Powers 3,200 Ward Streetlights via Biogas
-                </span>
-              </div>
-
-              <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
-                    Clean Air Impact (CO₂)
-                  </span>
-                  <TreePine className="w-4 h-4 text-emerald-400" />
-                </div>
-                <div className="flex items-baseline gap-1 mt-1.5">
-                  <span className="text-xl font-black text-emerald-400 font-mono">
-                    {co2Saved}
-                  </span>
-                  <span className="text-xs text-slate-400 font-medium">Tons/Day</span>
-                </div>
-                <span className="text-[11px] text-emerald-300/90 font-mono mt-1 block">
-                  🌲 Equivalent to 16,400 Mature Forest Trees
-                </span>
-              </div>
-
-              <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
-                    Partner Recyclers & Fleets
-                  </span>
-                  <Factory className="w-4 h-4 text-indigo-400" />
-                </div>
-                <div className="flex items-baseline gap-1 mt-1.5">
-                  <span className="text-xl font-black text-indigo-400 font-mono">
-                    {recyclers.length} Plants
-                  </span>
-                  <span className="text-xs text-slate-400 font-medium">• {vehicles.length} Trucks</span>
-                </div>
-                <span className="text-[11px] text-indigo-300/90 font-mono mt-1 block">
-                  🏭 1,930 TPD Capacity • 100% Zero-Violation Fleets
-                </span>
-              </div>
-            </div>
-          )}
         </div>
       </div>
 
-      {/* 4 Core Pillars Navigation Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-800 no-scrollbar">
+      {/* 2. Rule of 3 Big Numbers (Hero Metrics) */}
+      <div className="space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+          {/* Hero Metric 1: Doorstep Pickup Coverage */}
+          <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/40 border border-emerald-500/30 rounded-2xl p-5 shadow-lg shadow-emerald-950/20 group hover:border-emerald-500/50 transition-all">
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  Doorstep Pickup Coverage
+                </span>
+                <div className="flex items-baseline gap-2 mt-2">
+                  <span className="text-3xl lg:text-4xl font-black text-white font-mono tracking-tight">
+                    98.0%
+                  </span>
+                  <span className="text-xs text-emerald-300 font-semibold bg-emerald-950/80 border border-emerald-700/50 px-2 py-0.5 rounded-md">
+                    1,715 TPD
+                  </span>
+                </div>
+              </div>
+              <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                <Truck className="w-5 h-5" />
+              </div>
+            </div>
+            <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
+              Daily collected from <strong className="text-slate-200 font-semibold">4.2 Lakh homes</strong> across all 5 municipal zones with 100% route verification.
+            </p>
+          </div>
+
+          {/* Hero Metric 2: Landfill Diversion Rate */}
+          <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-purple-950/40 border border-purple-500/30 rounded-2xl p-5 shadow-lg shadow-purple-950/20 group hover:border-purple-500/50 transition-all">
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-purple-300 flex items-center gap-1.5">
+                  <Recycle className="w-3.5 h-3.5 text-purple-400" />
+                  Landfill Diversion Rate
+                </span>
+                <div className="flex items-baseline gap-2 mt-2">
+                  <span className="text-3xl lg:text-4xl font-black text-purple-400 font-mono tracking-tight">
+                    {diversionRate}
+                  </span>
+                  <span className="text-xs text-purple-300 font-semibold bg-purple-950/80 border border-purple-700/50 px-2 py-0.5 rounded-md">
+                    {totalRecycled} TPD Saved
+                  </span>
+                </div>
+              </div>
+              <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+            </div>
+            <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
+              Exceeds national 75% SBM-U 2.0 benchmark by <strong className="text-slate-200 font-semibold">+6.1%</strong> through automated MRF segregation.
+            </p>
+          </div>
+
+          {/* Hero Metric 3: Farmer Profit Share (40% DBT) */}
+          <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/40 border border-amber-500/30 rounded-2xl p-5 shadow-lg shadow-amber-950/20 group hover:border-amber-500/50 transition-all">
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
+                  <Wheat className="w-3.5 h-3.5 text-amber-400" />
+                  Farmer Direct Profit Share
+                </span>
+                <div className="flex items-baseline gap-2 mt-2">
+                  <span className="text-3xl lg:text-4xl font-black text-amber-400 font-mono tracking-tight">
+                    40% DBT
+                  </span>
+                  <span className="text-xs text-amber-300 font-semibold bg-amber-950/80 border border-amber-700/50 px-2 py-0.5 rounded-md">
+                    ₹3,800/Ton
+                  </span>
+                </div>
+              </div>
+              <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                <Coins className="w-5 h-5" />
+              </div>
+            </div>
+            <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
+              Guaranteed bank payout per ton of stubble collected via <strong className="text-slate-200 font-semibold">100% free municipal balers</strong>.
+            </p>
+          </div>
+        </div>
+
+        {/* Collapsible Secondary Telemetry Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-2">
+          <div className="flex items-center gap-2 text-xs text-slate-400">
+            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+            <span>Real-time environmental telemetry verified against MoHUA SBM-U 2.0 criteria</span>
+          </div>
+          <button
+            onClick={() => setShowAllMetrics(!showAllMetrics)}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-400 hover:text-purple-300 bg-purple-950/50 hover:bg-purple-900/50 border border-purple-800/60 px-3 py-1 rounded-lg transition-all cursor-pointer self-start sm:self-auto"
+          >
+            {showAllMetrics ? (
+              <>
+                <span>Hide Secondary Telemetry</span>
+                <ChevronUp className="w-3.5 h-3.5" />
+              </>
+            ) : (
+              <>
+                <span>View Full Operations & Impact Telemetry (3 Stats)</span>
+                <ChevronDown className="w-3.5 h-3.5" />
+              </>
+            )}
+          </button>
+        </div>
+
+        {/* Secondary Telemetry Grid (Smoothly Expandable) */}
+        {showAllMetrics && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 animate-in fade-in duration-200">
+            <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
+                  Clean Electricity Made
+                </span>
+                <Zap className="w-4 h-4 text-amber-400" />
+              </div>
+              <div className="flex items-baseline gap-1 mt-1.5">
+                <span className="text-xl font-black text-amber-400 font-mono">
+                  {(cleanEnergyKwh / 1000).toFixed(1)}k
+                </span>
+                <span className="text-xs text-slate-400 font-medium">kWh/Day</span>
+              </div>
+              <span className="text-[11px] text-amber-300/90 font-mono mt-1 block">
+                ⚡ Powers 3,200 Ward Streetlights via Biogas
+              </span>
+            </div>
+
+            <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
+                  Clean Air Impact (CO₂)
+                </span>
+                <TreePine className="w-4 h-4 text-emerald-400" />
+              </div>
+              <div className="flex items-baseline gap-1 mt-1.5">
+                <span className="text-xl font-black text-emerald-400 font-mono">
+                  {co2Saved}
+                </span>
+                <span className="text-xs text-slate-400 font-medium">Tons/Day</span>
+              </div>
+              <span className="text-[11px] text-emerald-300/90 font-mono mt-1 block">
+                🌲 Equivalent to 16,400 Mature Forest Trees
+              </span>
+            </div>
+
+            <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
+                  Partner Recyclers & Fleets
+                </span>
+                <Factory className="w-4 h-4 text-indigo-400" />
+              </div>
+              <div className="flex items-baseline gap-1 mt-1.5">
+                <span className="text-xl font-black text-indigo-400 font-mono">
+                  {recyclers.length} Plants
+                </span>
+                <span className="text-xs text-slate-400 font-medium">• {vehicles.length} Trucks</span>
+              </div>
+              <span className="text-[11px] text-indigo-300/90 font-mono mt-1 block">
+                🏭 1,930 TPD Capacity • 100% Zero-Violation Fleets
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 3. Single Unified 4 Pillars Navigation Bar */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-slate-900/70 p-1.5 rounded-2xl border border-slate-800">
         <button
           onClick={() => setActiveTab('operations')}
-          className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all shrink-0 cursor-pointer ${
+          className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer ${
             activeTab === 'operations'
-              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-600/30 ring-1 ring-blue-400/50'
-              : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'
+              ? 'bg-blue-600 text-white shadow-lg shadow-blue-950/60'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
           }`}
         >
           <Activity className="w-4 h-4 text-cyan-400" />
-          <span>1. Live City Operations</span>
-          <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
-            activeTab === 'operations' ? 'bg-blue-900 text-white' : 'bg-slate-800 text-slate-400'
-          }`}>
-            {vehicles.length} Trucks • 8 Streams
-          </span>
+          <span>1. Live Operations ({vehicles.length} Trucks)</span>
         </button>
 
         <button
           onClick={() => setActiveTab('recycling')}
-          className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all shrink-0 cursor-pointer ${
+          className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer ${
             activeTab === 'recycling'
-              ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-600/30 ring-1 ring-purple-400/50'
-              : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'
+              ? 'bg-purple-600 text-white shadow-lg shadow-purple-950/60'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
           }`}
         >
-          <Factory className="w-4 h-4 text-purple-400" />
-          <span>2. Recycling, Processing & Procuring Centres</span>
-          <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
-            activeTab === 'recycling' ? 'bg-purple-900 text-purple-200' : 'bg-slate-800 text-slate-400'
-          }`}>
-            {recyclers.length} Partners • MRF Nodes
-          </span>
+          <Factory className="w-4 h-4 text-purple-300" />
+          <span>2. Recycling Centres ({recyclers.length})</span>
         </button>
 
         <button
           onClick={() => setActiveTab('marketplace')}
-          className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all shrink-0 cursor-pointer ${
+          className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer ${
             activeTab === 'marketplace'
-              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-600/30 ring-1 ring-emerald-400/50'
-              : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'
+              ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-950/60'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
           }`}
         >
-          <Store className="w-4 h-4 text-emerald-400" />
-          <span>3. Marketplace (Finished & Raw Reusable Waste)</span>
-          <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
-            activeTab === 'marketplace' ? 'bg-emerald-900 text-emerald-200' : 'bg-slate-800 text-slate-400'
-          }`}>
-            CPCB B2B Trading Desk
-          </span>
+          <Store className="w-4 h-4 text-emerald-300" />
+          <span>3. Marketplace</span>
         </button>
 
         <button
           onClick={() => setActiveTab('farmerRegistration')}
-          className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all shrink-0 cursor-pointer ${
+          className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer ${
             activeTab === 'farmerRegistration'
-              ? 'bg-gradient-to-r from-amber-600 to-orange-600 text-white shadow-lg shadow-amber-600/30 ring-1 ring-amber-400/50'
-              : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'
+              ? 'bg-amber-600 text-white shadow-lg shadow-amber-950/60'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
           }`}
         >
-          <Wheat className="w-4 h-4 text-amber-400" />
-          <span>4. Farmer Registration & Agri-Waste Portal</span>
-          <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
-            activeTab === 'farmerRegistration' ? 'bg-amber-900 text-amber-200' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-          }`}>
-            🌾 40% Farmer DBT Share
-          </span>
+          <Wheat className="w-4 h-4 text-amber-300" />
+          <span>4. Farmer 40% Portal</span>
         </button>
       </div>
 
@@ -642,7 +530,7 @@ export const MunicipalityDashboard = () => {
                     : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
                 }`}
               >
-                🚚 Garbage Trucks & GPS ({vehicles.length})
+                🚚 Garbage Trucks ({vehicles.length})
               </button>
               <button
                 onClick={() => setOperationsSubTab('streams')}
@@ -652,7 +540,7 @@ export const MunicipalityDashboard = () => {
                     : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
                 }`}
               >
-                📊 8 Waste Types & Wards
+                📊 8 Waste Streams & Wards
               </button>
               <button
                 onClick={() => setOperationsSubTab('weighbridge')}
@@ -664,84 +552,12 @@ export const MunicipalityDashboard = () => {
               >
                 ⚖️ Electronic Weighbridge Scales
               </button>
-              <button
-                onClick={() => setOperationsSubTab('all')}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  operationsSubTab === 'all'
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-900/40'
-                    : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
-                }`}
-              >
-                📑 View All Operations
-              </button>
             </div>
           </div>
 
           {/* 1. Real-Time Fleet & GPS Tracking */}
-          {(operationsSubTab === 'fleet' || operationsSubTab === 'all') && (
-            <div className="space-y-6">
-          {/* Header Controls & Filter */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                <Truck className="w-5 h-5 text-purple-400" />
-                Garbage Collection Trucks & Real-Time GPS Tracking
-              </h2>
-              <p className="text-xs text-slate-400 mt-1">
-                Official registry of municipal garbage trucks, tippers, and electric sweepers. Track live vehicle speed, assigned drivers, and pollution certifications.
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold px-3 py-1 rounded-xl flex items-center gap-1.5">
-                <BatteryCharging className="w-3.5 h-3.5 text-emerald-400" />
-                100% Green Fleets (EV & CNG)
-              </span>
-              <span className="bg-purple-950/60 border border-purple-500/40 text-purple-300 text-xs font-mono font-bold px-3 py-1 rounded-xl">
-                {vehicles.length} Trucks Monitored
-              </span>
-            </div>
-          </div>
-
-          {/* Quick Fleet Highlights */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
-              <span className="text-[10px] text-slate-400 font-semibold uppercase block">Total Garbage Fleet</span>
-              <div className="flex items-baseline gap-1 mt-1">
-                <span className="text-lg font-bold text-white font-mono">{vehicles.length}</span>
-                <span className="text-xs text-slate-400">Trucks</span>
-              </div>
-              <span className="text-[10px] text-emerald-400 font-mono">100% Operational Today</span>
-            </div>
-
-            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
-              <span className="text-[10px] text-slate-400 font-semibold uppercase block">Green Clean Energy</span>
-              <div className="flex items-baseline gap-1 mt-1">
-                <span className="text-lg font-bold text-emerald-400 font-mono">
-                  {vehicles.filter(v => v.fuelType?.includes('Electric') || v.fuelType?.includes('CNG')).length}
-                </span>
-                <span className="text-xs text-emerald-300">EV & CNG Vehicles</span>
-              </div>
-              <span className="text-[10px] text-emerald-400 font-mono">Zero Smoke & Low Carbon</span>
-            </div>
-
-            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
-              <span className="text-[10px] text-slate-400 font-semibold uppercase block">Daily Route Coverage</span>
-              <div className="flex items-baseline gap-1 mt-1">
-                <span className="text-lg font-bold text-cyan-400 font-mono">98.4%</span>
-                <span className="text-xs text-cyan-300">City Wards</span>
-              </div>
-              <span className="text-[10px] text-cyan-300 font-mono">Door-to-Door Every Morning</span>
-            </div>
-
-            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
-              <span className="text-[10px] text-slate-400 font-semibold uppercase block">Pollution Check (PUC)</span>
-              <div className="flex items-baseline gap-1 mt-1">
-                <span className="text-lg font-bold text-purple-400 font-mono">100% Pass</span>
-                <span className="text-xs text-purple-300">Govt Verified</span>
-              </div>
-              <span className="text-[10px] text-purple-300 font-mono">0 Emission Violations</span>
-            </div>
-          </div>
+          {operationsSubTab === 'fleet' && (
+            <div className="space-y-4">
 
           {/* Search & Filter Toolbar */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/70 border border-slate-800 p-4 rounded-2xl">
@@ -908,7 +724,7 @@ export const MunicipalityDashboard = () => {
           )}
 
           {/* 2. 8 Waste Streams Breakdown & Ward Cleanliness */}
-          {(operationsSubTab === 'streams' || operationsSubTab === 'all') && (
+          {operationsSubTab === 'streams' && (
             <div className="space-y-6">
           {/* Top Categories Overview Card */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
@@ -1129,7 +945,7 @@ export const MunicipalityDashboard = () => {
           )}
 
           {/* 3. Electronic Weighbridge Scale Records */}
-          {(operationsSubTab === 'weighbridge' || operationsSubTab === 'all') && (
+          {operationsSubTab === 'weighbridge' && (
             <div className="space-y-6">
           {/* Cryptographic Weighbridge Audit Ledger Summary & Modal Trigger */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl">
