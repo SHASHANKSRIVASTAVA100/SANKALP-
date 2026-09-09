@@ -42,7 +42,12 @@ import {
   Info,
   Store,
   Wheat,
-  Coins
+  Coins,
+  ChevronDown,
+  ChevronUp,
+  X,
+  Eye,
+  Maximize2
 } from 'lucide-react';
 import { GoogleMapContainer } from '../common/GoogleMapContainer';
 import { OfficialSbmAuditModal } from './OfficialSbmAuditModal';
@@ -85,6 +90,14 @@ export const MunicipalityDashboard = () => {
   const [fleetSearch, setFleetSearch] = useState('');
   const [fuelFilter, setFuelFilter] = useState('All');
   const [showFleetMap, setShowFleetMap] = useState(false);
+
+  // Point 2: Expandable Secondary Telemetry Drawer
+  const [showAllMetrics, setShowAllMetrics] = useState(false);
+
+  // Point 3: Modals for Full Ledgers / Inspection Records
+  const [showFleetModal, setShowFleetModal] = useState(false);
+  const [showWardModal, setShowWardModal] = useState(false);
+  const [showWeighbridgeModal, setShowWeighbridgeModal] = useState(false);
 
   // Copied Hash Feedback
   const [copiedHash, setCopiedHash] = useState(null);
@@ -368,97 +381,170 @@ export const MunicipalityDashboard = () => {
           </button>
         </div>
 
-        {/* Top Operational KPI Bar (Plain-Language Labels) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-4 pt-4 border-t border-slate-800/80">
-          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3">
-            <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
-              Daily Waste Produced
-            </span>
-            <div className="flex items-baseline gap-1 mt-1">
-              <span className="text-xl font-black text-white font-mono">
-                {totalGenerated}
-              </span>
-              <span className="text-[11px] text-slate-400 font-medium">Tons/Day</span>
+        {/* Point 2: Rule of 3 Big Numbers (3 High-Impact Hero Cards + Expandable Secondary Telemetry) */}
+        <div className="mt-5 pt-4 border-t border-slate-800/80">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Hero Metric 1: Doorstep Pickup Coverage */}
+            <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/40 border border-emerald-500/30 rounded-2xl p-5 shadow-lg shadow-emerald-950/20 group hover:border-emerald-500/50 transition-all">
+              <div className="flex items-start justify-between">
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Doorstep Pickup Coverage
+                  </span>
+                  <div className="flex items-baseline gap-2 mt-2">
+                    <span className="text-3xl lg:text-4xl font-black text-white font-mono tracking-tight">
+                      98.0%
+                    </span>
+                    <span className="text-xs text-emerald-300 font-semibold bg-emerald-950/80 border border-emerald-700/50 px-2 py-0.5 rounded-md">
+                      1,715 TPD
+                    </span>
+                  </div>
+                </div>
+                <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                  <Truck className="w-5 h-5" />
+                </div>
+              </div>
+              <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
+                Daily collected from <strong className="text-slate-200 font-semibold">4.2 Lakh homes</strong> across all 5 municipal zones with 100% route verification.
+              </p>
             </div>
-            <span className="text-[10px] text-emerald-400 font-mono mt-0.5 block">
-              98.0% Collected from Homes
-            </span>
+
+            {/* Hero Metric 2: Landfill Diversion Rate */}
+            <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-purple-950/40 border border-purple-500/30 rounded-2xl p-5 shadow-lg shadow-purple-950/20 group hover:border-purple-500/50 transition-all">
+              <div className="flex items-start justify-between">
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-purple-300 flex items-center gap-1.5">
+                    <Recycle className="w-3.5 h-3.5 text-purple-400" />
+                    Landfill Diversion Rate
+                  </span>
+                  <div className="flex items-baseline gap-2 mt-2">
+                    <span className="text-3xl lg:text-4xl font-black text-purple-400 font-mono tracking-tight">
+                      {diversionRate}
+                    </span>
+                    <span className="text-xs text-purple-300 font-semibold bg-purple-950/80 border border-purple-700/50 px-2 py-0.5 rounded-md">
+                      {totalRecycled} TPD Saved
+                    </span>
+                  </div>
+                </div>
+                <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+              </div>
+              <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
+                Exceeds national 75% SBM-U 2.0 benchmark by <strong className="text-slate-200 font-semibold">+6.1%</strong> through automated MRF segregation.
+              </p>
+            </div>
+
+            {/* Hero Metric 3: Farmer Profit Share (40% DBT) */}
+            <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/40 border border-amber-500/30 rounded-2xl p-5 shadow-lg shadow-amber-950/20 group hover:border-amber-500/50 transition-all">
+              <div className="flex items-start justify-between">
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
+                    <Wheat className="w-3.5 h-3.5 text-amber-400" />
+                    Farmer Direct Profit Share
+                  </span>
+                  <div className="flex items-baseline gap-2 mt-2">
+                    <span className="text-3xl lg:text-4xl font-black text-amber-400 font-mono tracking-tight">
+                      40% DBT
+                    </span>
+                    <span className="text-xs text-amber-300 font-semibold bg-amber-950/80 border border-amber-700/50 px-2 py-0.5 rounded-md">
+                      ₹3,800/Ton
+                    </span>
+                  </div>
+                </div>
+                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                  <Coins className="w-5 h-5" />
+                </div>
+              </div>
+              <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
+                Guaranteed bank payout per ton of stubble collected via <strong className="text-slate-200 font-semibold">100% free municipal balers</strong>.
+              </p>
+            </div>
           </div>
 
-          <div className="bg-slate-900/80 border border-purple-900/40 rounded-xl p-3">
-            <span className="text-[10px] text-purple-300 font-semibold uppercase tracking-wider block">
-              Recycled & Reused
-            </span>
-            <div className="flex items-baseline gap-1 mt-1">
-              <span className="text-xl font-black text-purple-400 font-mono">
-                {diversionRate}
-              </span>
-              <span className="text-[11px] text-purple-300 font-medium">Goal 75%</span>
+          {/* Collapsible Secondary Telemetry Bar */}
+          <div className="mt-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-2.5">
+            <div className="flex items-center gap-2 text-xs text-slate-400">
+              <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+              <span>Real-time environmental telemetry verified against MoHUA SBM-U 2.0 criteria</span>
             </div>
-            <span className="text-[10px] text-purple-300 font-mono mt-0.5 block">
-              {totalRecycled} Tons/Day Saved
-            </span>
+            <button
+              onClick={() => setShowAllMetrics(!showAllMetrics)}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-400 hover:text-purple-300 bg-purple-950/50 hover:bg-purple-900/50 border border-purple-800/60 px-3 py-1 rounded-lg transition-all cursor-pointer self-start sm:self-auto"
+            >
+              {showAllMetrics ? (
+                <>
+                  <span>Hide Secondary Telemetry</span>
+                  <ChevronUp className="w-3.5 h-3.5" />
+                </>
+              ) : (
+                <>
+                  <span>View Full Operations & Impact Telemetry (3 Stats)</span>
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </>
+              )}
+            </button>
           </div>
 
-          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3">
-            <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
-              Clean Electricity Made
-            </span>
-            <div className="flex items-baseline gap-1 mt-1">
-              <span className="text-xl font-black text-amber-400 font-mono">
-                {(cleanEnergyKwh / 1000).toFixed(1)}k
-              </span>
-              <span className="text-[11px] text-slate-400 font-medium">kWh/Day</span>
-            </div>
-            <span className="text-[10px] text-amber-300 font-mono mt-0.5 block flex items-center gap-1">
-              <Zap className="w-2.5 h-2.5" /> Powers 3,200 Streetlights
-            </span>
-          </div>
+          {/* Secondary Telemetry Grid (Smoothly Expandable) */}
+          {showAllMetrics && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3 pt-3 border-t border-slate-800/60 animate-in fade-in duration-200">
+              <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
+                    Clean Electricity Made
+                  </span>
+                  <Zap className="w-4 h-4 text-amber-400" />
+                </div>
+                <div className="flex items-baseline gap-1 mt-1.5">
+                  <span className="text-xl font-black text-amber-400 font-mono">
+                    {(cleanEnergyKwh / 1000).toFixed(1)}k
+                  </span>
+                  <span className="text-xs text-slate-400 font-medium">kWh/Day</span>
+                </div>
+                <span className="text-[11px] text-amber-300/90 font-mono mt-1 block">
+                  ⚡ Powers 3,200 Ward Streetlights via Biogas
+                </span>
+              </div>
 
-          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3">
-            <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
-              Clean Air Impact (CO₂)
-            </span>
-            <div className="flex items-baseline gap-1 mt-1">
-              <span className="text-xl font-black text-emerald-400 font-mono">
-                {co2Saved}
-              </span>
-              <span className="text-[11px] text-slate-400 font-medium">Tons/Day</span>
-            </div>
-            <span className="text-[10px] text-emerald-300 font-mono mt-0.5 block flex items-center gap-1">
-              <TreePine className="w-2.5 h-2.5" /> Equal to 16,400 Trees
-            </span>
-          </div>
+              <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
+                    Clean Air Impact (CO₂)
+                  </span>
+                  <TreePine className="w-4 h-4 text-emerald-400" />
+                </div>
+                <div className="flex items-baseline gap-1 mt-1.5">
+                  <span className="text-xl font-black text-emerald-400 font-mono">
+                    {co2Saved}
+                  </span>
+                  <span className="text-xs text-slate-400 font-medium">Tons/Day</span>
+                </div>
+                <span className="text-[11px] text-emerald-300/90 font-mono mt-1 block">
+                  🌲 Equivalent to 16,400 Mature Forest Trees
+                </span>
+              </div>
 
-          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3">
-            <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
-              Partner Recycling Plants
-            </span>
-            <div className="flex items-baseline gap-1 mt-1">
-              <span className="text-xl font-black text-indigo-400 font-mono">
-                {recyclers.length}
-              </span>
-              <span className="text-[11px] text-slate-400 font-medium">Factories</span>
+              <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
+                    Partner Recyclers & Fleets
+                  </span>
+                  <Factory className="w-4 h-4 text-indigo-400" />
+                </div>
+                <div className="flex items-baseline gap-1 mt-1.5">
+                  <span className="text-xl font-black text-indigo-400 font-mono">
+                    {recyclers.length} Plants
+                  </span>
+                  <span className="text-xs text-slate-400 font-medium">• {vehicles.length} Trucks</span>
+                </div>
+                <span className="text-[11px] text-indigo-300/90 font-mono mt-1 block">
+                  🏭 1,930 TPD Capacity • 100% Zero-Violation Fleets
+                </span>
+              </div>
             </div>
-            <span className="text-[10px] text-indigo-300 font-mono mt-0.5 block">
-              1,930 Tons/Day Capacity
-            </span>
-          </div>
-
-          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3">
-            <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
-              Garbage Trucks On Duty
-            </span>
-            <div className="flex items-baseline gap-1 mt-1">
-              <span className="text-xl font-black text-cyan-400 font-mono">
-                100%
-              </span>
-              <span className="text-[11px] text-slate-400 font-medium">{vehicles.length} Trucks</span>
-            </div>
-            <span className="text-[10px] text-cyan-300 font-mono mt-0.5 block">
-              0 Violations • Clean Fleets
-            </span>
-          </div>
+          )}
         </div>
       </div>
 
@@ -724,105 +810,98 @@ export const MunicipalityDashboard = () => {
             </div>
           )}
 
-          {/* Vehicle Records Ledger Table */}
+          {/* Vehicle Records Summary Cards & Ledger Modal Trigger */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <FileText className="w-4 h-4 text-purple-400" />
-                Garbage Trucks & Inspection Pass Status
-              </h3>
-              <span className="text-xs text-slate-400 font-mono">
-                {filteredVehicles.length} Trucks Listed
-              </span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+              <div>
+                <h3 className="text-base font-bold text-white flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-purple-400" />
+                  Garbage Trucks & Inspection Status
+                </h3>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Real-time GPS tracking, driver assignments, and PUC compliance passes for city collection fleet.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowFleetModal(true)}
+                className="inline-flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-purple-900/30 transition-all cursor-pointer shrink-0 self-start sm:self-auto"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                View Full 12-Truck Ledger ({filteredVehicles.length})
+              </button>
             </div>
 
-            <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
-              <table className="min-w-[760px] w-full text-left text-xs text-slate-300">
-                <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-800">
-                  <tr>
-                    <th className="px-4 py-3">Truck Plate No.</th>
-                    <th className="px-4 py-3">Vehicle Model & Duty</th>
-                    <th className="px-4 py-3">Eco-Fuel</th>
-                    <th className="px-4 py-3">Depot & Area Ward</th>
-                    <th className="px-4 py-3">Driver & Mobile No.</th>
-                    <th className="px-4 py-3">Total Km Driven</th>
-                    <th className="px-4 py-3">Pollution Pass (PUC)</th>
-                    <th className="px-4 py-3">Road Fitness Pass</th>
-                    <th className="px-4 py-3 text-right">Live GPS & Speed</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-800/60 font-mono text-xs">
-                  {filteredVehicles.map((v) => {
-                    const plate = v.registrationNo || v.number || 'KA-03-GH-0000';
-                    const ward = v.ward || v.assignedWard || 'Ward 12 Indiranagar';
-                    const odo = v.odometerKm ? `${v.odometerKm.toLocaleString()} km` : '42,180 km';
-                    const puc = v.pucValidTill || 'Valid (Dec 2026)';
-                    const fitness = v.fitnessValidTill || v.fitnessCertValidTill || 'Valid (Oct 2027)';
-                    const speed = v.speedKmH ?? v.speed ?? 18;
+            {/* 3 Active Truck Highlight Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+              {filteredVehicles.slice(0, 3).map((v) => {
+                const plate = v.registrationNo || v.number || 'KA-03-GH-0000';
+                const ward = v.ward || v.assignedWard || 'Ward 12 Indiranagar';
+                const odo = v.odometerKm ? `${v.odometerKm.toLocaleString()} km` : '42,180 km';
+                const puc = v.pucValidTill || 'Valid (Dec 2026)';
+                const speed = v.speedKmH ?? v.speed ?? 18;
 
-                    return (
-                      <tr key={v.id} className="hover:bg-slate-800/40">
-                        <td className="px-4 py-3 font-bold text-white flex items-center gap-2">
-                          <span className="bg-slate-950 border border-slate-700 px-2 py-0.5 rounded font-mono text-[11px] text-amber-300">
-                            {plate}
+                return (
+                  <div
+                    key={v.id}
+                    className="bg-slate-950/80 border border-slate-800 hover:border-purple-500/40 rounded-xl p-4 transition-all flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <span className="bg-slate-900 border border-amber-500/40 px-2 py-0.5 rounded font-mono text-xs font-bold text-amber-300">
+                          {plate}
+                        </span>
+                        {v.fuelType?.includes('Electric') ? (
+                          <span className="bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1">
+                            <BatteryCharging className="w-3 h-3 text-emerald-400" />
+                            100% Electric
                           </span>
-                        </td>
-                        <td className="px-4 py-3 text-slate-200 font-sans">{v.type}</td>
-                        <td className="px-4 py-3 font-sans">
-                          {v.fuelType?.includes('Electric') ? (
-                            <span className="bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1 w-fit">
-                              <BatteryCharging className="w-3 h-3 text-emerald-400" />
-                              100% Electric
-                            </span>
-                          ) : v.fuelType?.includes('CNG') ? (
-                            <span className="bg-blue-950 text-blue-300 border border-blue-800 text-[10px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1 w-fit">
-                              <Fuel className="w-3 h-3 text-blue-400" />
-                              CNG Clean
-                            </span>
-                          ) : (
-                            <span className="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1 w-fit">
-                              <Fuel className="w-3 h-3 text-slate-400" />
-                              Clean Diesel
-                            </span>
-                          )}
-                        </td>
-                        <td className="px-4 py-3 text-slate-400 font-sans">
-                          <span className="block text-white font-medium">{v.depot || 'East Zone Depot'}</span>
-                          <span className="text-[10px] text-slate-500">{ward}</span>
-                        </td>
-                        <td className="px-4 py-3 text-slate-300 font-sans">
-                          <span className="block font-medium text-white">{v.driverName}</span>
-                          <span className="text-[10px] text-slate-400 font-mono">{v.driverPhone}</span>
-                        </td>
-                        <td className="px-4 py-3 text-slate-300 font-mono">
-                          {odo}
-                        </td>
-                        <td className="px-4 py-3">
-                          <div className="flex items-center gap-1">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                            <span className="text-emerald-400 font-bold text-[11px]">
-                              {puc}
-                            </span>
-                          </div>
-                        </td>
-                        <td className="px-4 py-3">
-                          <span className="text-slate-300 font-mono text-[11px]">
-                            {fitness}
+                        ) : (
+                          <span className="bg-blue-950 text-blue-300 border border-blue-800 text-[10px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1">
+                            <Fuel className="w-3 h-3 text-blue-400" />
+                            CNG Clean
                           </span>
-                        </td>
-                        <td className="px-4 py-3 text-right">
-                          <div className="inline-flex items-center gap-1.5 font-sans">
-                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                            <span className="text-emerald-400 font-semibold text-[11px]">
-                              {v.status || 'Active'} • {speed} km/h
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+                        )}
+                      </div>
+
+                      <h4 className="text-sm font-semibold text-white truncate">{v.type}</h4>
+                      <p className="text-xs text-slate-400 mt-1 flex items-center gap-1">
+                        <MapPin className="w-3 h-3 text-slate-500 shrink-0" />
+                        <span className="truncate">{ward} • {v.depot || 'Depot'}</span>
+                      </p>
+                    </div>
+
+                    <div className="mt-3.5 pt-3 border-t border-slate-800 space-y-2 text-xs">
+                      <div className="flex items-center justify-between text-slate-300">
+                        <span className="text-slate-500">Driver:</span>
+                        <span className="font-medium text-white">{v.driverName}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-500">PUC Pass:</span>
+                        <span className="text-emerald-400 font-medium flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3" /> {puc}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-500">Live Telemetry:</span>
+                        <span className="text-emerald-400 font-mono font-medium flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          {speed} km/h • {odo}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+              <span>Showing 3 active units. Complete 10-column inspection records available in ledger modal.</span>
+              <button
+                onClick={() => setShowFleetModal(true)}
+                className="text-purple-400 hover:text-purple-300 font-semibold cursor-pointer flex items-center gap-1 shrink-0"
+              >
+                Open Full Table <ChevronRight className="w-3 h-3" />
+              </button>
             </div>
           </div>
             </div>
@@ -934,93 +1013,116 @@ export const MunicipalityDashboard = () => {
             </div>
           </div>
 
-          {/* Ward-Wise Collection & Cleanliness Table */}
+          {/* Ward-Wise Collection & Cleanliness Summary & Audit Modal Trigger */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl">
-            <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
-              <Layers className="w-4 h-4 text-purple-400" />
-              Zonal Ward Cleanliness & Waste Segregation Table
-            </h3>
-            <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
-              <table className="min-w-[680px] w-full text-left text-xs text-slate-300">
-                <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-800">
-                  <tr>
-                    <th className="px-4 py-3">Ward Name</th>
-                    <th className="px-4 py-3">Residents Living Here</th>
-                    <th className="px-4 py-3">Daily Garbage</th>
-                    <th className="px-4 py-3">Segregation Score</th>
-                    <th className="px-4 py-3">Main Waste Collected</th>
-                    <th className="px-4 py-3">Ward Health Officer</th>
-                    <th className="px-4 py-3 text-right">Cleanliness Status</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-800/60 font-mono">
-                  <tr className="hover:bg-slate-800/40">
-                    <td className="px-4 py-3 font-bold text-white">Ward 12 - Indiranagar</td>
-                    <td className="px-4 py-3 text-slate-400">84,500</td>
-                    <td className="px-4 py-3 font-semibold text-white">48.2 TPD</td>
-                    <td className="px-4 py-3 text-emerald-400 font-bold">96.4% (Grade A+)</td>
-                    <td className="px-4 py-3 text-slate-300 font-sans">Wet Organic & PET Bottles</td>
-                    <td className="px-4 py-3 text-slate-300 font-sans">Inspector Ananya Rao</td>
-                    <td className="px-4 py-3 text-right">
-                      <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
-                        EXCELLENT
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-slate-800/40">
-                    <td className="px-4 py-3 font-bold text-white">Ward 15 - Koramangala</td>
-                    <td className="px-4 py-3 text-slate-400">112,000</td>
-                    <td className="px-4 py-3 font-semibold text-white">62.8 TPD</td>
-                    <td className="px-4 py-3 text-emerald-400 font-bold">94.1% (Grade A)</td>
-                    <td className="px-4 py-3 text-slate-300 font-sans">Food Waste & E-Commerce Cartons</td>
-                    <td className="px-4 py-3 text-slate-300 font-sans">Officer Sunil Reddy</td>
-                    <td className="px-4 py-3 text-right">
-                      <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
-                        COMPLIANT
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-slate-800/40">
-                    <td className="px-4 py-3 font-bold text-white">Ward 08 - Malleshwaram</td>
-                    <td className="px-4 py-3 text-slate-400">95,400</td>
-                    <td className="px-4 py-3 font-semibold text-white">51.0 TPD</td>
-                    <td className="px-4 py-3 text-emerald-400 font-bold">91.8% (Grade A)</td>
-                    <td className="px-4 py-3 text-slate-300 font-sans">Vegetable Mandi Bio-Waste</td>
-                    <td className="px-4 py-3 text-slate-300 font-sans">Officer K. Venkatesh</td>
-                    <td className="px-4 py-3 text-right">
-                      <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
-                        COMPLIANT
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-slate-800/40">
-                    <td className="px-4 py-3 font-bold text-white">Ward 22 - Whitefield</td>
-                    <td className="px-4 py-3 text-slate-400">135,000</td>
-                    <td className="px-4 py-3 font-semibold text-white">76.5 TPD</td>
-                    <td className="px-4 py-3 text-amber-400 font-bold">88.5% (Grade B+)</td>
-                    <td className="px-4 py-3 text-slate-300 font-sans">Packaging & Tech E-Waste</td>
-                    <td className="px-4 py-3 text-slate-300 font-sans">Officer Preeti Nair</td>
-                    <td className="px-4 py-3 text-right">
-                      <span className="bg-amber-950 text-amber-400 border border-amber-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
-                        MONITORED
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-slate-800/40">
-                    <td className="px-4 py-3 font-bold text-white">Ward 04 - Jayanagar</td>
-                    <td className="px-4 py-3 text-slate-400">78,000</td>
-                    <td className="px-4 py-3 font-semibold text-white">41.6 TPD</td>
-                    <td className="px-4 py-3 text-emerald-400 font-bold">95.9% (Grade A+)</td>
-                    <td className="px-4 py-3 text-slate-300 font-sans">Horticultural Leaves & Glass</td>
-                    <td className="px-4 py-3 text-slate-300 font-sans">Officer Manjunath B.</td>
-                    <td className="px-4 py-3 text-right">
-                      <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
-                        EXCELLENT
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+              <div>
+                <h3 className="text-base font-bold text-white flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-purple-400" />
+                  Zonal Ward Cleanliness & Waste Segregation
+                </h3>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  MoHUA door-to-door segregation audit across all 5 municipal administrative zones.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowWardModal(true)}
+                className="inline-flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-purple-900/30 transition-all cursor-pointer shrink-0 self-start sm:self-auto"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                View Full Ward Audit (5 Wards)
+              </button>
+            </div>
+
+            {/* 3 Top Ward Cleanliness Summary Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+              <div className="bg-slate-950/80 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-4 transition-all">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-white">Ward 12 - Indiranagar</span>
+                  <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                    GRADE A+
+                  </span>
+                </div>
+                <div className="flex items-baseline gap-2 mt-1">
+                  <span className="text-2xl font-black text-emerald-400 font-mono">96.4%</span>
+                  <span className="text-xs text-slate-400">Segregation</span>
+                </div>
+                <div className="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+                  <div className="bg-emerald-500 h-full rounded-full" style={{ width: '96.4%' }} />
+                </div>
+                <div className="mt-3 pt-2.5 border-t border-slate-850 space-y-1 text-xs text-slate-400">
+                  <div className="flex justify-between">
+                    <span>Daily Waste:</span>
+                    <strong className="text-white font-mono">48.2 TPD</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Chief Inspector:</span>
+                    <span className="text-slate-300">Ananya Rao</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-slate-950/80 border border-slate-800 hover:border-purple-500/40 rounded-xl p-4 transition-all">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-white">Ward 15 - Koramangala</span>
+                  <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                    GRADE A
+                  </span>
+                </div>
+                <div className="flex items-baseline gap-2 mt-1">
+                  <span className="text-2xl font-black text-purple-400 font-mono">94.1%</span>
+                  <span className="text-xs text-slate-400">Segregation</span>
+                </div>
+                <div className="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+                  <div className="bg-purple-500 h-full rounded-full" style={{ width: '94.1%' }} />
+                </div>
+                <div className="mt-3 pt-2.5 border-t border-slate-850 space-y-1 text-xs text-slate-400">
+                  <div className="flex justify-between">
+                    <span>Daily Waste:</span>
+                    <strong className="text-white font-mono">62.8 TPD</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Chief Inspector:</span>
+                    <span className="text-slate-300">Sunil Reddy</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-slate-950/80 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-4 transition-all">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-white">Ward 04 - Jayanagar</span>
+                  <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                    GRADE A+
+                  </span>
+                </div>
+                <div className="flex items-baseline gap-2 mt-1">
+                  <span className="text-2xl font-black text-emerald-400 font-mono">95.9%</span>
+                  <span className="text-xs text-slate-400">Segregation</span>
+                </div>
+                <div className="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+                  <div className="bg-emerald-500 h-full rounded-full" style={{ width: '95.9%' }} />
+                </div>
+                <div className="mt-3 pt-2.5 border-t border-slate-850 space-y-1 text-xs text-slate-400">
+                  <div className="flex justify-between">
+                    <span>Daily Waste:</span>
+                    <strong className="text-white font-mono">41.6 TPD</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Chief Inspector:</span>
+                    <span className="text-slate-300">Manjunath B.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4 pt-3 border-t border-slate-850 flex items-center justify-between text-xs text-slate-400">
+              <span>5 Wards monitored under SBM-Urban 2.0 Star Rating framework.</span>
+              <button
+                onClick={() => setShowWardModal(true)}
+                className="text-purple-400 hover:text-purple-300 font-semibold cursor-pointer flex items-center gap-1 shrink-0"
+              >
+                Inspect All Wards <ChevronRight className="w-3 h-3" />
+              </button>
             </div>
           </div>
             </div>
@@ -1029,89 +1131,106 @@ export const MunicipalityDashboard = () => {
           {/* 3. Electronic Weighbridge Scale Records */}
           {(operationsSubTab === 'weighbridge' || operationsSubTab === 'all') && (
             <div className="space-y-6">
-          {/* Cryptographic Weighbridge Audit Ledger */}
+          {/* Cryptographic Weighbridge Audit Ledger Summary & Modal Trigger */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
               <div>
                 <h3 className="text-base font-bold text-white flex items-center gap-2">
                   <Scale className="w-4 h-4 text-purple-400" />
-                  Live Digital Weighbridge Scale Records (Truck Weights & Verification)
+                  Live Digital Weighbridge Scale Records
                 </h3>
                 <p className="text-xs text-slate-400 mt-0.5">
-                  Automated electronic scales record exact truck weights at city gates, guaranteeing that zero garbage is lost or dumped illegally.
+                  Automated electronic scales record exact truck weights at city gates with cryptographic anti-tamper hashes.
                 </p>
               </div>
-              <span className="text-xs text-slate-400 font-mono self-start sm:self-auto">
-                Showing Last 5 Verified Truck Batches
-              </span>
+              <button
+                onClick={() => setShowWeighbridgeModal(true)}
+                className="inline-flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-purple-900/30 transition-all cursor-pointer shrink-0 self-start sm:self-auto"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                View Complete Scale Ledger ({weighbridgeBatches.length} Batches)
+              </button>
             </div>
 
             {/* Weighbridge Explainer Box */}
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-start gap-3 text-xs text-slate-300 mb-4">
-              <Info className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
-              <div>
-                <strong className="text-white block">What is an Electronic Weighbridge?</strong>
-                A digital truck scale at municipal plant gates. Each garbage truck is weighed twice: once when arriving full (Full Truck) and once after unloading (Empty Truck). The difference is the exact net waste delivered, ensuring complete transparency and zero cheating.
+            <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex items-start gap-3 text-xs text-slate-300 mb-4">
+              <Info className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+              <div className="leading-relaxed">
+                <strong className="text-white block">Electronic Weighbridge Dual-Sensor Verification:</strong>
+                Each garbage truck is automatically weighed twice at municipal gates: full on entry (Gross Weight) and empty upon exit (Tare Weight). The net difference verifies delivered payload, preventing loss or illegal dumping.
               </div>
             </div>
 
-            <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
-              <table className="min-w-[680px] w-full text-left text-xs text-slate-300">
-                <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-800">
-                  <tr>
-                    <th className="px-4 py-3">Batch ID</th>
-                    <th className="px-4 py-3">Time</th>
-                    <th className="px-4 py-3">Truck No</th>
-                    <th className="px-4 py-3">Waste Category</th>
-                    <th className="px-4 py-3">Weights (Full / Empty = Actual Waste)</th>
-                    <th className="px-4 py-3">Destination Factory</th>
-                    <th className="px-4 py-3">Anti-Tamper Code</th>
-                    <th className="px-4 py-3 text-right">Inspection Status</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-800/60 font-mono text-xs">
-                  {weighbridgeBatches.map((batch) => (
-                    <tr key={batch.id} className="hover:bg-slate-800/40">
-                      <td className="px-4 py-3 font-bold text-purple-300">{batch.id}</td>
-                      <td className="px-4 py-3 text-slate-400">{batch.timestamp}</td>
-                      <td className="px-4 py-3 font-semibold text-white">{batch.truckNumber}</td>
-                      <td className="px-4 py-3 text-slate-300 font-sans">
-                        <span className="bg-slate-800 px-2 py-0.5 rounded text-[11px]">
-                          {batch.category}
+            {/* 3 Recent Batch Ticket Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+              {weighbridgeBatches.slice(0, 3).map((batch) => (
+                <div
+                  key={batch.id}
+                  className="bg-slate-950/80 border border-slate-800 hover:border-purple-500/40 rounded-xl p-4 transition-all flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <span className="font-mono text-xs font-bold text-purple-300">{batch.id}</span>
+                      <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                        {batch.status}
+                      </span>
+                    </div>
+
+                    <div className="flex items-baseline justify-between mt-1">
+                      <span className="text-lg font-black text-white font-mono">{batch.truckNumber}</span>
+                      <span className="text-xs text-slate-400">{batch.timestamp}</span>
+                    </div>
+
+                    <div className="mt-2 inline-block bg-slate-900 px-2 py-0.5 rounded text-[11px] text-slate-300 font-sans border border-slate-800">
+                      {batch.category}
+                    </div>
+                  </div>
+
+                  <div className="mt-3.5 pt-3 border-t border-slate-850 space-y-2 text-xs">
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-slate-500">Delivered Net:</span>
+                      <div className="text-right">
+                        <span className="text-base font-black text-emerald-400 font-mono">
+                          {batch.netWasteWeightTons} Tons
                         </span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className="text-slate-400">{batch.grossWeightTons}t / {batch.tareWeightTons}t = </span>
-                        <strong className="text-emerald-400">{batch.netWasteWeightTons}t</strong>
-                      </td>
-                      <td className="px-4 py-3 text-slate-300 font-sans truncate max-w-[160px]">
-                        {batch.destinationRecycler}
-                      </td>
-                      <td className="px-4 py-3 font-mono text-[10px] text-slate-400">
-                        <div className="flex items-center gap-1.5">
-                          <span>{(batch.hashSha256 || 'SHA256').substring(0, 10)}...</span>
-                          <button
-                            onClick={() => handleCopyHash(batch.hashSha256 || 'SHA256')}
-                            className="text-purple-400 hover:text-white cursor-pointer"
-                            title="Copy full cryptographic hash"
-                          >
-                            {copiedHash === batch.hashSha256 ? (
-                              <Check className="w-3.5 h-3.5 text-emerald-400" />
-                            ) : (
-                              <Copy className="w-3.5 h-3.5" />
-                            )}
-                          </button>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 text-right">
-                        <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
-                          {batch.status}
+                        <span className="text-[10px] text-slate-500 block">
+                          ({batch.grossWeightTons}t gross - {batch.tareWeightTons}t tare)
                         </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-slate-500">Destination:</span>
+                      <span className="text-slate-300 truncate max-w-[150px] font-medium">{batch.destinationRecycler}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-1 border-t border-slate-900 font-mono text-[10px] text-slate-500">
+                      <span className="truncate max-w-[130px]">SHA: {(batch.hashSha256 || 'SHA256').substring(0, 10)}...</span>
+                      <button
+                        onClick={() => handleCopyHash(batch.hashSha256 || 'SHA256')}
+                        className="text-purple-400 hover:text-white cursor-pointer inline-flex items-center gap-1 font-sans text-[10px]"
+                        title="Copy cryptographic hash"
+                      >
+                        {copiedHash === batch.hashSha256 ? (
+                          <span className="text-emerald-400 flex items-center gap-0.5 font-bold"><Check className="w-3 h-3" /> Copied</span>
+                        ) : (
+                          <span className="flex items-center gap-0.5"><Copy className="w-3 h-3" /> Copy Hash</span>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 pt-3 border-t border-slate-850 flex items-center justify-between text-xs text-slate-400">
+              <span>Showing last 3 digitally logged truck weigh-ins.</span>
+              <button
+                onClick={() => setShowWeighbridgeModal(true)}
+                className="text-purple-400 hover:text-purple-300 font-semibold cursor-pointer flex items-center gap-1 shrink-0"
+              >
+                Inspect All Batches <ChevronRight className="w-3 h-3" />
+              </button>
             </div>
           </div>
             </div>
@@ -1684,6 +1803,412 @@ export const MunicipalityDashboard = () => {
       {/* ========================================================================= */}
       {activeTab === 'farmerRegistration' && (
         <FarmerRegistrationView />
+      )}
+
+      {/* ========================================================================= */}
+      {/* POINT 3 MODALS: COMPREHENSIVE AUDIT LEDGERS (FLEET, WARDS, WEIGHBRIDGE)   */}
+      {/* ========================================================================= */}
+
+      {/* Modal 1: Fleet Vehicle Inspection & Telemetry Ledger */}
+      {showFleetModal && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200"
+          onClick={() => setShowFleetModal(false)}
+        >
+          <div
+            className="bg-slate-900 border border-slate-700 rounded-2xl max-w-6xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/80">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
+                  <Truck className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                    Complete Municipal Fleet Inspection Ledger
+                    <span className="bg-purple-950 text-purple-300 border border-purple-800 text-[11px] px-2.5 py-0.5 rounded-full font-mono font-normal">
+                      {filteredVehicles.length} Trucks Monitored
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    10-Column official vehicle compliance records, live speeds, driver roster, and PUC certification status.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowFleetModal(false)}
+                className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                title="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Body: Full 10-Column Table */}
+            <div className="overflow-auto flex-1 p-4 sm:p-6">
+              <div className="overflow-x-auto rounded-xl border border-slate-800">
+                <table className="min-w-[850px] w-full text-left text-xs text-slate-300">
+                  <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-800">
+                    <tr>
+                      <th className="px-4 py-3">Truck Plate No.</th>
+                      <th className="px-4 py-3">Vehicle Model & Duty</th>
+                      <th className="px-4 py-3">Eco-Fuel</th>
+                      <th className="px-4 py-3">Depot & Area Ward</th>
+                      <th className="px-4 py-3">Driver & Mobile No.</th>
+                      <th className="px-4 py-3">Total Km Driven</th>
+                      <th className="px-4 py-3">Pollution Pass (PUC)</th>
+                      <th className="px-4 py-3">Road Fitness Pass</th>
+                      <th className="px-4 py-3 text-right">Live GPS & Speed</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800/60 font-mono text-xs">
+                    {filteredVehicles.map((v) => {
+                      const plate = v.registrationNo || v.number || 'KA-03-GH-0000';
+                      const ward = v.ward || v.assignedWard || 'Ward 12 Indiranagar';
+                      const odo = v.odometerKm ? `${v.odometerKm.toLocaleString()} km` : '42,180 km';
+                      const puc = v.pucValidTill || 'Valid (Dec 2026)';
+                      const fitness = v.fitnessValidTill || v.fitnessCertValidTill || 'Valid (Oct 2027)';
+                      const speed = v.speedKmH ?? v.speed ?? 18;
+
+                      return (
+                        <tr key={v.id} className="hover:bg-slate-800/50">
+                          <td className="px-4 py-3 font-bold text-white flex items-center gap-2">
+                            <span className="bg-slate-950 border border-slate-700 px-2 py-0.5 rounded font-mono text-[11px] text-amber-300">
+                              {plate}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 text-slate-200 font-sans">{v.type}</td>
+                          <td className="px-4 py-3 font-sans">
+                            {v.fuelType?.includes('Electric') ? (
+                              <span className="bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1 w-fit">
+                                <BatteryCharging className="w-3 h-3 text-emerald-400" />
+                                100% Electric
+                              </span>
+                            ) : v.fuelType?.includes('CNG') ? (
+                              <span className="bg-blue-950 text-blue-300 border border-blue-800 text-[10px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1 w-fit">
+                                <Fuel className="w-3 h-3 text-blue-400" />
+                                CNG Clean
+                              </span>
+                            ) : (
+                              <span className="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1 w-fit">
+                                <Fuel className="w-3 h-3 text-slate-400" />
+                                Clean Diesel
+                              </span>
+                            )}
+                          </td>
+                          <td className="px-4 py-3 text-slate-400 font-sans">
+                            <span className="block text-white font-medium">{v.depot || 'East Zone Depot'}</span>
+                            <span className="text-[10px] text-slate-500">{ward}</span>
+                          </td>
+                          <td className="px-4 py-3 text-slate-300 font-sans">
+                            <span className="block font-medium text-white">{v.driverName}</span>
+                            <span className="text-[10px] text-slate-400 font-mono">{v.driverPhone}</span>
+                          </td>
+                          <td className="px-4 py-3 text-slate-300 font-mono">
+                            {odo}
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="flex items-center gap-1">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                              <span className="text-emerald-400 font-bold text-[11px]">
+                                {puc}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3">
+                            <span className="text-slate-300 font-mono text-[11px]">
+                              {fitness}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 text-right">
+                            <div className="inline-flex items-center gap-1.5 font-sans">
+                              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                              <span className="text-emerald-400 font-semibold text-[11px]">
+                                {v.status || 'Active'} • {speed} km/h
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 border-t border-slate-800 bg-slate-950/80 flex items-center justify-between text-xs text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                All 12 fleet units verified under MoHUA Swachh Survekshan transport standards.
+              </span>
+              <button
+                onClick={() => setShowFleetModal(false)}
+                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl text-xs transition-colors cursor-pointer"
+              >
+                Close Ledger
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal 2: Zonal Ward Cleanliness & Waste Segregation Audit */}
+      {showWardModal && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200"
+          onClick={() => setShowWardModal(false)}
+        >
+          <div
+            className="bg-slate-900 border border-slate-700 rounded-2xl max-w-5xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/80">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
+                  <Layers className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                    City Zonal Ward Cleanliness & Segregation Audit
+                    <span className="bg-emerald-950 text-emerald-300 border border-emerald-800 text-[11px] px-2.5 py-0.5 rounded-full font-mono font-normal">
+                      5 Wards Monitored
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    Official Swachh Bharat Mission (Urban) 2.0 Star Rating segregation ratings and municipal health officers.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowWardModal(false)}
+                className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                title="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Body: Full 7-Column Table */}
+            <div className="overflow-auto flex-1 p-4 sm:p-6">
+              <div className="overflow-x-auto rounded-xl border border-slate-800">
+                <table className="min-w-[700px] w-full text-left text-xs text-slate-300">
+                  <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-800">
+                    <tr>
+                      <th className="px-4 py-3">Ward Name</th>
+                      <th className="px-4 py-3">Residents Living Here</th>
+                      <th className="px-4 py-3">Daily Garbage</th>
+                      <th className="px-4 py-3">Segregation Score</th>
+                      <th className="px-4 py-3">Main Waste Collected</th>
+                      <th className="px-4 py-3">Ward Health Officer</th>
+                      <th className="px-4 py-3 text-right">Cleanliness Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800/60 font-mono">
+                    <tr className="hover:bg-slate-800/50">
+                      <td className="px-4 py-3 font-bold text-white">Ward 12 - Indiranagar</td>
+                      <td className="px-4 py-3 text-slate-400">84,500</td>
+                      <td className="px-4 py-3 font-semibold text-white">48.2 TPD</td>
+                      <td className="px-4 py-3 text-emerald-400 font-bold">96.4% (Grade A+)</td>
+                      <td className="px-4 py-3 text-slate-300 font-sans">Wet Organic & PET Bottles</td>
+                      <td className="px-4 py-3 text-slate-300 font-sans">Inspector Ananya Rao</td>
+                      <td className="px-4 py-3 text-right">
+                        <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                          EXCELLENT
+                        </span>
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-slate-800/50">
+                      <td className="px-4 py-3 font-bold text-white">Ward 15 - Koramangala</td>
+                      <td className="px-4 py-3 text-slate-400">112,000</td>
+                      <td className="px-4 py-3 font-semibold text-white">62.8 TPD</td>
+                      <td className="px-4 py-3 text-emerald-400 font-bold">94.1% (Grade A)</td>
+                      <td className="px-4 py-3 text-slate-300 font-sans">Food Waste & E-Commerce Cartons</td>
+                      <td className="px-4 py-3 text-slate-300 font-sans">Officer Sunil Reddy</td>
+                      <td className="px-4 py-3 text-right">
+                        <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                          COMPLIANT
+                        </span>
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-slate-800/50">
+                      <td className="px-4 py-3 font-bold text-white">Ward 08 - Malleshwaram</td>
+                      <td className="px-4 py-3 text-slate-400">95,400</td>
+                      <td className="px-4 py-3 font-semibold text-white">51.0 TPD</td>
+                      <td className="px-4 py-3 text-emerald-400 font-bold">91.8% (Grade A)</td>
+                      <td className="px-4 py-3 text-slate-300 font-sans">Vegetable Mandi Bio-Waste</td>
+                      <td className="px-4 py-3 text-slate-300 font-sans">Officer K. Venkatesh</td>
+                      <td className="px-4 py-3 text-right">
+                        <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                          COMPLIANT
+                        </span>
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-slate-800/50">
+                      <td className="px-4 py-3 font-bold text-white">Ward 22 - Whitefield</td>
+                      <td className="px-4 py-3 text-slate-400">135,000</td>
+                      <td className="px-4 py-3 font-semibold text-white">76.5 TPD</td>
+                      <td className="px-4 py-3 text-amber-400 font-bold">88.5% (Grade B+)</td>
+                      <td className="px-4 py-3 text-slate-300 font-sans">Packaging & Tech E-Waste</td>
+                      <td className="px-4 py-3 text-slate-300 font-sans">Officer Preeti Nair</td>
+                      <td className="px-4 py-3 text-right">
+                        <span className="bg-amber-950 text-amber-400 border border-amber-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                          MONITORED
+                        </span>
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-slate-800/50">
+                      <td className="px-4 py-3 font-bold text-white">Ward 04 - Jayanagar</td>
+                      <td className="px-4 py-3 text-slate-400">78,000</td>
+                      <td className="px-4 py-3 font-semibold text-white">41.6 TPD</td>
+                      <td className="px-4 py-3 text-emerald-400 font-bold">95.9% (Grade A+)</td>
+                      <td className="px-4 py-3 text-slate-300 font-sans">Horticultural Leaves & Glass</td>
+                      <td className="px-4 py-3 text-slate-300 font-sans">Officer Manjunath B.</td>
+                      <td className="px-4 py-3 text-right">
+                        <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                          EXCELLENT
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 border-t border-slate-800 bg-slate-950/80 flex items-center justify-between text-xs text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                City Average Segregation: 93.3% (Target: 85% for SBM-Urban 5-Star Rating).
+              </span>
+              <button
+                onClick={() => setShowWardModal(false)}
+                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl text-xs transition-colors cursor-pointer"
+              >
+                Close Audit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal 3: Cryptographic Weighbridge Scale Records Ledger */}
+      {showWeighbridgeModal && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200"
+          onClick={() => setShowWeighbridgeModal(false)}
+        >
+          <div
+            className="bg-slate-900 border border-slate-700 rounded-2xl max-w-6xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/80">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
+                  <Scale className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                    Complete Cryptographic Weighbridge Scale Ledger
+                    <span className="bg-purple-950 text-purple-300 border border-purple-800 text-[11px] px-2.5 py-0.5 rounded-full font-mono font-normal">
+                      {weighbridgeBatches.length} Batches Logged
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    Dual-scale automated net weight telemetry with CPCB SHA-256 anti-tamper certification hashes.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowWeighbridgeModal(false)}
+                className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                title="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Body: Full 8-Column Table */}
+            <div className="overflow-auto flex-1 p-4 sm:p-6">
+              <div className="overflow-x-auto rounded-xl border border-slate-800">
+                <table className="min-w-[780px] w-full text-left text-xs text-slate-300">
+                  <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-800">
+                    <tr>
+                      <th className="px-4 py-3">Batch ID</th>
+                      <th className="px-4 py-3">Time</th>
+                      <th className="px-4 py-3">Truck No</th>
+                      <th className="px-4 py-3">Waste Category</th>
+                      <th className="px-4 py-3">Weights (Full / Empty = Actual Waste)</th>
+                      <th className="px-4 py-3">Destination Factory</th>
+                      <th className="px-4 py-3">Anti-Tamper Code</th>
+                      <th className="px-4 py-3 text-right">Inspection Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800/60 font-mono text-xs">
+                    {weighbridgeBatches.map((batch) => (
+                      <tr key={batch.id} className="hover:bg-slate-800/50">
+                        <td className="px-4 py-3 font-bold text-purple-300">{batch.id}</td>
+                        <td className="px-4 py-3 text-slate-400">{batch.timestamp}</td>
+                        <td className="px-4 py-3 font-semibold text-white">{batch.truckNumber}</td>
+                        <td className="px-4 py-3 text-slate-300 font-sans">
+                          <span className="bg-slate-800 px-2 py-0.5 rounded text-[11px]">
+                            {batch.category}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className="text-slate-400">{batch.grossWeightTons}t / {batch.tareWeightTons}t = </span>
+                          <strong className="text-emerald-400">{batch.netWasteWeightTons}t</strong>
+                        </td>
+                        <td className="px-4 py-3 text-slate-300 font-sans truncate max-w-[160px]">
+                          {batch.destinationRecycler}
+                        </td>
+                        <td className="px-4 py-3 font-mono text-[10px] text-slate-400">
+                          <div className="flex items-center gap-1.5">
+                            <span>{(batch.hashSha256 || 'SHA256').substring(0, 10)}...</span>
+                            <button
+                              onClick={() => handleCopyHash(batch.hashSha256 || 'SHA256')}
+                              className="text-purple-400 hover:text-white cursor-pointer"
+                              title="Copy full cryptographic hash"
+                            >
+                              {copiedHash === batch.hashSha256 ? (
+                                <Check className="w-3.5 h-3.5 text-emerald-400" />
+                              ) : (
+                                <Copy className="w-3.5 h-3.5" />
+                              )}
+                            </button>
+                          </div>
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          <span className="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                            {batch.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 border-t border-slate-800 bg-slate-950/80 flex items-center justify-between text-xs text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                Immutable SHA-256 hash generated directly from load cell analog-to-digital converter.
+              </span>
+              <button
+                onClick={() => setShowWeighbridgeModal(false)}
+                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl text-xs transition-colors cursor-pointer"
+              >
+                Close Scale Ledger
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* SBM-Urban 2.0 Compliance Audit Certificate Modal */}
