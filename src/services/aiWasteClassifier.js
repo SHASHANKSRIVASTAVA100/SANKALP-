@@ -272,7 +272,13 @@ export const classifyWaste = ({
   ) {
     matched = WASTE_CATEGORIES.find(c => c.id === 'mixed_waste');
   } else {
-    matched = WASTE_CATEGORIES.find(c => c.id === 'plastic');
+    // If no explicit keyword, compute deterministic classification based on captured image name
+    if (fileName && fileName !== 'image.jpg') {
+      const hash = fileName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      matched = WASTE_CATEGORIES[hash % WASTE_CATEGORIES.length] || WASTE_CATEGORIES[0];
+    } else {
+      matched = WASTE_CATEGORIES[0];
+    }
   }
 
   const confidenceNum = (93.5 + Math.random() * 5.8).toFixed(1);

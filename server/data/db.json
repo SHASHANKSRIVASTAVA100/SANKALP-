@@ -326,7 +326,7 @@
       },
       "reportedAt": "2026-09-04T08:30:00.000Z",
       "status": "awaiting_verification",
-      "priority": "high",
+      "priority": "critical",
       "slaHours": 4,
       "slaDeadline": "2026-09-04T12:30:00.000Z",
       "aiAnalysis": {
@@ -355,7 +355,11 @@
       "mrfDestination": "Municipal MRF Unit #12 - Indiranagar",
       "supervisorNotes": "Ground sanitary inspector dispatched for manual audit.",
       "supervisorRating": null,
-      "sosAlert": null
+      "sosAlert": {
+        "reason": "Hazardous Chemical / Toxic Biohazard Detected",
+        "notes": "Dump includes large reinforced concrete chunks and buried metal pipes exceeding manual shovel capacity.",
+        "reportedAt": "2026-09-10T13:11:04.902Z"
+      }
     },
     {
       "id": "CMP-2026-109",
@@ -549,14 +553,14 @@
       "driverPhone": "+91 94480 77121",
       "ward": "Ward 12 - Indiranagar",
       "currentLocation": {
-        "lat": 12.952470150326235,
-        "lng": 77.63755953071228
+        "lat": 12.947454730699949,
+        "lng": 77.61565243691513
       },
       "currentStreet": "Near 12th Main Road, 80 Feet Road Junction",
       "speedKmH": 18,
       "status": "collecting",
-      "routeProgress": 62,
-      "distanceFromUserMeters": 200,
+      "routeProgress": 35,
+      "distanceFromUserMeters": 230,
       "estimatedArrivalMinutes": 3,
       "capacityPercent": 74,
       "stopsRemaining": 5
@@ -569,14 +573,14 @@
       "driverPhone": "+91 98861 88345",
       "ward": "Ward 14 - Koramangala",
       "currentLocation": {
-        "lat": 12.926788874109777,
-        "lng": 77.6185422567857
+        "lat": 12.907824555568256,
+        "lng": 77.62284136548338
       },
       "currentStreet": "80 Feet Road, 4th Block",
       "speedKmH": 22,
       "status": "in_transit",
-      "routeProgress": 79,
-      "distanceFromUserMeters": 290,
+      "routeProgress": 52,
+      "distanceFromUserMeters": 320,
       "estimatedArrivalMinutes": 4,
       "capacityPercent": 88,
       "stopsRemaining": 2

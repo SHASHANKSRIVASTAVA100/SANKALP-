@@ -19,8 +19,7 @@ import {
   AlertTriangle,
   ArrowRight,
   ShieldCheck,
-  ChevronRight,
-  FileCheck
+  ChevronRight
 } from 'lucide-react';
 import { getValidPhotoUrl, handleImageError, REAL_WASTE_FALLBACK } from '../../utils/photoUtils';
 
@@ -41,8 +40,6 @@ export const CitizenDashboard = () => {
     if (wardFilter === 'All Wards') return true;
     return c.ward === wardFilter;
   });
-
-  const awaitingCount = filteredComplaints.filter(c => c.status === 'awaiting_verification').length;
 
   return (
     <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-6 w-full max-w-full overflow-hidden">
@@ -179,34 +176,6 @@ export const CitizenDashboard = () => {
         </div>
       </div>
 
-      {/* Awaiting Verification Banner Alert (if any complaint needs confirmation) */}
-      {awaitingCount > 0 && (
-        <div className="bg-gradient-to-r from-amber-950/80 via-slate-900 to-slate-950 border-2 border-amber-500/50 rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xl">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
-              <FileCheck className="w-5 h-5 animate-pulse" />
-            </div>
-            <div>
-              <h4 className="font-bold text-sm text-white">
-                {awaitingCount} {t('awaitingReviewTitle')}
-              </h4>
-              <p className="text-xs text-slate-300">
-                {t('awaitingReviewDesc')}
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={() => {
-              const item = filteredComplaints.find(c => c.status === 'awaiting_verification');
-              if (item) setSelectedComplaint(item);
-            }}
-            className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-all shadow cursor-pointer self-stretch sm:self-auto text-center"
-          >
-            {t('reviewEvidenceNow')}
-          </button>
-        </div>
-      )}
-
       {/* Main Grid: Vehicle Radar + Complaints Stream */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column: Live Vehicle Radar (5 cols) */}
@@ -302,13 +271,13 @@ export const CitizenDashboard = () => {
                         c.status === 'verified'
                           ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
                           : c.status === 'awaiting_verification'
-                          ? 'bg-amber-500/20 text-amber-300 border border-amber-500/50 animate-pulse'
+                          ? 'bg-amber-500/20 text-amber-300 border border-amber-500/50'
                           : c.status === 'in_progress'
                           ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
                           : 'bg-slate-800 text-slate-400 border border-slate-700'
                       }`}>
                         {c.status === 'verified' ? '✓ Verified Clean' :
-                         c.status === 'awaiting_verification' ? '★ Verification Ready' :
+                         c.status === 'awaiting_verification' ? 'Supervisor Audit' :
                          c.status === 'in_progress' ? 'Worker on Site' : 'Pending Allocation'}
                       </span>
 

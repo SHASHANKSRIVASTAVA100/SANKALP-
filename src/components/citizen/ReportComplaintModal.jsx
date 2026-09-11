@@ -3,7 +3,6 @@ import { useApp } from '../../context/AppContext';
 import {
   X,
   Camera,
-  Upload,
   Cpu,
   CheckCircle,
   AlertTriangle,
@@ -21,7 +20,7 @@ import {
   Truck
 } from 'lucide-react';
 import { GoogleMapContainer } from '../common/GoogleMapContainer';
-import { classifyWaste, WASTE_CATEGORIES } from '../../services/aiWasteClassifier';
+import { classifyWaste } from '../../services/aiWasteClassifier';
 import {
   compressImageFile,
   getValidPhotoUrl,
@@ -43,7 +42,6 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   const [customImage, setCustomImage] = useState(null);
-  const [activeCategoryHint, setActiveCategoryHint] = useState("plastic");
   const [isScanning, setIsScanning] = useState(false);
   const [scanComplete, setScanComplete] = useState(true);
 
@@ -74,7 +72,6 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
     setIsScanning(true);
     setScanComplete(false);
 
-    const catHint = overrideCategory || activeCategoryHint;
     const t = overrideTitle !== null ? overrideTitle : title;
     const d = overrideDesc !== null ? overrideDesc : description;
 
@@ -83,7 +80,7 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
         fileName: overrideImg || 'image.jpg',
         title: t,
         description: d,
-        categoryHint: catHint,
+        categoryHint: overrideCategory || '',
         userWeightOverride: userWeight
       });
 
@@ -94,31 +91,19 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
     }, 750);
   };
 
-  // Handle custom image file upload with client-side compression to Base64
+  // Handle live camera capture with client-side compression to Base64
   const handleCustomFileUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
       try {
         const base64Url = await compressImageFile(file);
         setCustomImage(base64Url);
-        setTitle(`Citizen Report: ${file.name.replace(/\.[^/.]+$/, "")}`);
-        triggerAiInference(null, `Citizen Report: ${file.name}`, description, file.name);
+        const captureTitle = `Camera Photo: ${file.name.replace(/\.[^/.]+$/, "")}`;
+        setTitle(captureTitle);
+        triggerAiInference(null, captureTitle, description, file.name);
       } catch (err) {
-        console.error("Error processing photo:", err);
+        console.error("Error processing camera photo:", err);
       }
-    }
-  };
-
-  // Switch category tag manually
-  const handleCategorySwitch = (catId) => {
-    setActiveCategoryHint(catId);
-    const catObj = WASTE_CATEGORIES.find(c => c.id === catId);
-    if (catObj) {
-      setTitle(`Citizen Report: ${catObj.name}`);
-      setDescription(catObj.segregationTip);
-      triggerAiInference(catId, `Citizen Report: ${catObj.name}`, catObj.segregationTip);
-    } else {
-      triggerAiInference(catId, title, description);
     }
   };
 
@@ -238,11 +223,11 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
                 </div>
               )}
 
-              {/* Floating Camera / Gallery Upload Triggers */}
-              <div className="absolute bottom-3 right-3 flex items-center gap-2">
-                <label className="bg-emerald-600 hover:bg-emerald-500 text-slate-950 px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer flex items-center gap-1.5 shadow-2xl backdrop-blur-md transition-all active:scale-95">
-                  <Camera className="w-3.5 h-3.5" />
-                  <span>Camera</span>
+              {/* Floating Camera Live Capture Trigger Only */}
+              <div className="absolute bottom-3 right-3 flex items-center">
+                <label className="bg-emerald-600 hover:bg-emerald-500 text-slate-950 px-3.5 py-2 rounded-xl text-xs font-bold cursor-pointer flex items-center gap-2 shadow-2xl backdrop-blur-md transition-all active:scale-95">
+                  <Camera className="w-4 h-4" />
+                  <span>Camera Live Capture</span>
                   <input
                     type="file"
                     accept="image/*"
@@ -251,43 +236,35 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
                     className="hidden"
                   />
                 </label>
-                <label className="bg-slate-900/95 hover:bg-slate-800 text-slate-200 border border-slate-600 px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer flex items-center gap-1.5 shadow-2xl backdrop-blur-md transition-all active:scale-95">
-                  <Upload className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Upload</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleCustomFileUpload}
-                    className="hidden"
-                  />
-                </label>
               </div>
             </div>
 
-            {/* AI Waste Stream Quick Selectors */}
-            <div className="space-y-1.5">
-              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
-                Select Waste Category (Instant AI Classification & Routing):
-              </span>
-              <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-1.5">
-                {WASTE_CATEGORIES.map((cat) => (
-                  <button
-                    key={cat.id}
-                    type="button"
-                    onClick={() => handleCategorySwitch(cat.id)}
-                    className={`p-1.5 rounded-xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
-                      activeCategoryHint === cat.id
-                        ? 'bg-emerald-500/20 border-emerald-400 ring-2 ring-emerald-500/20 text-emerald-300'
-                        : 'bg-slate-950 border-slate-800 hover:border-slate-700 text-slate-400'
-                    }`}
-                    title={cat.name}
-                  >
-                    <span className="text-base">{cat.icon}</span>
-                    <span className="text-[9px] font-bold truncate max-w-full block mt-0.5">
-                      {cat.id === 'mixed_waste' ? 'Mixed' : cat.name.split(' ')[0]}
+            {/* AI Auto-Identified Category Display (Autonomous Neural Classification) */}
+            <div className="bg-gradient-to-r from-emerald-950/70 via-slate-900 to-slate-950 p-3 rounded-2xl border border-emerald-500/40 shadow-xl flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-xl shrink-0 shadow-md">
+                  {aiResult.icon || '🤖'}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      AI Auto-Identified Category
                     </span>
-                  </button>
-                ))}
+                    <span className="text-[10px] font-mono bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-800">
+                      {aiResult.confidence}
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-white mt-0.5">
+                    {aiResult.categoryName}
+                  </h4>
+                </div>
+              </div>
+              <div className="text-right shrink-0">
+                <span className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-lg ${aiResult.binBg || 'bg-blue-950 text-blue-300'}`}>
+                  {aiResult.binName?.split(' ')[0] || 'Segregated'} Bin
+                </span>
+                <span className="text-[10px] text-slate-400 block mt-0.5">Auto-Assigned Stream</span>
               </div>
             </div>
 

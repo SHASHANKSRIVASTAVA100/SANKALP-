@@ -104,6 +104,14 @@ setInterval(() => {
   }
 }, 3000);
 
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.warn(`⚠️ [Backend Server] Port ${PORT} is already in use by another instance.`);
+  } else {
+    console.error('❌ [Backend Server] Server error:', err);
+  }
+});
+
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`=================================================`);
   console.log(`🚀 Swachhta Sangam Backend API is running on port ${PORT}`);

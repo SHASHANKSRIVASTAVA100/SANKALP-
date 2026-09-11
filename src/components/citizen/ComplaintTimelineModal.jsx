@@ -7,8 +7,6 @@ import {
   UserCheck,
   Camera,
   MapPin,
-  Star,
-  Award,
   AlertTriangle,
   ArrowRight,
   ShieldCheck
@@ -21,11 +19,9 @@ import {
 } from '../../utils/photoUtils';
 
 export const ComplaintTimelineModal = ({ complaint, onClose }) => {
-  const { citizenConfirm, role } = useApp();
-  const [rating, setRating] = useState(5);
+  const { role } = useApp();
   const [viewMode, setViewMode] = useState('split'); // 'split' | 'slider'
   const [sliderPosition, setSliderPosition] = useState(50);
-  const [feedback, setFeedback] = useState("");
 
   // Lock body scroll on open to prevent background roll
   useEffect(() => {
@@ -41,11 +37,6 @@ export const ComplaintTimelineModal = ({ complaint, onClose }) => {
 
   const isAwaitingVerification = complaint.status === 'awaiting_verification';
   const isVerified = complaint.status === 'verified';
-  const isCitizenDone = complaint.reportedBy?.isCitizenVerified;
-
-  const handleConfirm = () => {
-    citizenConfirm(complaint.id, rating);
-  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto overscroll-contain">
@@ -134,24 +125,24 @@ export const ComplaintTimelineModal = ({ complaint, onClose }) => {
                 </div>
               </div>
 
-              {/* Step 4: Verification */}
+              {/* Step 4: Municipal Verification */}
               <div className={`flex items-start gap-2.5 p-2 rounded-lg ${
                 isVerified ? 'bg-emerald-950/60 border border-emerald-500 text-emerald-200' :
-                isAwaitingVerification ? 'bg-cyan-950/60 border border-cyan-500 animate-pulse' :
+                isAwaitingVerification ? 'bg-amber-950/60 border border-amber-500/60 text-amber-200' :
                 'bg-slate-900/40 border border-slate-800 opacity-60'
               }`}>
                 <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                   isVerified ? 'bg-emerald-500 text-slate-950' :
-                  isAwaitingVerification ? 'bg-cyan-500 text-slate-950' :
+                  isAwaitingVerification ? 'bg-amber-500 text-slate-950' :
                   'bg-slate-800 text-slate-400'
                 }`}>
                   {isVerified ? '✓' : '4'}
                 </div>
                 <div className="text-xs">
-                  <span className="font-bold text-white block">4. Verification</span>
+                  <span className="font-bold text-white block">4. Municipal Verification</span>
                   <span className="text-[10px] text-slate-300">
-                    {isVerified ? 'Approved & Points Given' :
-                     isAwaitingVerification ? 'Action Required!' : 'Pending Clean'}
+                    {isVerified ? 'Verified by Supervisor' :
+                     isAwaitingVerification ? 'Supervisor Review in Progress' : 'Pending Clean'}
                   </span>
                 </div>
               </div>
@@ -362,73 +353,31 @@ export const ComplaintTimelineModal = ({ complaint, onClose }) => {
             </div>
           </div>
 
-          {/* Citizen Verification Action Box */}
-          {isAwaitingVerification && !isCitizenDone && (
-            <div className="bg-gradient-to-r from-emerald-950/90 to-slate-900 border-2 border-emerald-500/60 rounded-2xl p-5 shadow-2xl space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <Award className="w-6 h-6 text-emerald-400" />
-                  <div>
-                    <h3 className="font-bold text-sm text-white">
-                      Citizen Verification & Satisfaction Rating
-                    </h3>
-                    <p className="text-xs text-emerald-300">
-                      Confirming the clean site releases your <strong>+50 Citizen Green Points</strong> and rewards the sanitation worker.
-                    </p>
-                  </div>
-                </div>
-                <span className="bg-emerald-500 text-slate-950 text-xs font-bold px-3 py-1 rounded-full shadow">
-                  +50 Points Reward
-                </span>
+          {/* Municipal Supervisor Verification Status Banner (No Citizen Action Required) */}
+          {isAwaitingVerification && (
+            <div className="bg-slate-950/90 border border-amber-500/50 rounded-2xl p-4 shadow-xl flex items-center gap-3.5">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
+                <Clock className="w-5 h-5 animate-pulse" />
               </div>
-
-              {/* Star Rating */}
-              <div className="flex items-center gap-4 bg-slate-950/60 p-3 rounded-xl border border-slate-800">
-                <span className="text-xs text-slate-300 font-medium">Rate Worker Quality:</span>
-                <div className="flex items-center gap-1.5">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      type="button"
-                      onClick={() => setRating(star)}
-                      className="p-1 hover:scale-110 transition-transform"
-                    >
-                      <Star
-                        className={`w-6 h-6 ${
-                          star <= rating
-                            ? 'text-amber-400 fill-amber-400'
-                            : 'text-slate-600'
-                        }`}
-                      />
-                    </button>
-                  ))}
-                </div>
-                <span className="text-xs font-bold text-amber-300">{rating} of 5 Stars</span>
-              </div>
-
-              <div className="flex items-center justify-end gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={handleConfirm}
-                  className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold transition-all shadow-lg shadow-emerald-500/25 flex items-center gap-2"
-                >
-                  <CheckCircle2 className="w-4 h-4" />
-                  Confirm Cleaned & Claim 50 Green Points
-                </button>
+              <div className="text-xs">
+                <h4 className="font-bold text-amber-300 text-sm">Site Cleaned & Under Municipal Supervisor Verification</h4>
+                <p className="text-slate-400 text-[11px] mt-0.5 leading-relaxed">
+                  Frontline sanitation squad has submitted post-cleanup photographic evidence. Final audit approval is verified by the ULB Ward Sanitation Supervisor on the Swachh Bharat portal.
+                </p>
               </div>
             </div>
           )}
 
-          {/* Already Verified Notice */}
-          {isCitizenDone && (
-            <div className="bg-emerald-950/40 border border-emerald-500/40 rounded-xl p-4 flex items-center gap-3">
+          {/* Resolution Verified Notice */}
+          {isVerified && (
+            <div className="bg-emerald-950/40 border border-emerald-500/40 rounded-xl p-4 flex items-center gap-3.5">
               <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
               <div className="text-xs">
-                <span className="font-bold text-emerald-300 block">
-                  You have verified this resolution ({complaint.reportedBy?.citizenRating || 5}★)!
+                <span className="font-bold text-emerald-300 block text-sm">
+                  Resolution Verified & Closed by Municipal Authority
                 </span>
-                <span className="text-slate-400 text-[11px]">
-                  +50 Green Points were added to your civic account. Thank you for making our city cleaner!
+                <span className="text-slate-400 text-[11px] mt-0.5 leading-relaxed">
+                  Site clearance verified by Ward Sanitation Supervisor with cryptographic geofence proof. Audit log successfully recorded on the Swachh Bharat portal.
                 </span>
               </div>
             </div>
