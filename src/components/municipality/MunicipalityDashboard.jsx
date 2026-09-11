@@ -503,7 +503,7 @@ export const MunicipalityDashboard = () => {
           }`}
         >
           <Wheat className="w-4 h-4 text-amber-300" />
-          <span>4. Farmer 40% Portal</span>
+          <span>4. Farmer Portal</span>
         </button>
       </div>
 
