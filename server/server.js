@@ -45,6 +45,22 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Serve compiled frontend assets from dist (allows full app on port 5000 as well)
+const distPath = path.join(__dirname, '..', 'dist');
+app.use(express.static(distPath));
+
+// Fallback to index.html for client-side single page app routing
+app.use((req, res, next) => {
+  if (req.method !== 'GET') return next();
+  if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
+    return next();
+  }
+  const indexPath = path.join(distPath, 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) next();
+  });
+});
+
 // Create HTTP server
 const server = http.createServer(app);
 
