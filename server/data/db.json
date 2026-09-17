@@ -42,6 +42,94 @@
   },
   "complaints": [
     {
+      "id": "CMP-2026-4378",
+      "title": "Roadside Plastic & Dry Waste",
+      "description": "Accumulation of discarded packaging and recyclable dry waste.",
+      "ward": "Ward 12 - Indiranagar",
+      "locationName": "Opposite Metro Pillar #124, 12th Main Road",
+      "coordinates": {
+        "lat": 12.9784,
+        "lng": 77.6408
+      },
+      "reportedAt": "2026-09-11T18:44:44.378Z",
+      "status": "pending",
+      "priority": "medium",
+      "slaHours": 8,
+      "slaDeadline": "2026-09-12T02:44:44.378Z",
+      "aiAnalysis": {
+        "primaryCategory": "Metal, Cans & Scrap",
+        "detectedTypes": [
+          "Aluminum Beverage Cans (70%)",
+          "Tin Food Containers (20%)",
+          "Aerosol Cans (10%)"
+        ],
+        "estimatedWeightKg": 30,
+        "confidence": "94.2%",
+        "hazardScore": "Medium",
+        "recommendedAction": "Magnetic Separator Tipper Truck"
+      },
+      "beforeImage": "https://images.unsplash.com/photo-1526951521990-620dc14c214b?auto=format&fit=crop&w=800&q=80",
+      "afterImage": null,
+      "reportedBy": {
+        "name": "Aarav Sharma (Citizen)",
+        "phone": "+91 98450 12345",
+        "isCitizenVerified": false,
+        "citizenRating": null
+      },
+      "assignedWorkerId": null,
+      "assignedWorkerName": null,
+      "assignedTeam": null,
+      "collectedWeightKg": null,
+      "mrfDestination": null,
+      "supervisorNotes": null,
+      "supervisorRating": null,
+      "sosAlert": null
+    },
+    {
+      "id": "CMP-2026-1725",
+      "title": "Roadside Plastic & Dry Waste",
+      "description": "Accumulation of discarded packaging and recyclable dry waste.",
+      "ward": "Ward 12 - Indiranagar",
+      "locationName": "Opposite Metro Pillar #124, 12th Main Road",
+      "coordinates": {
+        "lat": 12.9784,
+        "lng": 77.6408
+      },
+      "reportedAt": "2026-09-11T16:49:11.725Z",
+      "status": "pending",
+      "priority": "medium",
+      "slaHours": 8,
+      "slaDeadline": "2026-09-12T00:49:11.725Z",
+      "aiAnalysis": {
+        "primaryCategory": "Metal, Cans & Scrap",
+        "detectedTypes": [
+          "Aluminum Beverage Cans (70%)",
+          "Tin Food Containers (20%)",
+          "Aerosol Cans (10%)"
+        ],
+        "estimatedWeightKg": 30,
+        "confidence": "98.1%",
+        "hazardScore": "Medium",
+        "recommendedAction": "Magnetic Separator Tipper Truck"
+      },
+      "beforeImage": "https://images.unsplash.com/photo-1526951521990-620dc14c214b?auto=format&fit=crop&w=800&q=80",
+      "afterImage": null,
+      "reportedBy": {
+        "name": "Aarav Sharma (Citizen)",
+        "phone": "+91 98450 12345",
+        "isCitizenVerified": false,
+        "citizenRating": null
+      },
+      "assignedWorkerId": null,
+      "assignedWorkerName": null,
+      "assignedTeam": null,
+      "collectedWeightKg": null,
+      "mrfDestination": null,
+      "supervisorNotes": null,
+      "supervisorRating": null,
+      "sosAlert": null
+    },
+    {
       "id": "CMP-2026-1187",
       "title": "Citizen Report: Plastic & Polymers",
       "description": "Rinse and crush plastic containers; place in the Blue Dry Recyclable Bin for authorized EPR mechanical baling.",
@@ -502,8 +590,8 @@
       "role": "Senior Sanitation Hero",
       "rating": 4.9,
       "reviewsCount": 142,
-      "attendance": "punched_out",
-      "punchInTime": null,
+      "attendance": "punched_in",
+      "punchInTime": "10:08 am",
       "activeTasksCount": 1,
       "completedToday": 4,
       "totalKgClearedToday": 200,
@@ -553,14 +641,14 @@
       "driverPhone": "+91 94480 77121",
       "ward": "Ward 12 - Indiranagar",
       "currentLocation": {
-        "lat": 12.947454730699949,
-        "lng": 77.61565243691513
+        "lat": 12.957352502653643,
+        "lng": 77.64215243681068
       },
       "currentStreet": "Near 12th Main Road, 80 Feet Road Junction",
       "speedKmH": 18,
       "status": "collecting",
-      "routeProgress": 35,
-      "distanceFromUserMeters": 230,
+      "routeProgress": 59,
+      "distanceFromUserMeters": 215,
       "estimatedArrivalMinutes": 3,
       "capacityPercent": 74,
       "stopsRemaining": 5
@@ -573,14 +661,14 @@
       "driverPhone": "+91 98861 88345",
       "ward": "Ward 14 - Koramangala",
       "currentLocation": {
-        "lat": 12.907824555568256,
-        "lng": 77.62284136548338
+        "lat": 12.897099874126942,
+        "lng": 77.63457298743256
       },
       "currentStreet": "80 Feet Road, 4th Block",
       "speedKmH": 22,
       "status": "in_transit",
-      "routeProgress": 52,
-      "distanceFromUserMeters": 320,
+      "routeProgress": 76,
+      "distanceFromUserMeters": 305,
       "estimatedArrivalMinutes": 4,
       "capacityPercent": 88,
       "stopsRemaining": 2

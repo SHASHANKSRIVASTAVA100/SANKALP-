@@ -69,8 +69,14 @@ export const MunicipalityDashboard = () => {
   } = useApp();
 
   // Navigation Sub-tabs: 'marketplace' | 'recyclers' | 'categories' | 'diversion' | 'technology' | 'fleet'
-  // 4 Main Pillars: 'operations' | 'recycling' | 'marketplace' | 'farmerRegistration'
-  const [activeTab, setActiveTab] = useState('operations');
+  const [activeTab, setActiveTab] = useState(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get('tab');
+      if (tabParam) return tabParam;
+    } catch (e) {}
+    return 'operations';
+  });
 
   // Operations Sub-sections: 'fleet' | 'streams' | 'weighbridge' | 'all'
   const [operationsSubTab, setOperationsSubTab] = useState('fleet');

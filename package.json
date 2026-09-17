@@ -13,12 +13,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tensorflow-models/mobilenet": "^2.1.1",
+    "@tensorflow/tfjs": "^4.22.0",
     "canvas-confetti": "^1.9.4",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "lucide-react": "^1.40.0",
     "multer": "^2.3.0",
     "pptxgenjs": "^4.0.1",
+    "qrcode": "^1.5.4",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "ws": "^8.21.3"

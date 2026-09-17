@@ -29,6 +29,58 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   // Current Authenticated User (null means user is at Login Gateway)
   const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const roleParam = params.get('role');
+      if (roleParam === 'citizen') {
+        return {
+          id: "CIT-9821",
+          name: "Aarav Sharma",
+          role: "citizen",
+          phone: "+91 98450 12345",
+          ward: "Ward 12 - Indiranagar",
+          points: 650,
+          badge: "Ward Guardian"
+        };
+      } else if (roleParam === 'supervisor') {
+        return {
+          id: "SUP-08",
+          name: "Inspector Ananya Rao",
+          role: "supervisor",
+          designation: "Ward Sanitary Officer",
+          ward: "Ward 12 - Indiranagar",
+          zone: "East Bengaluru Zone"
+        };
+      } else if (roleParam === 'epr') {
+        return {
+          id: "EPR-CO-01",
+          name: "AquaPure Beverage Industries",
+          role: "epr",
+          gstin: "29AAACH7409R1ZX",
+          cpcbReg: "CPCB/EPR/2024/PL-0941",
+          category: "FMCG / Rigid Plastics (PET)"
+        };
+      } else if (roleParam === 'municipality') {
+        return {
+          id: "BBMP/HQ/COMM-01",
+          name: "Dr. K. S. Mehra, IAS",
+          role: "municipality",
+          designation: "Municipal Commissioner"
+        };
+      } else if (roleParam === 'worker') {
+        return {
+          id: "WRK-01",
+          name: "Ramesh Kumar",
+          role: "worker",
+          designation: "Senior Sanitation Hero",
+          ward: "Ward 12 - Indiranagar",
+          team: "Zone 12 Alpha Crew"
+        };
+      } else if (roleParam === 'login') {
+        return null;
+      }
+    } catch (e) {}
+
     const savedUser = localStorage.getItem('swachhta_current_user');
     return savedUser ? JSON.parse(savedUser) : null;
   });
@@ -174,7 +226,13 @@ export const AppProvider = ({ children }) => {
   ]);
 
   // Active Modal States
-  const [activeModal, setActiveModal] = useState(null);
+  const [activeModal, setActiveModal] = useState(() => {
+    try {
+      return new URLSearchParams(window.location.search).get('modal') || null;
+    } catch (e) {
+      return null;
+    }
+  });
 
   // Sync Initial State with Live Backend Server (Local Development Only with instant timeout)
   useEffect(() => {

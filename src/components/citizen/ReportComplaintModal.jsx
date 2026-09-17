@@ -20,7 +20,7 @@ import {
   Truck
 } from 'lucide-react';
 import { GoogleMapContainer } from '../common/GoogleMapContainer';
-import { classifyWaste } from '../../services/aiWasteClassifier';
+import { classifyWaste, classifyImageWithAI, getMobileNetModel } from '../../services/aiWasteClassifier';
 import {
   compressImageFile,
   getValidPhotoUrl,
@@ -36,6 +36,8 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
     if (!isOpen) return;
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    // Pre-warm TensorFlow.js MobileNet v2 neural model in background
+    getMobileNetModel();
     return () => {
       document.body.style.overflow = originalOverflow;
     };
@@ -67,17 +69,18 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
 
   const currentImage = customImage || REAL_WASTE_FALLBACK;
 
-  // Run Real AI Classification Scan
-  const triggerAiInference = (overrideCategory = null, overrideTitle = null, overrideDesc = null, overrideImg = null) => {
+  // Run Real AI Classification Scan using TensorFlow.js MobileNet v2
+  const triggerAiInference = async (overrideCategory = null, overrideTitle = null, overrideDesc = null, imageSource = null) => {
     setIsScanning(true);
     setScanComplete(false);
 
     const t = overrideTitle !== null ? overrideTitle : title;
     const d = overrideDesc !== null ? overrideDesc : description;
+    const img = imageSource || customImage || REAL_WASTE_FALLBACK;
 
-    setTimeout(() => {
-      const result = classifyWaste({
-        fileName: overrideImg || 'image.jpg',
+    try {
+      const result = await classifyImageWithAI(img, {
+        fileName: typeof imageSource === 'string' && imageSource.startsWith('data:') ? 'camera_capture.jpg' : (imageSource || 'image.jpg'),
         title: t,
         description: d,
         categoryHint: overrideCategory || '',
@@ -85,22 +88,34 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
       });
 
       setAiResult(result);
+      if (result.isRealModelPrediction && result.topLabel) {
+        setTitle(`${result.topLabel} Waste Disposal`);
+      }
+    } catch (err) {
+      console.warn("AI inference fallback:", err);
+      const fallbackResult = classifyWaste({
+        fileName: imageSource || 'image.jpg',
+        title: t,
+        description: d,
+        categoryHint: overrideCategory || '',
+        userWeightOverride: userWeight
+      });
+      setAiResult(fallbackResult);
+    } finally {
       setIsScanning(false);
       setScanComplete(true);
       playChime('success');
-    }, 750);
+    }
   };
 
-  // Handle live camera capture with client-side compression to Base64
+  // Handle live camera capture with client-side compression to Base64 and real AI prediction
   const handleCustomFileUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
       try {
         const base64Url = await compressImageFile(file);
         setCustomImage(base64Url);
-        const captureTitle = `Camera Photo: ${file.name.replace(/\.[^/.]+$/, "")}`;
-        setTitle(captureTitle);
-        triggerAiInference(null, captureTitle, description, file.name);
+        await triggerAiInference(null, null, description, base64Url);
       } catch (err) {
         console.error("Error processing camera photo:", err);
       }
@@ -215,7 +230,7 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
                 <div className="absolute inset-6 border-2 border-dashed border-emerald-400/90 rounded-xl pointer-events-none flex flex-col justify-between p-2.5 backdrop-blur-[1px]">
                   <div className="self-start bg-slate-950/95 text-emerald-300 border border-emerald-500/60 text-[11px] font-mono px-2.5 py-1 rounded-lg shadow-xl flex items-center gap-1.5 backdrop-blur-md">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>AI DETECTED: {aiResult.categoryName} ({aiResult.confidence})</span>
+                    <span>AI DETECTED: {aiResult.topLabel ? `${aiResult.topLabel} (${aiResult.confidence})` : `${aiResult.categoryName} (${aiResult.confidence})`}</span>
                   </div>
                   <div className="self-end bg-slate-950/95 text-amber-300 border border-amber-500/60 text-[11px] font-mono px-2.5 py-1 rounded-lg shadow-xl backdrop-blur-md">
                     Est. Mass: ~{aiResult.estimatedWeightKg} KG
@@ -258,6 +273,16 @@ export const ReportComplaintModal = ({ isOpen, onClose }) => {
                   <h4 className="text-sm font-bold text-white mt-0.5">
                     {aiResult.categoryName}
                   </h4>
+                  {aiResult.topLabel && (
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                      <span className="text-[11px] text-slate-300">
+                        Object: <strong className="text-emerald-300 font-mono">{aiResult.topLabel}</strong>
+                      </span>
+                      <span className="text-[9px] bg-sky-950 text-sky-400 px-1.5 py-0.5 rounded border border-sky-800 font-mono">
+                        TensorFlow.js MobileNet
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="text-right shrink-0">

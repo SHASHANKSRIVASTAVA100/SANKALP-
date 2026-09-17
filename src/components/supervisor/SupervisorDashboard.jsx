@@ -27,7 +27,14 @@ import { getValidPhotoUrl, handleImageError, REAL_WASTE_FALLBACK } from '../../u
 export const SupervisorDashboard = () => {
   const { complaints, wardFilter, t } = useApp();
 
-  const [activeTab, setActiveTab] = useState('complaints'); // 'complaints' | 'escalation' | 'fleet' | 'hotspots'
+  const [activeTab, setActiveTab] = useState(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get('tab');
+      if (tabParam) return tabParam;
+    } catch (e) {}
+    return 'complaints';
+  }); // 'complaints' | 'escalation' | 'fleet' | 'hotspots'
   const [priorityFilter, setPriorityFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
 

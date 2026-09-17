@@ -33,7 +33,15 @@ export const CitizenDashboard = () => {
     t
   } = useApp();
 
-  const [selectedComplaint, setSelectedComplaint] = useState(null);
+  const [selectedComplaint, setSelectedComplaint] = useState(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('timeline') === 'true' || params.get('complaint')) {
+        return complaints[0] || null;
+      }
+    } catch (e) {}
+    return null;
+  });
 
   // Filter complaints matching ward if selected
   const filteredComplaints = complaints.filter(c => {
