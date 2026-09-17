@@ -10,9 +10,15 @@ import { MunicipalityDashboard } from './components/municipality/MunicipalityDas
 import { AppMobileNav } from './components/common/AppMobileNav';
 import { InstallAppModal } from './components/common/InstallAppModal';
 import { Smartphone } from 'lucide-react';
+import { getMobileNetModel } from './services/aiWasteClassifier';
 
 const AppContent = () => {
   const { currentUser, viewMode, isInstallModalOpen, setIsInstallModalOpen } = useApp();
+
+  // Pre-warm AI computer vision model on initial load in the background
+  React.useEffect(() => {
+    getMobileNetModel();
+  }, []);
 
   // If user is not authenticated, strictly show the Login Gateway
   if (!currentUser) {
