@@ -12,7 +12,6 @@ import {
   Trophy,
   Bot,
   Calendar,
-  Sparkles,
   MapPin,
   Clock,
   CheckCircle2,
@@ -50,163 +49,72 @@ export const CitizenDashboard = () => {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-6 w-full max-w-full overflow-hidden">
-      {/* Citizen Hero Header */}
-      <div className="relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-700 p-4 sm:p-6 md:p-8">
-        <div className="relative z-10 flex flex-wrap items-center justify-between gap-6">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <span className="bg-emerald-900 text-emerald-300 text-xs font-bold px-3 py-1 rounded border border-emerald-700 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5" />
-                AICTE PS-26195 • Clean & Green Tech
-              </span>
-              <span className="text-xs text-slate-400">Ward 12 (Indiranagar)</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
-              {t('citizenHeroTitle')}
-            </h1>
-            <p className="text-xs md:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              {t('citizenHeroDesc')}
-            </p>
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-5 w-full max-w-full overflow-hidden">
+      {/* Page header */}
+      <div className="bg-slate-900 border border-slate-800 rounded p-4">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 className="text-base font-semibold text-white">Citizen Portal</h2>
+            <p className="text-xs text-slate-400 mt-0.5">Ward 12 – Indiranagar · PS-26195</p>
           </div>
 
-          {/* Gamification Points Capsule */}
-          <div className="bg-slate-800 border border-slate-700 rounded-xl p-4 flex items-center gap-4">
-            <div className="w-14 h-14 rounded-xl bg-emerald-500 flex items-center justify-center font-bold text-2xl text-slate-900">
-              🏆
+          {/* Civic points */}
+          <div className="bg-slate-800 border border-slate-700 rounded p-3 flex items-center gap-3">
+            <div className="w-9 h-9 rounded bg-emerald-600 flex items-center justify-center shrink-0">
+              <Trophy className="w-4 h-4 text-white" />
             </div>
             <div>
-              <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">{t('civicWallet')}</div>
-              <div className="text-2xl font-black text-white flex items-center gap-1.5">
+              <div className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">{t('civicWallet')}</div>
+              <div className="text-lg font-bold text-white flex items-center gap-1">
                 <span className="text-emerald-400">{citizenPoints}</span>
                 <span className="text-xs text-slate-400 font-medium">{t('points')}</span>
               </div>
-              <div className="text-[11px] text-emerald-300 flex items-center gap-1 mt-0.5">
-                <span>{t('rankInWard')}</span>
-                <span>•</span>
-                <span className="text-slate-400">{t('badgeTitle')}</span>
-              </div>
             </div>
           </div>
         </div>
 
-        {/* Action Quick Launchers Bar */}
-        <div className="mt-6 pt-6 border-t border-slate-800 flex flex-wrap gap-3">
-          <button
-            onClick={() => setActiveModal('report')}
-            className="flex-1 min-w-[140px] flex items-center justify-center gap-2 p-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors cursor-pointer"
-          >
-            <Camera className="w-4 h-4" />
-            <span>{t('aiReportDump')}</span>
+        {/* Quick Actions */}
+        <div className="mt-4 pt-4 border-t border-slate-800 flex flex-wrap gap-2">
+          <button onClick={() => setActiveModal('report')} className="flex items-center gap-2 px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs transition-colors cursor-pointer">
+            <Camera className="w-3.5 h-3.5" /><span>{t('aiReportDump')}</span>
           </button>
-
-          <button
-            onClick={() => setActiveModal('leaderboard')}
-            className="flex-1 min-w-[140px] flex items-center justify-center gap-2 p-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs transition-colors cursor-pointer"
-          >
-            <Trophy className="w-4 h-4 text-slate-400" />
-            <span>{t('leaderboard')}</span>
+          <button onClick={() => setActiveModal('leaderboard')} className="flex items-center gap-2 px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs transition-colors cursor-pointer">
+            <Trophy className="w-3.5 h-3.5" /><span>{t('leaderboard')}</span>
           </button>
-
-          <button
-            onClick={() => setActiveModal('paid')}
-            className="flex-1 min-w-[140px] flex items-center justify-center gap-2 p-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs transition-colors cursor-pointer"
-          >
-            <Calendar className="w-4 h-4 text-slate-400" />
-            <span>{t('bookPaidPickup')}</span>
+          <button onClick={() => setActiveModal('paid')} className="flex items-center gap-2 px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs transition-colors cursor-pointer">
+            <Calendar className="w-3.5 h-3.5" /><span>{t('bookPaidPickup')}</span>
           </button>
-
-          <button
-            onClick={() => setActiveModal('bot')}
-            className="flex-1 min-w-[140px] flex items-center justify-center gap-2 p-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs transition-colors cursor-pointer"
-          >
-            <Bot className="w-4 h-4 text-slate-400" />
-            <span>{t('aiHelper')}</span>
+          <button onClick={() => setActiveModal('bot')} className="flex items-center gap-2 px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs transition-colors cursor-pointer">
+            <Bot className="w-3.5 h-3.5" /><span>{t('aiHelper')}</span>
           </button>
-
-          <button
-            onClick={() => {
-              const radarEl = document.getElementById('vehicle-radar');
-              radarEl?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="flex-1 min-w-[140px] flex items-center justify-center gap-2 p-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs transition-colors cursor-pointer"
-          >
-            <Truck className="w-4 h-4 text-slate-400" />
-            <span>{t('liveRadarBtn')}</span>
+          <button onClick={() => { const el = document.getElementById('vehicle-radar'); el?.scrollIntoView({ behavior: 'smooth' }); }} className="flex items-center gap-2 px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs transition-colors cursor-pointer">
+            <Truck className="w-3.5 h-3.5" /><span>{t('liveRadarBtn')}</span>
           </button>
-        </div>
-      </div>
-
-      {/* AICTE PS-26195: Pillar 2 Clean & Green Tech Environmental Impact Bar */}
-      <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div className="flex items-center gap-3 p-2.5 rounded-lg border border-slate-800">
-          <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-emerald-400 font-bold text-lg">
-            🌱
-          </div>
-          <div>
-            <span className="text-[10px] text-slate-400 font-medium block">CO₂ Avoided</span>
-            <span className="text-base font-bold text-white font-mono">48.5 kg</span>
-            <span className="text-[9px] text-slate-500 font-semibold block">Via AI Segregation</span>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3 p-2.5 rounded-lg border border-slate-800">
-          <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-emerald-400 font-bold text-lg">
-            ♻️
-          </div>
-          <div>
-            <span className="text-[10px] text-slate-400 font-medium block">Landfill Diversion Rate</span>
-            <span className="text-base font-bold text-white font-mono">84.2%</span>
-            <span className="text-[9px] text-slate-500 font-semibold block">Routed to Recyclers</span>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3 p-2.5 rounded-lg border border-slate-800">
-          <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-emerald-400 font-bold text-lg">
-            🌳
-          </div>
-          <div>
-            <span className="text-[10px] text-slate-400 font-medium block">Tree Offset Equivalent</span>
-            <span className="text-base font-bold text-white font-mono">2.4 Trees</span>
-            <span className="text-[9px] text-slate-500 font-semibold block">Carbon Sequestration Eq.</span>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3 p-2.5 rounded-lg border border-slate-800">
-          <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-emerald-400 font-bold text-lg">
-            🎯
-          </div>
-          <div>
-            <span className="text-[10px] text-slate-400 font-medium block">3-Bin Accuracy</span>
-            <span className="text-base font-bold text-white font-mono">92.8%</span>
-            <span className="text-[9px] text-slate-500 font-semibold block">AICTE Citizen Standard</span>
-          </div>
         </div>
       </div>
 
       {/* Main Grid: Vehicle Radar + Complaints Stream */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Column: Live Vehicle Radar (5 cols) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        {/* Left Column: Live Vehicle Radar */}
         <div id="vehicle-radar" className="lg:col-span-5 space-y-4">
           <VehicleRadarCard />
         </div>
 
-        {/* Right Column: Active Complaints Stream (7 cols) */}
-        <div className="lg:col-span-7 space-y-4">
+        {/* Right Column: Complaints */}
+        <div className="lg:col-span-7 space-y-3">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-bold text-base text-white flex items-center gap-2">
+              <h3 className="font-semibold text-sm text-white flex items-center gap-2">
                 <span>{t('communityComplaints')}</span>
-                <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full font-mono">
-                  {filteredComplaints.length} tickets
+                <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-mono">
+                  {filteredComplaints.length}
                 </span>
               </h3>
-              <p className="text-xs text-slate-400">Track resolution progress and inspect photo evidence</p>
             </div>
 
             <button
               onClick={() => setActiveModal('report')}
-              className="text-xs bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-all cursor-pointer"
+              className="text-xs text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-3 py-1.5 rounded flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <Camera className="w-3.5 h-3.5" />
               <span>{t('reportNew')}</span>

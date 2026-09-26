@@ -11,7 +11,6 @@ import { AppMobileNav } from './components/common/AppMobileNav';
 import { InstallAppModal } from './components/common/InstallAppModal';
 import { PortalUserGuideModal } from './components/common/PortalUserGuideModal';
 import { Smartphone } from 'lucide-react';
-import { getMobileNetModel } from './services/aiWasteClassifier';
 
 const AppContent = () => {
   const { currentUser, viewMode, isInstallModalOpen, setIsInstallModalOpen, isUserGuideOpen, closeUserGuide, fontSize } = useApp();

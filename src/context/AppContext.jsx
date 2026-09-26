@@ -977,7 +977,12 @@ export const AppProvider = ({ children }) => {
         triggerHotspotAction,
         addNotification,
         playChime,
-        resetDemoData
+        resetDemoData,
+        isUserGuideOpen,
+        setIsUserGuideOpen,
+        openUserGuide,
+        closeUserGuide,
+        fontSize
       }}
     >
       {children}
