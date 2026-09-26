@@ -262,24 +262,23 @@ export const MunicipalityDashboard = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-      {/* 1. Sleek Modern Executive Command Bar */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl px-5 py-3.5 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center text-purple-300 shadow-lg shrink-0">
-            <Landmark className="w-5 h-5" />
+      {/* 1. Executive Command Bar */}
+      <div className="bg-slate-900 border border-slate-800 rounded px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 shrink-0">
+            <Landmark className="w-4 h-4 text-emerald-400" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-base sm:text-lg font-black text-white tracking-tight">
-                Sankalp Municipal Command Center
+              <h1 className="text-base font-semibold text-white tracking-tight">
+                Municipal Operations Command Center
               </h1>
-              <span className="inline-flex items-center gap-1 bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-[10px] font-semibold px-2 py-0.5 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Live Telemetry Active
+              <span className="bg-slate-800 text-emerald-400 text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
+                Live
               </span>
             </div>
             <p className="text-xs text-slate-400">
-              Commissioner: <strong className="text-purple-300">{currentUser?.name || 'Dr. Rajeshwari Swamy, IAS'}</strong> • Corporation Code: <span className="font-mono text-slate-300">{currentUser?.ulbOfficeId || 'BBMP/HQ/COMM-01'}</span>
+              Commissioner: <span className="text-slate-200">{currentUser?.name || 'Dr. Rajeshwari Swamy, IAS'}</span> · Code: <span className="font-mono text-slate-300">{currentUser?.ulbOfficeId || 'BBMP/HQ/COMM-01'}</span>
             </p>
           </div>
         </div>
@@ -287,93 +286,90 @@ export const MunicipalityDashboard = () => {
         <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
           <button
             onClick={() => setShowAuditModal(true)}
-            className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-md shadow-emerald-950/40 active:scale-95"
+            className="px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
             title="Download SBM-U 2.0 Inspection Certificate"
           >
-            <FileCheck className="w-4 h-4 text-slate-950" />
+            <FileCheck className="w-3.5 h-3.5" />
             <span>SBM-U 2.0 Audit Certificate (PDF)</span>
           </button>
         </div>
       </div>
 
-      {/* 2. Rule of 3 Big Numbers (Hero Metrics) */}
+      {/* 2. Key Metrics */}
       <div className="space-y-3">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-          {/* Hero Metric 1: Doorstep Pickup Coverage */}
-          <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/40 border border-emerald-500/30 rounded-2xl p-5 shadow-lg shadow-emerald-950/20 group hover:border-emerald-500/50 transition-all">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {/* Metric 1 */}
+          <div className="bg-slate-900 border border-slate-800 rounded p-4">
             <div className="flex items-start justify-between">
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-xs font-medium uppercase tracking-wider text-slate-400">
                   Doorstep Pickup Coverage
                 </span>
-                <div className="flex items-baseline gap-2 mt-2">
-                  <span className="text-3xl lg:text-4xl font-black text-white font-mono tracking-tight">
+                <div className="flex items-baseline gap-2 mt-1">
+                  <span className="text-2xl font-bold text-white font-mono">
                     98.0%
                   </span>
-                  <span className="text-xs text-emerald-300 font-semibold bg-emerald-950/80 border border-emerald-700/50 px-2 py-0.5 rounded-md">
+                  <span className="text-xs text-emerald-400 font-mono">
                     1,715 TPD
                   </span>
                 </div>
               </div>
-              <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-                <Truck className="w-5 h-5" />
+              <div className="p-2 rounded bg-slate-800 border border-slate-700 text-slate-300">
+                <Truck className="w-4 h-4 text-emerald-400" />
               </div>
             </div>
-            <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
-              Daily collected from <strong className="text-slate-200 font-semibold">4.2 Lakh homes</strong> across all 5 municipal zones with 100% route verification.
+            <p className="text-xs text-slate-400 mt-2">
+              Daily collection across 5 municipal zones with GPS-verified route tracking.
             </p>
           </div>
 
-          {/* Hero Metric 2: Landfill Diversion Rate */}
-          <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-purple-950/40 border border-purple-500/30 rounded-2xl p-5 shadow-lg shadow-purple-950/20 group hover:border-purple-500/50 transition-all">
+          {/* Metric 2 */}
+          <div className="bg-slate-900 border border-slate-800 rounded p-4">
             <div className="flex items-start justify-between">
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-purple-300 flex items-center gap-1.5">
-                  <Recycle className="w-3.5 h-3.5 text-purple-400" />
+                <span className="text-xs font-medium uppercase tracking-wider text-slate-400">
                   Landfill Diversion Rate
                 </span>
-                <div className="flex items-baseline gap-2 mt-2">
-                  <span className="text-3xl lg:text-4xl font-black text-purple-400 font-mono tracking-tight">
+                <div className="flex items-baseline gap-2 mt-1">
+                  <span className="text-2xl font-bold text-emerald-400 font-mono">
                     {diversionRate}
                   </span>
-                  <span className="text-xs text-purple-300 font-semibold bg-purple-950/80 border border-purple-700/50 px-2 py-0.5 rounded-md">
-                    {totalRecycled} TPD Saved
+                  <span className="text-xs text-slate-300 font-mono">
+                    {totalRecycled} TPD Diverted
                   </span>
                 </div>
               </div>
-              <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
-                <ShieldCheck className="w-5 h-5" />
+              <div className="p-2 rounded bg-slate-800 border border-slate-700 text-slate-300">
+                <Recycle className="w-4 h-4 text-emerald-400" />
               </div>
             </div>
-            <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
-              Exceeds national 75% SBM-U 2.0 benchmark by <strong className="text-slate-200 font-semibold">+6.1%</strong> through automated MRF segregation.
+            <p className="text-xs text-slate-400 mt-2">
+              Meets national SBM-U 2.0 benchmark via Material Recovery Facility segregation.
             </p>
           </div>
 
-          {/* Hero Metric 3: Farmer Profit Share (40% DBT) */}
-          <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/40 border border-amber-500/30 rounded-2xl p-5 shadow-lg shadow-amber-950/20 group hover:border-amber-500/50 transition-all">
+          {/* Metric 3 */}
+          <div className="bg-slate-900 border border-slate-800 rounded p-4">
             <div className="flex items-start justify-between">
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
-                  <Wheat className="w-3.5 h-3.5 text-amber-400" />
-                  Farmer Direct Profit Share
+                <span className="text-xs font-medium uppercase tracking-wider text-slate-400">
+                  Farmer Direct Benefit Transfer
                 </span>
-                <div className="flex items-baseline gap-2 mt-2">
-                  <span className="text-3xl lg:text-4xl font-black text-amber-400 font-mono tracking-tight">
+                <div className="flex items-baseline gap-2 mt-1">
+                  <span className="text-2xl font-bold text-white font-mono">
                     40% DBT
                   </span>
-                  <span className="text-xs text-amber-300 font-semibold bg-amber-950/80 border border-amber-700/50 px-2 py-0.5 rounded-md">
+                  <span className="text-xs text-emerald-400 font-mono">
                     ₹3,800/Ton
                   </span>
                 </div>
               </div>
-              <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
-                <Coins className="w-5 h-5" />
+              <div className="p-2 rounded bg-slate-800 border border-slate-700 text-slate-300">
+                <Wheat className="w-4 h-4 text-emerald-400" />
               </div>
             </div>
-            <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
-              Guaranteed bank payout per ton of stubble collected via <strong className="text-slate-200 font-semibold">100% free municipal balers</strong>.
+            <p className="text-xs text-slate-400 mt-2">
+              Direct revenue share on bio-gas & compost sales deposited to farmer bank accounts.
             </p>
           </div>
         </div>

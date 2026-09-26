@@ -117,52 +117,38 @@ export const WorkerDashboard = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-6 w-full max-w-full overflow-x-hidden">
-      {/* Worker Hero Status Card */}
-      <div className="bg-gradient-to-r from-amber-950/70 via-slate-900 to-slate-950 border border-amber-500/30 rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6 w-full max-w-full overflow-hidden">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-5 w-full max-w-full overflow-x-hidden">
+      {/* Worker Status Bar */}
+      <div className="bg-slate-900 border border-slate-800 rounded p-4 space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          {/* Worker Profile Info */}
-          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-            <div className="relative shrink-0">
-              <img
-                src={currentWorker.avatar}
-                alt={currentWorker.name}
-                className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl object-cover border-2 border-amber-400/50 shadow-lg shadow-amber-950"
-              />
-              <span className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-slate-900 ${
-                currentWorker.attendance === 'punched_in' ? 'bg-emerald-400' : 'bg-slate-600'
-              }`}></span>
+          {/* Worker Info */}
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-10 h-10 rounded bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-slate-200 text-sm shrink-0">
+              {currentWorker.name ? currentWorker.name.charAt(0) : 'W'}
             </div>
-
             <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-lg sm:text-xl font-bold text-white truncate">{currentWorker.name}</h1>
-                <span className="bg-amber-500/20 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-500/30 shrink-0">
+              <div className="flex items-center gap-2">
+                <h1 className="text-base font-semibold text-white truncate">{currentWorker.name}</h1>
+                <span className="bg-slate-800 text-slate-300 text-[10px] px-1.5 py-0.5 rounded border border-slate-700">
                   {currentWorker.role}
                 </span>
               </div>
-              <div className="text-xs text-slate-400 flex flex-wrap items-center gap-2 mt-0.5">
-                <span className="flex items-center gap-1 truncate">
-                  <MapPin className="w-3 h-3 text-amber-400 shrink-0" />
-                  {currentWorker.ward} ({currentWorker.team})
-                </span>
-                <span>•</span>
-                <span className="text-amber-300 font-bold flex items-center gap-1 shrink-0">
-                  <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                  {currentWorker.rating} ★ ({currentWorker.reviewsCount} reviews)
+              <div className="text-xs text-slate-400 flex items-center gap-2 mt-0.5">
+                <span className="flex items-center gap-1">
+                  <MapPin className="w-3 h-3 text-slate-400" />
+                  {currentWorker.ward} · {currentWorker.team}
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Quick Worker Selector (For Demo Testing) */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
-            <div className="bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-1.5 text-xs w-full sm:w-auto">
-              <span className="text-slate-400 text-[11px] block">Select Field Worker:</span>
+          {/* Controls */}
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="bg-slate-800 border border-slate-700 rounded px-2.5 py-1 text-xs">
               <select
                 value={activeWorkerId}
                 onChange={(e) => setActiveWorkerId(e.target.value)}
-                className="bg-transparent text-amber-300 font-semibold focus:outline-none cursor-pointer w-full"
+                className="bg-transparent text-slate-200 text-xs font-medium focus:outline-none cursor-pointer"
               >
                 {workers.map(w => (
                   <option key={w.id} value={w.id} className="bg-slate-900 text-slate-200">
@@ -172,109 +158,39 @@ export const WorkerDashboard = () => {
               </select>
             </div>
 
-            {/* Attendance Punch-In / Punch-Out Toggle */}
             <button
               onClick={() => toggleAttendance(currentWorker.id)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-lg flex items-center justify-center gap-2 w-full sm:w-auto cursor-pointer ${
+              className={`px-3 py-1.5 rounded text-xs font-medium transition-colors cursor-pointer ${
                 currentWorker.attendance === 'punched_in'
-                  ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-emerald-500/20'
+                  ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
                   : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'
               }`}
             >
-              <span className={`w-2.5 h-2.5 rounded-full ${
-                currentWorker.attendance === 'punched_in' ? 'bg-slate-950 animate-ping' : 'bg-slate-500'
-              }`}></span>
-              <span>
-                {currentWorker.attendance === 'punched_in'
-                  ? `Shift Active (In @ ${currentWorker.punchInTime || '07:30 AM'})`
-                  : 'Punch In (Start Shift)'}
-              </span>
+              {currentWorker.attendance === 'punched_in'
+                ? `Shift Active (${currentWorker.punchInTime || '07:30 AM'})`
+                : 'Start Shift'}
             </button>
           </div>
         </div>
 
         {/* Telemetry Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-800/80">
-          <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-slate-800 text-xs">
+          <div className="bg-slate-800/60 p-2.5 rounded border border-slate-800">
             <span className="text-[11px] text-slate-400 block">{t('activeTasks')}</span>
-            <span className="text-lg font-bold text-amber-400 font-mono">
-              {activeTasks.length} Tickets
-            </span>
+            <span className="text-base font-semibold text-white font-mono">{activeTasks.length} Tickets</span>
           </div>
-          <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80">
+          <div className="bg-slate-800/60 p-2.5 rounded border border-slate-800">
             <span className="text-[11px] text-slate-400 block">{t('completedToday')}</span>
-            <span className="text-lg font-bold text-emerald-400 font-mono">
-              {currentWorker.completedToday} Spots Cleared
-            </span>
+            <span className="text-base font-semibold text-emerald-400 font-mono">{currentWorker.completedToday} Cleared</span>
           </div>
-          <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80">
+          <div className="bg-slate-800/60 p-2.5 rounded border border-slate-800">
             <span className="text-[11px] text-slate-400 block">{t('wasteClearedToday')}</span>
-            <span className="text-lg font-bold text-white font-mono">
-              {currentWorker.totalKgClearedToday} KG
-            </span>
+            <span className="text-base font-semibold text-white font-mono">{currentWorker.totalKgClearedToday} KG</span>
           </div>
-          <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80">
+          <div className="bg-slate-800/60 p-2.5 rounded border border-slate-800">
             <span className="text-[11px] text-slate-400 block">{t('dailyIncentives')}</span>
-            <span className="text-lg font-bold text-emerald-400 font-mono">
-              ₹{currentWorker.earningsToday}
-            </span>
+            <span className="text-base font-semibold text-emerald-400 font-mono">₹{currentWorker.earningsToday}</span>
           </div>
-        </div>
-      </div>
-
-      {/* AICTE PS-26195: Pillar 3 National Sanitization Worker Safety & PPE Protocol */}
-      <div className="bg-gradient-to-r from-amber-950/50 via-slate-900 to-slate-950 border border-amber-500/40 rounded-2xl p-4 shadow-xl space-y-3">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
-            <h3 className="text-xs font-black uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-amber-400" />
-              Pillar 3: Frontline Worker Safety & PPE Compliance (AICTE PS-26195)
-            </h3>
-          </div>
-          <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">
-            Zero Manual Scavenging Mandate
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
-          <div className="bg-slate-950/80 border border-amber-500/30 rounded-xl p-3 flex items-center gap-2.5">
-            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-[10px] shrink-0">✓</span>
-            <div>
-              <strong className="text-white block text-[11px]">Nitrile Heavy-Duty Safety Gloves</strong>
-              <span className="text-slate-400 text-[10px]">Verified Puncture & Chemical Resistant</span>
-            </div>
-          </div>
-
-          <div className="bg-slate-950/80 border border-amber-500/30 rounded-xl p-3 flex items-center gap-2.5">
-            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-[10px] shrink-0">✓</span>
-            <div>
-              <strong className="text-white block text-[11px]">Steel-Toe Safety Gumboots</strong>
-              <span className="text-slate-400 text-[10px]">Anti-slip wet terrain & glass protection</span>
-            </div>
-          </div>
-
-          <div className="bg-slate-950/80 border border-amber-500/30 rounded-xl p-3 flex items-center gap-2.5">
-            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-[10px] shrink-0">✓</span>
-            <div>
-              <strong className="text-white block text-[11px]">FFP3 Toxic Vapor & Odor Respirator</strong>
-              <span className="text-slate-400 text-[10px]">Active bio-filtration for sewage & wet piles</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="p-3 rounded-xl bg-amber-950/30 border border-amber-800/40 text-[11px] text-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5">
-          <div className="flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
-            <span>Encountering hazardous chemical waste, dead animal, or deep drain blockage?</span>
-          </div>
-          <button
-            type="button"
-            onClick={() => setSosModalComplaint(activeTasks[0] || complaints[0])}
-            className="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs transition-all shadow cursor-pointer shrink-0 self-stretch sm:self-auto text-center"
-          >
-            Escalate to Mechanized JCB / Suction
-          </button>
         </div>
       </div>
 

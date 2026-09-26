@@ -64,60 +64,54 @@ export const SupervisorDashboard = () => {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-6 w-full max-w-full overflow-x-hidden">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-5 w-full max-w-full overflow-x-hidden">
       {/* Supervisor Command Hub Banner */}
-      <div className="bg-gradient-to-r from-cyan-950 via-slate-900 to-slate-950 border border-cyan-500/30 rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6 w-full max-w-full overflow-hidden">
+      <div className="bg-slate-900 border border-slate-800 rounded p-4 space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="bg-cyan-500/20 text-cyan-300 text-xs font-bold px-3 py-1 rounded-full border border-cyan-500/30 flex items-center gap-1.5">
-                <ShieldAlert className="w-3.5 h-3.5 text-cyan-400" />
-                WARD COMMAND & CONTROL ROOM
+              <span className="bg-slate-800 text-slate-300 text-[10px] font-semibold px-2 py-0.5 rounded border border-slate-700">
+                WARD CONTROL ROOM
               </span>
               <span className="text-xs text-slate-400 font-mono">
-                Jurisdiction: {wardFilter}
+                {wardFilter}
               </span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-black text-white mt-1">
+            <h1 className="text-base font-semibold text-white mt-1">
               {t('supervisorTitle')}
             </h1>
-            <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
-              {t('supervisorDesc')}
-            </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-mono bg-slate-900 border border-slate-700 px-3 py-1.5 rounded-xl text-slate-300">
-              Active Shift Officer: <strong className="text-cyan-300">Inspector Ananya Rao</strong>
-            </span>
+          <div className="text-xs text-slate-400 font-mono bg-slate-800 border border-slate-700 px-2.5 py-1 rounded">
+            Officer: <strong className="text-slate-200">Inspector Ananya Rao</strong>
           </div>
         </div>
 
         {/* Top KPI Ribbon */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 pt-4 border-t border-slate-800/80">
-          <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 pt-3 border-t border-slate-800 text-xs">
+          <div className="bg-slate-800/60 p-2 rounded border border-slate-800">
             <span className="text-[11px] text-slate-400 block font-medium">{t('totalComplaints')}</span>
-            <span className="text-xl font-bold text-white font-mono">{totalComplaints}</span>
+            <span className="text-base font-bold text-white font-mono">{totalComplaints}</span>
           </div>
-          <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
+          <div className="bg-slate-800/60 p-2 rounded border border-slate-800">
             <span className="text-[11px] text-slate-400 block font-medium">{t('pendingTriage')}</span>
-            <span className="text-xl font-bold text-amber-400 font-mono">{pendingComplaints}</span>
+            <span className="text-base font-bold text-slate-200 font-mono">{pendingComplaints}</span>
           </div>
-          <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
+          <div className="bg-slate-800/60 p-2 rounded border border-slate-800">
             <span className="text-[11px] text-slate-400 block font-medium">{t('inProgress')}</span>
-            <span className="text-xl font-bold text-cyan-400 font-mono">{inProgressComplaints}</span>
+            <span className="text-base font-bold text-slate-200 font-mono">{inProgressComplaints}</span>
           </div>
-          <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
+          <div className="bg-slate-800/60 p-2 rounded border border-slate-800">
             <span className="text-[11px] text-slate-400 block font-medium">{t('awaitingReviewTitle')}</span>
-            <span className="text-xl font-bold text-purple-400 font-mono">{awaitingVerificationComplaints}</span>
+            <span className="text-base font-bold text-slate-200 font-mono">{awaitingVerificationComplaints}</span>
           </div>
-          <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
+          <div className="bg-slate-800/60 p-2 rounded border border-slate-800">
             <span className="text-[11px] text-slate-400 block font-medium">{t('verifiedClean')}</span>
-            <span className="text-xl font-bold text-emerald-400 font-mono">{verifiedComplaints}</span>
+            <span className="text-base font-bold text-emerald-400 font-mono">{verifiedComplaints}</span>
           </div>
-          <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
+          <div className="bg-slate-800/60 p-2 rounded border border-slate-800">
             <span className="text-[11px] text-slate-400 block font-medium">{t('slaBreaches')}</span>
-            <span className={`text-xl font-bold font-mono ${overdueComplaints > 0 ? 'text-rose-400 animate-pulse' : 'text-slate-400'}`}>
+            <span className={`text-base font-bold font-mono ${overdueComplaints > 0 ? 'text-rose-400' : 'text-slate-400'}`}>
               {overdueComplaints}
             </span>
           </div>
@@ -128,62 +122,62 @@ export const SupervisorDashboard = () => {
       <div className="flex items-center gap-2 border-b border-slate-800 pb-2 overflow-x-auto -mx-2 px-2 sm:mx-0 sm:px-0 no-scrollbar">
         <button
           onClick={() => setActiveTab('complaints')}
-          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+          className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'complaints'
-              ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
-              : 'bg-slate-900 text-slate-400 hover:text-white'
+              ? 'bg-emerald-600 text-white'
+              : 'bg-slate-800 text-slate-400 hover:text-white'
           }`}
         >
-          <Users className="w-4 h-4" />
-          <span>Complaint Management ({displayedComplaints.length})</span>
+          <Users className="w-3.5 h-3.5" />
+          <span>Complaints ({displayedComplaints.length})</span>
         </button>
 
         <button
           onClick={() => setActiveTab('escalation')}
-          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+          className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'escalation'
-              ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
-              : 'bg-slate-900 text-slate-400 hover:text-white'
+              ? 'bg-emerald-600 text-white'
+              : 'bg-slate-800 text-slate-400 hover:text-white'
           }`}
         >
-          <ShieldAlert className="w-4 h-4 text-rose-400" />
-          <span>Escalation Hierarchy ({overdueComplaints} Breaches)</span>
+          <ShieldAlert className="w-3.5 h-3.5" />
+          <span>Escalation ({overdueComplaints})</span>
         </button>
 
         <button
           onClick={() => setActiveTab('fleet')}
-          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+          className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'fleet'
-              ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
-              : 'bg-slate-900 text-slate-400 hover:text-white'
+              ? 'bg-emerald-600 text-white'
+              : 'bg-slate-800 text-slate-400 hover:text-white'
           }`}
         >
-          <Radio className="w-4 h-4 text-cyan-400" />
-          <span>Vehicle Fleet Monitoring</span>
+          <Radio className="w-3.5 h-3.5" />
+          <span>Fleet</span>
         </button>
 
         <button
           onClick={() => setActiveTab('hotspots')}
-          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+          className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'hotspots'
-              ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
-              : 'bg-slate-900 text-slate-400 hover:text-white'
+              ? 'bg-emerald-600 text-white'
+              : 'bg-slate-800 text-slate-400 hover:text-white'
           }`}
         >
-          <Flame className="w-4 h-4 text-amber-400" />
-          <span>Hotspots & Root Cause Resolution</span>
+          <Flame className="w-3.5 h-3.5" />
+          <span>Hotspots</span>
         </button>
 
         <button
           onClick={() => setActiveTab('smart_bins')}
-          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+          className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors shrink-0 whitespace-nowrap cursor-pointer ${
             activeTab === 'smart_bins'
-              ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
-              : 'bg-slate-900 text-slate-400 hover:text-white'
+              ? 'bg-emerald-600 text-white'
+              : 'bg-slate-800 text-slate-400 hover:text-white'
           }`}
         >
-          <Radio className="w-4 h-4 text-emerald-400 animate-pulse" />
-          <span>📡 IoT Smart Bins (LoRaWAN)</span>
+          <Radio className="w-3.5 h-3.5" />
+          <span>Smart Bins</span>
         </button>
       </div>
 

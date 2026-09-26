@@ -154,51 +154,42 @@ export const FarmerRegistrationView = () => {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Hero Banner */}
-      <div className="bg-gradient-to-br from-amber-950 via-slate-900 to-emerald-950 border border-amber-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="bg-amber-500/20 border border-amber-400/50 text-amber-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
-                <Wheat className="w-3.5 h-3.5 text-amber-400" />
-                Farmer Stubble-to-Wealth Gateway
-              </span>
-              <span className="bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
-                <Coins className="w-3.5 h-3.5 text-emerald-400" />
-                Guaranteed 40% Net Profit Share Direct Benefit Transfer (DBT)
-              </span>
-              <span className="bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-semibold px-2.5 py-1 rounded-md">
-                Zero Stubble Burning Mission
-              </span>
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-              Farmer Registration & Crop Stubble Procurement Portal
-            </h2>
-
-            <p className="text-xs sm:text-sm text-slate-300 max-w-3xl leading-relaxed">
-              Register your farm to get <strong className="text-emerald-300">100% free doorstep electric baler collection</strong> for paddy straw, sugarcane bagasse, and crop stubble. SANKALP processes your agricultural waste into green industrial fuel and credits <strong className="text-amber-300">40% of all gross sales directly to your bank account via Aadhaar / PFMS</strong>, boosting farmer income while eliminating air smog!
-            </p>
+    <div className="space-y-4">
+      {/* Header */}
+      <div className="bg-slate-900 border border-slate-800 rounded p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="bg-slate-800 text-slate-300 text-[10px] font-semibold px-2 py-0.5 rounded border border-slate-700">
+              AGRICULTURE RESIDUE (PHASE 2)
+            </span>
+            <span className="text-[10px] text-emerald-400 font-mono bg-slate-800 border border-slate-700 px-2 py-0.5 rounded">
+              40% DBT Share
+            </span>
           </div>
+          <h2 className="text-base font-semibold text-white mt-1">
+            Farmer Stubble Procurement & DBT Registry
+          </h2>
+        </div>
 
-          <div className="flex flex-row lg:flex-col gap-3 shrink-0">
-            <button
-              onClick={() => setSubTab('register')}
-              className="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-emerald-600 hover:from-amber-500 hover:to-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-700/30 transition-all cursor-pointer"
-            >
-              <User className="w-4 h-4" />
-              <span>Register New Farmer</span>
-            </button>
-            <button
-              onClick={() => setSubTab('directory')}
-              className="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer"
-            >
-              <Coins className="w-4 h-4 text-amber-400" />
-              <span>View Verified DBT Ledger</span>
-            </button>
-          </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setSubTab('register')}
+            className={`px-3 py-1.5 rounded text-xs font-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
+              subTab === 'register' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-300 hover:text-white'
+            }`}
+          >
+            <User className="w-3.5 h-3.5" />
+            <span>Register Farmer</span>
+          </button>
+          <button
+            onClick={() => setSubTab('directory')}
+            className={`px-3 py-1.5 rounded text-xs font-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
+              subTab === 'directory' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-300 hover:text-white'
+            }`}
+          >
+            <Coins className="w-3.5 h-3.5" />
+            <span>DBT Ledger</span>
+          </button>
         </div>
       </div>
 

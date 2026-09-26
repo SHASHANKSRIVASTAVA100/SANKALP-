@@ -180,47 +180,39 @@ export const CircularMarketplaceView = () => {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header Banner */}
-      <div className="bg-gradient-to-br from-slate-900 via-emerald-950/40 to-slate-900 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
-                <Store className="w-3.5 h-3.5 text-emerald-400" />
-                Municipal Circular Marketplace & Secondary Resource Exchange
-              </span>
-              <span className="bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-semibold px-2.5 py-1 rounded-md">
-                Certified Reusable Materials & Recycled Goods
-              </span>
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-              Circular Economy Marketplace & Reusable Waste Desk
-            </h2>
-
-            <p className="text-xs sm:text-sm text-slate-300 max-w-3xl leading-relaxed">
-              Official municipal trading platform connecting certified recyclers, government agencies, infrastructure contractors, and citizens. Procure <strong>finished eco-products</strong> (bio-coal briquettes, pavers, compost, tableware) or <strong>bulk reusable waste lots</strong> (baled PET, OCC cardboard, glass, scrap metals) directly from municipal Material Recovery Facilities.
-            </p>
+    <div className="space-y-4">
+      {/* Header */}
+      <div className="bg-slate-900 border border-slate-800 rounded p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="bg-slate-800 text-slate-300 text-[10px] font-semibold px-2 py-0.5 rounded border border-slate-700">
+              CIRCULAR MARKETPLACE
+            </span>
           </div>
+          <h2 className="text-base font-semibold text-white mt-1">
+            Secondary Resource Exchange & Recycled Materials
+          </h2>
+        </div>
 
-          <div className="flex flex-row lg:flex-col gap-3 shrink-0">
-            <button
-              onClick={() => setSubTab('finished')}
-              className="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-700/30 transition-all cursor-pointer"
-            >
-              <ShoppingBag className="w-4 h-4" />
-              <span>Browse Finished Goods</span>
-            </button>
-            <button
-              onClick={() => setSubTab('reusableWaste')}
-              className="px-5 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-700/30 transition-all cursor-pointer"
-            >
-              <Recycle className="w-4 h-4" />
-              <span>Procure Raw Waste Lots</span>
-            </button>
-          </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setSubTab('finished')}
+            className={`px-3 py-1.5 rounded text-xs font-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
+              subTab === 'finished' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-300 hover:text-white'
+            }`}
+          >
+            <ShoppingBag className="w-3.5 h-3.5" />
+            <span>Finished Goods</span>
+          </button>
+          <button
+            onClick={() => setSubTab('reusableWaste')}
+            className={`px-3 py-1.5 rounded text-xs font-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
+              subTab === 'reusableWaste' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-300 hover:text-white'
+            }`}
+          >
+            <Recycle className="w-3.5 h-3.5" />
+            <span>Raw Waste Lots</span>
+          </button>
         </div>
       </div>
 

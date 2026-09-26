@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import {
-  Trash2,
   User,
   HardHat,
   ShieldAlert,
@@ -9,19 +8,13 @@ import {
   Bell,
   MapPin,
   RotateCcw,
-  Volume2,
-  Truck,
-  CheckCircle2,
-  AlertTriangle,
   LogOut,
   Globe,
   ChevronDown,
-  Sparkles,
-  ShieldCheck,
   Landmark,
-  Smartphone,
-  Monitor,
-  Download
+  Download,
+  BookOpen,
+  CheckCircle2
 } from 'lucide-react';
 import { MapKeyModal } from './MapKeyModal';
 
@@ -36,11 +29,9 @@ export const Header = () => {
     setWardFilter,
     notifications,
     citizenPoints,
-    playChime,
     resetDemoData,
-    viewMode,
-    setViewMode,
-    setIsInstallModalOpen
+    setIsInstallModalOpen,
+    setIsUserGuideOpen
   } = useApp();
 
   const [showNotifMenu, setShowNotifMenu] = useState(false);
@@ -60,123 +51,98 @@ export const Header = () => {
   const currentLangObj = languages.find(l => l.code === language) || languages[0];
   const role = currentUser?.role || 'citizen';
 
+  const roleLabels = {
+    citizen: { name: 'Citizen Portal', icon: User },
+    worker: { name: 'Worker Operations', icon: HardHat },
+    supervisor: { name: 'Ward Control', icon: ShieldAlert },
+    epr: { name: 'EPR Compliance', icon: Building2 },
+    municipality: { name: 'ULB Municipal HQ', icon: Landmark }
+  };
+
+  const activeRoleInfo = roleLabels[role] || roleLabels.citizen;
+  const RoleIcon = activeRoleInfo.icon;
+
   return (
-    <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 text-slate-100 shadow-md">
-      {/* Top Proximity Alert Banner (Shown for Citizen & Worker) */}
+    <header className="sticky top-0 z-50 bg-slate-900 border-b border-slate-800 text-slate-100">
+      {/* Top Status Notification Banner */}
       {(role === 'citizen' || role === 'worker') && (
-        <div className="bg-gradient-to-r from-emerald-950 via-teal-900 to-slate-900 border-b border-emerald-500/20 px-3 py-1.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1.5 text-xs w-full">
-          <div className="flex items-center gap-2 max-w-full overflow-hidden">
-            <span className="relative flex h-2 w-2 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span className="text-slate-200 text-[11px] truncate">
-              <strong className="text-emerald-400">{t('radarBanner')}:</strong> {t('truckNear')} <strong className="text-white">#KA-03-GH-1102</strong> <span className="text-emerald-300 font-bold">~3 mins</span>.
+        <div className="bg-slate-850 border-b border-slate-800 px-3 py-1 flex items-center justify-between text-xs text-slate-300">
+          <div className="flex items-center gap-2 truncate">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+            <span className="truncate text-[11px]">
+              Collection Route: <strong className="text-white">#KA-03-GH-1102</strong> approaching Indiranagar sector.
             </span>
           </div>
-          <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
-            <span className="text-slate-400 text-[11px] font-mono">
-              AICTE ID: <strong className="text-emerald-400">SBM-IND-2026</strong>
-            </span>
-          </div>
+          <span className="text-slate-500 text-[11px] font-mono hidden sm:inline">
+            PS-26195 · Clean & Green Tech
+          </span>
         </div>
       )}
 
       {/* Main Navbar */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between gap-2 w-full">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2.5 flex items-center justify-between gap-3 w-full">
         {/* Brand */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-800/90 border border-emerald-500/30 p-1 flex items-center justify-center shadow-lg shadow-emerald-900/30 shrink-0">
-            <img src="/logo-emblem.png" alt="Swachhta Sangam Logo" className="w-full h-full object-contain filter drop-shadow" />
+        <div className="flex items-center gap-2.5 shrink-0">
+          <div className="w-8 h-8 rounded bg-slate-800 border border-slate-700 p-1 flex items-center justify-center shrink-0">
+            <img src="/logo-emblem.png" alt="Swachhta Sangam Logo" className="w-full h-full object-contain" />
           </div>
           <div>
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              <h1 className="font-extrabold text-base sm:text-lg text-white tracking-tight leading-none whitespace-nowrap">
-                Swachhta <span className="text-emerald-400">Sangam</span>
-              </h1>
-              <span className="bg-emerald-500/20 text-emerald-400 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30 whitespace-nowrap">
-                AICTE PS-26195
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-base text-white tracking-tight leading-none">
+                Swachhta <span className="text-emerald-500">Sangam</span>
+              </span>
+              <span className="bg-slate-800 text-slate-300 text-[10px] font-medium px-1.5 py-0.5 rounded border border-slate-700">
+                SBM 2.0
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 hidden sm:block">{t('tagline')}</p>
+            <p className="text-[11px] text-slate-400 hidden sm:block">National Waste Management Platform</p>
           </div>
         </div>
 
-        {/* Center: Strict Role Indicator Pill (NO CROSS-PORTAL SWITCHING) */}
-        <div className="hidden sm:flex items-center gap-2">
+        {/* Center: Clean Role Indicator */}
+        <div className="hidden sm:flex items-center gap-2 bg-slate-800 border border-slate-700 px-3 py-1 rounded text-xs">
+          <RoleIcon className="w-3.5 h-3.5 text-emerald-400" />
+          <span className="font-semibold text-slate-200">{activeRoleInfo.name}</span>
           {role === 'citizen' && (
-            <div className="flex items-center gap-2 bg-emerald-950/60 border border-emerald-500/40 px-3.5 py-1.5 rounded-xl shadow-inner text-xs">
-              <User className="w-4 h-4 text-emerald-400" />
-              <span className="font-bold text-emerald-300">{t('citizenView')}</span>
+            <>
               <span className="text-slate-500">•</span>
-              <span className="bg-emerald-900/90 text-emerald-200 text-[11px] font-bold px-2 py-0.5 rounded-md font-mono border border-emerald-700/50">
-                🏆 {citizenPoints} pts
-              </span>
-            </div>
+              <span className="font-mono text-emerald-400 font-semibold">{citizenPoints} pts</span>
+            </>
           )}
-
           {role === 'worker' && (
-            <div className="flex items-center gap-2 bg-amber-950/60 border border-amber-500/40 px-3.5 py-1.5 rounded-xl shadow-inner text-xs">
-              <HardHat className="w-4 h-4 text-amber-400" />
-              <span className="font-bold text-amber-300">{t('workerPortal')}</span>
+            <>
               <span className="text-slate-500">•</span>
-              <span className="flex items-center gap-1 text-[11px] text-emerald-400 font-mono">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                Shift Active
-              </span>
-            </div>
-          )}
-
-          {role === 'supervisor' && (
-            <div className="flex items-center gap-2 bg-cyan-950/60 border border-cyan-500/40 px-3.5 py-1.5 rounded-xl shadow-inner text-xs">
-              <ShieldAlert className="w-4 h-4 text-cyan-400" />
-              <span className="font-bold text-cyan-300">{t('supervisorHub')}</span>
-              <span className="text-slate-500">•</span>
-              <span className="bg-cyan-900/80 text-cyan-200 text-[11px] font-semibold px-2 py-0.5 rounded-md border border-cyan-700/50">
-                Ward 12 Control Room
-              </span>
-            </div>
-          )}
-
-          {role === 'epr' && (
-            <div className="flex items-center gap-2 bg-indigo-950/60 border border-indigo-500/40 px-3.5 py-1.5 rounded-xl shadow-inner text-xs">
-              <Building2 className="w-4 h-4 text-indigo-400" />
-              <span className="font-bold text-indigo-300">{t('eprPortal')}</span>
-              <span className="text-slate-500">•</span>
-              <span className="bg-indigo-900/80 text-indigo-200 text-[10px] font-bold px-2 py-0.5 rounded-md border border-indigo-700/50">
-                CPCB VERIFIED
-              </span>
-            </div>
-          )}
-
-          {role === 'municipality' && (
-            <div className="flex items-center gap-2 bg-purple-950/60 border border-purple-500/40 px-3.5 py-1.5 rounded-xl shadow-inner text-xs">
-              <Landmark className="w-4 h-4 text-purple-400" />
-              <span className="font-bold text-purple-300">{t('municipalityPortal')}</span>
-              <span className="text-slate-500">•</span>
-              <span className="bg-purple-900/80 text-purple-200 text-[10px] font-bold px-2 py-0.5 rounded-md border border-purple-700/50">
-                ULB COMMISSIONER HQ
-              </span>
-            </div>
+              <span className="font-mono text-emerald-400">Shift Active</span>
+            </>
           )}
         </div>
 
-        {/* Right Tools (Language Switcher, Ward Selector, Bell, User Profile, Logout) */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-          {/* Multilingual Selector Dropdown */}
+        {/* Right Tools */}
+        <div className="flex items-center gap-2 shrink-0">
+          {/* User Guide Button */}
+          <button
+            onClick={() => setIsUserGuideOpen(true)}
+            className="flex items-center gap-1.5 text-xs text-slate-200 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 px-2.5 py-1.5 rounded transition-colors cursor-pointer"
+            title="Open User Guide"
+          >
+            <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="hidden md:inline font-medium">User Guide</span>
+          </button>
+
+          {/* Multilingual Selector */}
           <div className="relative">
             <button
               onClick={() => setShowLangMenu(!showLangMenu)}
-              className="flex items-center gap-1 bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 rounded-lg px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs text-slate-200 transition-all cursor-pointer"
+              className="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-200 transition-colors cursor-pointer"
               title="Change Language"
             >
-              <Globe className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-400" />
-              <span className="font-semibold">{currentLangObj.label}</span>
+              <Globe className="w-3.5 h-3.5 text-slate-400" />
+              <span className="font-medium">{currentLangObj.label}</span>
               <ChevronDown className="w-3 h-3 text-slate-400" />
             </button>
 
             {showLangMenu && (
-              <div className="absolute right-0 mt-1.5 w-36 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl p-1.5 z-50 text-xs">
+              <div className="absolute right-0 mt-1.5 w-32 bg-slate-900 border border-slate-700 rounded shadow-xl p-1 z-50 text-xs">
                 {languages.map((l) => (
                   <button
                     key={l.code}
@@ -184,9 +150,9 @@ export const Header = () => {
                       setLanguage(l.code);
                       setShowLangMenu(false);
                     }}
-                    className={`w-full text-left px-3 py-1.5 rounded-lg transition-colors flex items-center justify-between cursor-pointer ${
+                    className={`w-full text-left px-2.5 py-1.5 rounded transition-colors flex items-center justify-between cursor-pointer ${
                       language === l.code
-                        ? 'bg-emerald-500/20 text-emerald-400 font-bold'
+                        ? 'bg-slate-700 text-white font-semibold'
                         : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                     }`}
                   >
@@ -198,16 +164,16 @@ export const Header = () => {
             )}
           </div>
 
-          {/* Ward Selector (For Citizen, Supervisor, & Municipality - Desktop/Tablet) */}
+          {/* Ward Selector */}
           {(role === 'citizen' || role === 'supervisor' || role === 'municipality') && (
-            <div className="relative hidden md:flex items-center bg-slate-800/80 border border-slate-700/70 rounded-lg px-2.5 py-1 text-xs text-slate-300">
-              <MapPin className="w-3.5 h-3.5 text-emerald-400 mr-1.5 shrink-0" />
+            <div className="relative hidden lg:flex items-center bg-slate-800 border border-slate-700 rounded px-2 py-1 text-xs text-slate-300">
+              <MapPin className="w-3.5 h-3.5 text-slate-400 mr-1.5 shrink-0" />
               <select
                 value={wardFilter}
                 onChange={(e) => setWardFilter(e.target.value)}
-                className="bg-transparent text-slate-200 text-xs font-medium focus:outline-none cursor-pointer pr-2"
+                className="bg-transparent text-slate-200 text-xs font-medium focus:outline-none cursor-pointer pr-1"
               >
-                <option value="All Wards" className="bg-slate-900 text-slate-200">{t('allWards')}</option>
+                <option value="All Wards" className="bg-slate-900 text-slate-200">All Wards</option>
                 <option value="Ward 12 - Indiranagar" className="bg-slate-900 text-slate-200">Ward 12 - Indiranagar</option>
                 <option value="Ward 14 - Koramangala" className="bg-slate-900 text-slate-200">Ward 14 - Koramangala</option>
                 <option value="Ward 18 - Whitefield" className="bg-slate-900 text-slate-200">Ward 18 - Whitefield</option>
@@ -215,63 +181,33 @@ export const Header = () => {
             </div>
           )}
 
-          {/* 1-Click Install PWA App Button (Desktop & Tablet) */}
-          <button
-            onClick={() => setIsInstallModalOpen(true)}
-            className="hidden sm:flex items-center gap-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer shadow"
-            title="Install Swachhta Sangam App on Phone or PC"
-          >
-            <Download className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="hidden md:inline">Install App</span>
-          </button>
-
-          {/* Google Maps Quick Config Button (Desktop Only) */}
-          <button
-            onClick={() => setShowMapKeyModal(true)}
-            className="hidden lg:flex items-center gap-1.5 bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-cyan-300 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer shadow"
-            title="Configure Google Maps API Key"
-          >
-            <MapPin className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Google Maps</span>
-          </button>
-
           {/* Notifications Bell */}
           <div className="relative">
             <button
               onClick={() => setShowNotifMenu(!showNotifMenu)}
-              className="relative p-1.5 sm:p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-300 transition-all cursor-pointer"
+              className="relative p-1.5 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 transition-colors cursor-pointer"
               title={t('alerts')}
             >
-              <Bell className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <Bell className="w-3.5 h-3.5" />
               {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-rose-500 text-white text-[9px] font-bold w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full flex items-center justify-center animate-bounce">
+                <span className="absolute -top-1 -right-1 bg-emerald-500 text-slate-950 text-[9px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">
                   {unreadCount}
                 </span>
               )}
             </button>
 
-            {/* Notification Dropdown */}
             {showNotifMenu && (
-              <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl p-3 z-50 text-xs">
+              <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-slate-900 border border-slate-700 rounded shadow-2xl p-3 z-50 text-xs">
                 <div className="flex items-center justify-between border-b border-slate-800 pb-2 mb-2">
-                  <span className="font-bold text-slate-200">Live Activity Feed</span>
-                  <span className="text-[10px] text-emerald-400 font-mono">{notifications.length} alerts</span>
+                  <span className="font-semibold text-slate-200">Notifications</span>
+                  <span className="text-[10px] text-slate-400 font-mono">{notifications.length} alerts</span>
                 </div>
-                <div className="max-h-64 overflow-y-auto space-y-2">
+                <div className="max-h-64 overflow-y-auto space-y-1.5">
                   {notifications.map((n) => (
-                    <div
-                      key={n.id}
-                      className={`p-2 rounded-lg border ${
-                        n.type === 'alert'
-                          ? 'bg-rose-950/40 border-rose-800/60 text-rose-200'
-                          : n.type === 'radar'
-                          ? 'bg-emerald-950/40 border-emerald-800/60 text-emerald-200'
-                          : 'bg-slate-800/60 border-slate-700 text-slate-300'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between font-semibold">
+                    <div key={n.id} className="p-2 rounded bg-slate-800 border border-slate-700 text-slate-300">
+                      <div className="flex items-center justify-between font-medium">
                         <span>{n.title}</span>
-                        <span className="text-[10px] text-slate-400 font-mono">{n.time}</span>
+                        <span className="text-[10px] text-slate-500 font-mono">{n.time}</span>
                       </div>
                       <p className="text-[11px] text-slate-400 mt-0.5">{n.message}</p>
                     </div>
@@ -281,49 +217,43 @@ export const Header = () => {
             )}
           </div>
 
-          {/* Active Logged In User Badge & Logout */}
+          {/* User Info (Initials badge, no Unsplash stock photo) */}
           {currentUser && (
-            <div className="flex items-center gap-1.5 sm:gap-2 pl-1.5 sm:pl-2 border-l border-slate-800">
-              <div className="flex items-center gap-1.5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-1 sm:px-2.5 sm:py-1 text-xs">
-                <img
-                  src={currentUser.avatar || currentUser.logo || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"}
-                  alt={currentUser.name}
-                  className="w-5 h-5 rounded-full object-cover border border-emerald-400/50"
-                />
+            <div className="flex items-center gap-2 pl-2 border-l border-slate-800">
+              <div className="flex items-center gap-1.5 bg-slate-800 border border-slate-700 rounded px-2 py-1 text-xs">
+                <div className="w-5 h-5 rounded bg-slate-700 flex items-center justify-center text-[10px] font-bold text-slate-200">
+                  {currentUser.name ? currentUser.name.charAt(0) : 'U'}
+                </div>
                 <div className="text-left hidden md:block">
-                  <span className="text-white font-bold block text-[11px] leading-tight max-w-[110px] truncate">
+                  <span className="text-white font-medium block text-[11px] leading-tight max-w-[100px] truncate">
                     {currentUser.name}
-                  </span>
-                  <span className="text-[9px] text-emerald-400 font-mono block leading-none uppercase">
-                    {currentUser.role}
                   </span>
                 </div>
               </div>
 
-              {/* High-Visibility Logout Button */}
+              {/* Logout Button */}
               <button
                 onClick={logout}
-                className="px-2.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 active:bg-rose-700 border border-rose-500 text-white transition-all text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-md shadow-rose-950/40 shrink-0 active:scale-95"
-                title="Log Out and return to Login Gateway"
+                className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white transition-colors text-xs font-medium flex items-center gap-1.5 cursor-pointer shrink-0"
+                title="Log Out"
               >
-                <LogOut className="w-3.5 h-3.5 text-white" />
-                <span className="text-[11px] sm:text-xs font-bold">{t('logoutBtn') || 'Logout'}</span>
+                <LogOut className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Logout</span>
               </button>
             </div>
           )}
 
-          {/* Reset Demo State Button (Desktop only) */}
+          {/* Reset Demo State Button */}
           <button
             onClick={resetDemoData}
-            className="hidden md:flex p-1.5 sm:p-2 rounded-lg bg-slate-800/60 hover:bg-slate-700 border border-slate-700/60 text-slate-400 hover:text-slate-200 transition-all text-xs cursor-pointer"
+            className="hidden md:flex p-1.5 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
             title="Reset System State"
           >
-            <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <RotateCcw className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
-      {/* Global Google Maps API Key Modal */}
       <MapKeyModal
         isOpen={showMapKeyModal}
         onClose={() => setShowMapKeyModal(false)}

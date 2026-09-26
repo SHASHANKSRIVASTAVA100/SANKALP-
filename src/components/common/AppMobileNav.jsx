@@ -5,7 +5,6 @@ import {
   Camera,
   Radio,
   Award,
-  CalendarCheck,
   Truck,
   HardHat,
   ShieldAlert,
@@ -47,188 +46,187 @@ export const AppMobileNav = () => {
   };
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900 border-t border-slate-800 px-2 sm:px-3 py-2 safe-area-bottom">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900 border-t border-slate-800 px-2 py-1.5 safe-area-bottom">
       <div className="max-w-md mx-auto flex items-center justify-around text-slate-400">
-        {/* Citizen Mobile Navigation */}
+        {/* Citizen */}
         {role === 'citizen' && (
           <>
             <button
               onClick={() => handleAction('top')}
-              className="flex flex-col items-center gap-1 py-1 px-2 rounded-xl hover:text-emerald-400 transition-colors active:scale-95"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded hover:text-white transition-colors"
             >
-              <Home className="w-5 h-5 text-emerald-400" />
-              <span className="text-[10px] font-bold text-slate-200">Home</span>
+              <Home className="w-4 h-4 text-emerald-400" />
+              <span className="text-[10px] text-slate-200">Home</span>
             </button>
 
             <button
               onClick={() => handleAction('radar')}
-              className="flex flex-col items-center gap-1 py-1 px-2 rounded-xl hover:text-emerald-400 transition-colors active:scale-95"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded hover:text-white transition-colors"
             >
-              <Radio className="w-5 h-5 text-emerald-400" />
-              <span className="text-[10px] font-bold text-slate-200">Radar</span>
+              <Radio className="w-4 h-4 text-emerald-400" />
+              <span className="text-[10px] text-slate-200">Radar</span>
             </button>
 
-            {/* Prominent Center AI Camera Action */}
             <button
               onClick={() => handleAction('report')}
-              className="relative -top-3.5 w-11 h-11 rounded-full bg-emerald-500 flex items-center justify-center text-slate-900 shadow-md border-2 border-slate-900 active:scale-90 transition-transform cursor-pointer"
-              title="Report Garbage Dump with AI Detection"
+              className="flex flex-col items-center gap-0.5 py-1 px-2.5 rounded bg-emerald-600 text-white font-medium cursor-pointer"
+              title="Report Waste"
             >
-              <Camera className="w-5 h-5" />
+              <Camera className="w-4 h-4" />
+              <span className="text-[10px]">Report</span>
             </button>
 
             <button
               onClick={() => handleAction('leaderboard')}
-              className="flex flex-col items-center gap-1 py-1 px-2 rounded-xl hover:text-emerald-400 transition-colors active:scale-95"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded hover:text-white transition-colors"
             >
-              <Award className="w-5 h-5 text-emerald-400" />
-              <span className="text-[10px] font-bold text-slate-200">Rewards</span>
+              <Award className="w-4 h-4 text-slate-300" />
+              <span className="text-[10px] text-slate-200">Rewards</span>
             </button>
 
-            {/* Red Logout Button */}
             <button
               onClick={logout}
-              className="flex flex-col items-center gap-1 py-1 px-2 rounded-xl text-rose-400 hover:text-rose-300 transition-colors active:scale-95"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-slate-400 hover:text-rose-400 transition-colors"
               title="Log Out"
             >
-              <LogOut className="w-5 h-5 text-rose-400" />
-              <span className="text-[10px] font-bold text-rose-300">Logout</span>
+              <LogOut className="w-4 h-4" />
+              <span className="text-[10px]">Logout</span>
             </button>
           </>
         )}
 
-        {/* Worker Mobile Navigation */}
+        {/* Worker */}
         {role === 'worker' && (
           <>
             <button
               onClick={() => handleAction('top')}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-amber-400 font-bold"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-emerald-400 font-medium"
             >
-              <HardHat className="w-5 h-5" />
+              <HardHat className="w-4 h-4" />
               <span className="text-[10px]">Tasks</span>
             </button>
             <button
               onClick={() => window.scrollTo({ top: 300, behavior: 'smooth' })}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl hover:text-amber-400 transition-colors"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-slate-300 hover:text-white transition-colors"
             >
-              <Truck className="w-5 h-5 text-amber-400" />
-              <span className="text-[10px] font-bold text-slate-200">Route Nav</span>
+              <Truck className="w-4 h-4" />
+              <span className="text-[10px]">Route</span>
             </button>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl hover:text-amber-400 transition-colors"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-slate-300 hover:text-white transition-colors"
             >
-              <Layers className="w-5 h-5 text-amber-400" />
-              <span className="text-[10px] font-bold text-slate-200">Proof</span>
+              <Layers className="w-4 h-4" />
+              <span className="text-[10px]">Proof</span>
             </button>
             <button
               onClick={logout}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-rose-400 hover:text-rose-300 transition-colors active:scale-95"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-slate-400 hover:text-rose-400 transition-colors"
             >
-              <LogOut className="w-5 h-5 text-rose-400" />
-              <span className="text-[10px] font-bold text-rose-300">Logout</span>
+              <LogOut className="w-4 h-4" />
+              <span className="text-[10px]">Logout</span>
             </button>
           </>
         )}
 
-        {/* Supervisor Mobile Navigation */}
+        {/* Supervisor */}
         {role === 'supervisor' && (
           <>
             <button
               onClick={() => handleAction('top')}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-cyan-400 font-bold"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-emerald-400 font-medium"
             >
-              <ShieldAlert className="w-5 h-5" />
+              <ShieldAlert className="w-4 h-4" />
               <span className="text-[10px]">Tickets</span>
             </button>
             <button
               onClick={() => window.scrollTo({ top: 600, behavior: 'smooth' })}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl hover:text-cyan-400 transition-colors"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-slate-300 hover:text-white transition-colors"
             >
-              <Truck className="w-5 h-5 text-cyan-400" />
-              <span className="text-[10px] font-bold text-slate-200">Fleet GPS</span>
+              <Truck className="w-4 h-4" />
+              <span className="text-[10px]">Fleet</span>
             </button>
             <button
               onClick={() => window.scrollTo({ top: 900, behavior: 'smooth' })}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl hover:text-cyan-400 transition-colors"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-slate-300 hover:text-white transition-colors"
             >
-              <Flame className="w-5 h-5 text-cyan-400" />
-              <span className="text-[10px] font-bold text-slate-200">Hotspots</span>
+              <Flame className="w-4 h-4" />
+              <span className="text-[10px]">Hotspots</span>
             </button>
             <button
               onClick={logout}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-rose-400 hover:text-rose-300 transition-colors active:scale-95"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-slate-400 hover:text-rose-400 transition-colors"
             >
-              <LogOut className="w-5 h-5 text-rose-400" />
-              <span className="text-[10px] font-bold text-rose-300">Logout</span>
+              <LogOut className="w-4 h-4" />
+              <span className="text-[10px]">Logout</span>
             </button>
           </>
         )}
 
-        {/* EPR Mobile Navigation */}
+        {/* EPR */}
         {role === 'epr' && (
           <>
             <button
               onClick={() => handleAction('top')}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-indigo-400 font-bold"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-emerald-400 font-medium"
             >
-              <Building2 className="w-5 h-5" />
+              <Building2 className="w-4 h-4" />
               <span className="text-[10px]">Quota</span>
             </button>
             <button
               onClick={() => window.scrollTo({ top: 400, behavior: 'smooth' })}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl hover:text-indigo-400 transition-colors"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-slate-300 hover:text-white transition-colors"
             >
-              <Recycle className="w-5 h-5 text-indigo-400" />
-              <span className="text-[10px] font-bold text-slate-200">Recyclers</span>
+              <Recycle className="w-4 h-4" />
+              <span className="text-[10px]">Recyclers</span>
             </button>
             <button
               onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl hover:text-indigo-400 transition-colors"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-slate-300 hover:text-white transition-colors"
             >
-              <FileText className="w-5 h-5 text-indigo-400" />
-              <span className="text-[10px] font-bold text-slate-200">Certs</span>
+              <FileText className="w-4 h-4" />
+              <span className="text-[10px]">Certs</span>
             </button>
             <button
               onClick={logout}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-rose-400 hover:text-rose-300 transition-colors active:scale-95"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-slate-400 hover:text-rose-400 transition-colors"
             >
-              <LogOut className="w-5 h-5 text-rose-400" />
-              <span className="text-[10px] font-bold text-rose-300">Logout</span>
+              <LogOut className="w-4 h-4" />
+              <span className="text-[10px]">Logout</span>
             </button>
           </>
         )}
 
-        {/* Municipality Mobile Navigation */}
+        {/* Municipality */}
         {role === 'municipality' && (
           <>
             <button
               onClick={() => handleAction('top')}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-purple-400 font-bold"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-emerald-400 font-medium"
             >
-              <Landmark className="w-5 h-5" />
+              <Landmark className="w-4 h-4" />
               <span className="text-[10px]">Overview</span>
             </button>
             <button
               onClick={() => window.scrollTo({ top: 400, behavior: 'smooth' })}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl hover:text-purple-400 transition-colors"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-slate-300 hover:text-white transition-colors"
             >
-              <Factory className="w-5 h-5 text-purple-400" />
-              <span className="text-[10px] font-bold text-slate-200">Processors</span>
+              <Factory className="w-4 h-4" />
+              <span className="text-[10px]">Processors</span>
             </button>
             <button
               onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl hover:text-purple-400 transition-colors"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-slate-300 hover:text-white transition-colors"
             >
-              <Truck className="w-5 h-5 text-purple-400" />
-              <span className="text-[10px] font-bold text-slate-200">Fleet</span>
+              <Truck className="w-4 h-4" />
+              <span className="text-[10px]">Fleet</span>
             </button>
             <button
               onClick={logout}
-              className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-rose-400 hover:text-rose-300 transition-colors active:scale-95"
+              className="flex flex-col items-center gap-0.5 py-1 px-2 rounded text-slate-400 hover:text-rose-400 transition-colors"
             >
-              <LogOut className="w-5 h-5 text-rose-400" />
-              <span className="text-[10px] font-bold text-rose-300">Logout</span>
+              <LogOut className="w-4 h-4" />
+              <span className="text-[10px]">Logout</span>
             </button>
           </>
         )}
