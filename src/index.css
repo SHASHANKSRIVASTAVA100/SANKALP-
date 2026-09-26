@@ -1,16 +1,18 @@
 /* Global custom styles */
 @layer utilities {
   .glass-card {
-    background: rgba(15, 23, 42, 0.75);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 1); /* Solid white for light mode */
+    border: 1px solid rgba(226, 232, 240, 1); /* Simple border */
+  }
+  .dark .glass-card {
+    background: rgba(30, 41, 59, 1); /* Solid dark slate for dark mode */
+    border: 1px solid rgba(51, 65, 85, 1);
   }
   .glass-card-hover {
     transition: all 0.2s ease-in-out;
   }
   .glass-card-hover:hover {
-    border-color: rgba(52, 211, 153, 0.3);
-    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.12);
+    border-color: rgba(148, 163, 184, 0.5); /* Subtle border change, no neon glow */
   }
 }
 

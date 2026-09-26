@@ -47,7 +47,7 @@ export const AppMobileNav = () => {
   };
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 px-2 sm:px-3 py-2 shadow-2xl safe-area-bottom">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900 border-t border-slate-800 px-2 sm:px-3 py-2 safe-area-bottom">
       <div className="max-w-md mx-auto flex items-center justify-around text-slate-400">
         {/* Citizen Mobile Navigation */}
         {role === 'citizen' && (
@@ -71,7 +71,7 @@ export const AppMobileNav = () => {
             {/* Prominent Center AI Camera Action */}
             <button
               onClick={() => handleAction('report')}
-              className="relative -top-3.5 w-11 h-11 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-xl shadow-emerald-600/40 border-2 border-slate-900 active:scale-90 transition-transform cursor-pointer"
+              className="relative -top-3.5 w-11 h-11 rounded-full bg-emerald-500 flex items-center justify-center text-slate-900 shadow-md border-2 border-slate-900 active:scale-90 transition-transform cursor-pointer"
               title="Report Garbage Dump with AI Detection"
             >
               <Camera className="w-5 h-5" />

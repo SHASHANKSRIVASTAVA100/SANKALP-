@@ -9,16 +9,14 @@ import { EPRPortal } from './components/epr/EPRPortal';
 import { MunicipalityDashboard } from './components/municipality/MunicipalityDashboard';
 import { AppMobileNav } from './components/common/AppMobileNav';
 import { InstallAppModal } from './components/common/InstallAppModal';
+import { PortalUserGuideModal } from './components/common/PortalUserGuideModal';
 import { Smartphone } from 'lucide-react';
 import { getMobileNetModel } from './services/aiWasteClassifier';
 
 const AppContent = () => {
-  const { currentUser, viewMode, isInstallModalOpen, setIsInstallModalOpen } = useApp();
+  const { currentUser, viewMode, isInstallModalOpen, setIsInstallModalOpen, isUserGuideOpen, closeUserGuide, fontSize } = useApp();
 
-  // Pre-warm AI computer vision model on initial load in the background
-  React.useEffect(() => {
-    getMobileNetModel();
-  }, []);
+  // AI models are loaded lazily when needed by specific components.
 
   // If user is not authenticated, strictly show the Login Gateway
   if (!currentUser) {
@@ -29,6 +27,10 @@ const AppContent = () => {
           isOpen={isInstallModalOpen}
           onClose={() => setIsInstallModalOpen(false)}
         />
+        <PortalUserGuideModal
+          isOpen={isUserGuideOpen}
+          onClose={closeUserGuide}
+        />
       </>
     );
   }
@@ -38,7 +40,7 @@ const AppContent = () => {
   const userRole = currentUser.role;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-white relative w-full max-w-full overflow-x-hidden">
+    <div className={`min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-white relative w-full max-w-full overflow-x-hidden ${fontSize === "large" ? "text-base" : fontSize === "xlarge" ? "text-lg" : "text-sm"}`}>
       {/* Top Header customized to current authenticated user */}
       <Header />
 
@@ -60,6 +62,10 @@ const AppContent = () => {
       <InstallAppModal
         isOpen={isInstallModalOpen}
         onClose={() => setIsInstallModalOpen(false)}
+      />
+      <PortalUserGuideModal
+        isOpen={isUserGuideOpen}
+        onClose={closeUserGuide}
       />
 
       {/* Global Footer */}

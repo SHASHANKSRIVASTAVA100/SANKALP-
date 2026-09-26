@@ -11,6 +11,8 @@ import fleetRoutes from './routes/fleetRoutes.js';
 import workerRoutes from './routes/workerRoutes.js';
 import eprRoutes from './routes/eprRoutes.js';
 import botRoutes from './routes/botRoutes.js';
+import mrfRoutes from './routes/mrfRoutes.js';
+import farmerRoutes from './routes/farmerRoutes.js';
 import { getDB, saveDB } from './db.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -33,13 +35,15 @@ app.use('/api/fleet', fleetRoutes);
 app.use('/api/workers', workerRoutes);
 app.use('/api/epr', eprRoutes);
 app.use('/api/bot', botRoutes);
+app.use('/api/mrf', mrfRoutes);
+app.use('/api/farmer', farmerRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
-    service: 'Swachhta Sangam Real-Life Municipal Waste Operations Backend',
-    version: '2.0.0',
+    service: 'SANKALP Municipal Waste & MRF Operations Backend',
+    version: '3.0.0',
     port: PORT,
     timestamp: new Date().toISOString()
   });
@@ -70,7 +74,6 @@ const wss = new WebSocketServer({ server });
 wss.on('connection', (ws) => {
   console.log('[WebSocket] Client connected to live GPS telematics stream');
 
-  // Send initial fleet state
   const db = getDB();
   ws.send(JSON.stringify({
     type: 'FLEET_INIT',
@@ -87,7 +90,6 @@ setInterval(() => {
   const db = getDB();
   if (db.vehicles && db.vehicles.length > 0) {
     db.vehicles = db.vehicles.map((v) => {
-      // Simulate real-world moving trajectory
       const nextProgress = v.routeProgress >= 98 ? 15 : v.routeProgress + 1;
       const nextDistance = v.distanceFromUserMeters <= 80 ? 320 : Math.max(50, v.distanceFromUserMeters - 15);
       const nextEta = Math.max(1, Math.round(nextDistance / 80));
@@ -130,7 +132,8 @@ server.on('error', (err) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`=================================================`);
-  console.log(`🚀 Swachhta Sangam Backend API is running on port ${PORT}`);
+  console.log(`🚀 SANKALP Full-Stack Backend API running on port ${PORT}`);
+  console.log(`📡 Endpoints: /api/mrf, /api/farmer, /api/epr, /api/complaints`);
   console.log(`📡 WebSocket GPS Telematics active at ws://localhost:${PORT}`);
   console.log(`=================================================`);
 });

@@ -33,7 +33,13 @@ export const getDB = () => {
           vehicles: [],
           hotspots: [],
           eprCompanies: [],
-          citizenPoints: 650
+          citizenPoints: 650,
+          weighbridgeSlips: [],
+          mrfSortingStreams: {},
+          mrfBales: [],
+          farmerStubbleBookings: [],
+          farmerDbtPayouts: [],
+          eprWageFund: {}
         };
       }
     } catch (err) {
@@ -41,6 +47,19 @@ export const getDB = () => {
       cachedDB = {};
     }
   }
+
+  // Ensure arrays exist
+  if (!cachedDB.otpSessions) cachedDB.otpSessions = [];
+  if (!cachedDB.registeredCitizens) cachedDB.registeredCitizens = [];
+  if (!cachedDB.weighbridgeSlips) cachedDB.weighbridgeSlips = [];
+  if (!cachedDB.mrfSortingStreams) cachedDB.mrfSortingStreams = {};
+  if (!cachedDB.mrfBales) cachedDB.mrfBales = [];
+  if (!cachedDB.farmerStubbleBookings) cachedDB.farmerStubbleBookings = [];
+  if (!cachedDB.farmerDbtPayouts) cachedDB.farmerDbtPayouts = [];
+  if (!cachedDB.eprWageFund) {
+    cachedDB.eprWageFund = { totalCollectedInr: 480000, disbursedWagesInr: 360000, balanceInr: 120000, fundedWorkersCount: 24 };
+  }
+
   return cachedDB;
 };
 

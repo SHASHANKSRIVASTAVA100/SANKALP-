@@ -641,15 +641,15 @@
       "driverPhone": "+91 94480 77121",
       "ward": "Ward 12 - Indiranagar",
       "currentLocation": {
-        "lat": 12.957449006862626,
-        "lng": 77.63947751165243
+        "lat": 12.965358826223753,
+        "lng": 77.63694560711919
       },
       "currentStreet": "Near 12th Main Road, 80 Feet Road Junction",
       "speedKmH": 18,
       "status": "collecting",
-      "routeProgress": 80,
-      "distanceFromUserMeters": 185,
-      "estimatedArrivalMinutes": 2,
+      "routeProgress": 51,
+      "distanceFromUserMeters": 275,
+      "estimatedArrivalMinutes": 3,
       "capacityPercent": 74,
       "stopsRemaining": 5
     },
@@ -661,15 +661,15 @@
       "driverPhone": "+91 98861 88345",
       "ward": "Ward 14 - Koramangala",
       "currentLocation": {
-        "lat": 12.896705911872944,
-        "lng": 77.63232128534884
+        "lat": 12.89475406407583,
+        "lng": 77.62319274111556
       },
       "currentStreet": "80 Feet Road, 4th Block",
       "speedKmH": 22,
       "status": "in_transit",
-      "routeProgress": 97,
-      "distanceFromUserMeters": 275,
-      "estimatedArrivalMinutes": 3,
+      "routeProgress": 68,
+      "distanceFromUserMeters": 110,
+      "estimatedArrivalMinutes": 1,
       "capacityPercent": 88,
       "stopsRemaining": 2
     }
@@ -695,9 +695,9 @@
       "companyName": "AquaPure Beverage Industries",
       "category": "FMCG / Rigid Plastics (PET)",
       "targetTons": 150,
-      "collectedTons": 118.4,
-      "recycledTons": 112.1,
-      "compliancePercent": 78.9,
+      "collectedTons": 138.4,
+      "recycledTons": 131.3,
+      "compliancePercent": 92.3,
       "status": "On Track",
       "currentCreditValue": "₹4,72,000",
       "authorizedRecycler": "GreenRecycle Hub Ltd (State Reg: PCB/REC-884)",
@@ -711,8 +711,335 @@
           "verifiedAt": "2026-09-02T14:30:00.000Z",
           "sha256Hash": "a8f5f167f44f4964e6c998dee827110c0883d6e5a1b326078652dcfd485002b2"
         }
+      ],
+      "certificates": [
+        {
+          "certId": "CPCB-CERT-2026-39542",
+          "companyId": "EPR-CO-01",
+          "category": "Category I (Rigid PET Plastic)",
+          "tonsOffset": 20,
+          "totalPaidInr": 64000,
+          "authorizedSignatory": "Regional CSR & Sustainability Officer",
+          "issuedAt": "2026-09-22T18:45:39.542Z",
+          "sha256LedgerHash": "50d7482ecb85df60175710259aefa4a16d8d4160adb840a1c55164f835958a69",
+          "status": "Verified & Minted on Central Pollution Control Board (CPCB) Circular Ledger",
+          "complianceNote": "STRICT B2B CORPORATE OFFSET (PAID BY COMPANY — NO CITIZEN CONNECTION)"
+        }
       ]
     }
   ],
-  "citizenPoints": 650
+  "citizenPoints": 650,
+  "weighbridgeSlips": [
+    {
+      "slipId": "WB-2026-39519",
+      "truckId": "KA-01-WB-9901",
+      "driverName": "Manjunath",
+      "wardSource": "Ward 12 - Indiranagar",
+      "materialType": "Municipal Dry Waste",
+      "grossKg": 9200,
+      "tareKg": 4200,
+      "netKg": 5000,
+      "timestamp": "2026-09-22T18:45:39.519Z",
+      "scaleType": "Automated Dual Load-Cell Electronic Weighbridge",
+      "operatorTamperLocked": true,
+      "antiTamperHash": "f90ef811ed38f7041adff7184595b9ec5ad5112a6cfe5f5a226ca69fa82c95e8"
+    },
+    {
+      "slipId": "WB-2026-90112",
+      "truckId": "KA-01-MJ-8842",
+      "driverName": "Somanna Gowda",
+      "wardSource": "Ward 12 - Indiranagar",
+      "materialType": "Municipal Dry Waste",
+      "grossKg": 8940,
+      "tareKg": 4200,
+      "netKg": 4740,
+      "timestamp": "2026-09-22T08:30:00.000Z",
+      "scaleType": "Automated Dual Load-Cell Electronic Weighbridge",
+      "operatorTamperLocked": true,
+      "antiTamperHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "slipId": "WB-2026-90113",
+      "truckId": "KA-04-TR-5519",
+      "driverName": "Gurpreet Singh",
+      "wardSource": "Rural Agro-Belt Sub-Zone 4",
+      "materialType": "Agro-Stubble",
+      "grossKg": 10420,
+      "tareKg": 4350,
+      "netKg": 6070,
+      "timestamp": "2026-09-22T09:15:00.000Z",
+      "scaleType": "Automated Dual Load-Cell Electronic Weighbridge",
+      "operatorTamperLocked": true,
+      "antiTamperHash": "cbf529a4d5d4b0b5e408d6ec4d5c9c9b7e7a8e5a7b6b5c4d3e2f1a0b9c8d7e6f"
+    },
+    {
+      "slipId": "WB-2026-90114",
+      "truckId": "KA-01-MJ-8842",
+      "driverName": "Somanna Gowda",
+      "wardSource": "Ward 14 - Domlur",
+      "materialType": "Municipal Dry Waste",
+      "grossKg": 7850,
+      "tareKg": 4200,
+      "netKg": 3650,
+      "timestamp": "2026-09-22T11:45:00.000Z",
+      "scaleType": "Automated Dual Load-Cell Electronic Weighbridge",
+      "operatorTamperLocked": true,
+      "antiTamperHash": "9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b"
+    }
+  ],
+  "mrfSortingStreams": {
+    "pet_cat1": {
+      "name": "Clear PET Rigid Bottles (Cat I)",
+      "category": "Polymer",
+      "currentInventoryKg": 1250,
+      "totalRecoveredKg": 8400,
+      "marketRatePerKg": 38,
+      "purityTarget": "99.5%",
+      "lastPurityLogged": "99.7%"
+    },
+    "hdpe_cat2": {
+      "name": "High-Density Polyethylene HDPE (Cat II)",
+      "category": "Polymer",
+      "currentInventoryKg": 1220,
+      "totalRecoveredKg": 6100,
+      "marketRatePerKg": 44,
+      "purityTarget": "99.5%",
+      "lastPurityLogged": "99.6%"
+    },
+    "pp_mlp_cat3": {
+      "name": "PP & Multi-Layer Packaging (Cat III/IV)",
+      "category": "Polymer",
+      "currentInventoryKg": 980,
+      "totalRecoveredKg": 4900,
+      "marketRatePerKg": 22,
+      "purityTarget": "98.5%",
+      "lastPurityLogged": "98.9%"
+    },
+    "alu_cans": {
+      "name": "Aluminium Beverage Cans (Eddy Current)",
+      "category": "Metal",
+      "currentInventoryKg": 840,
+      "totalRecoveredKg": 3800,
+      "marketRatePerKg": 135,
+      "purityTarget": "99.8%",
+      "lastPurityLogged": "99.9%"
+    },
+    "steel_scrap": {
+      "name": "Ferrous Food Tins & Steel Scrap",
+      "category": "Metal",
+      "currentInventoryKg": 1450,
+      "totalRecoveredKg": 7200,
+      "marketRatePerKg": 28,
+      "purityTarget": "99.0%",
+      "lastPurityLogged": "99.4%"
+    },
+    "occ_cardboard": {
+      "name": "Corrugated Cardboard (OCC)",
+      "category": "Paper",
+      "currentInventoryKg": 3100,
+      "totalRecoveredKg": 14500,
+      "marketRatePerKg": 12,
+      "purityTarget": "99.0%",
+      "lastPurityLogged": "99.2%"
+    },
+    "office_paper": {
+      "name": "Sorted Office White Paper",
+      "category": "Paper",
+      "currentInventoryKg": 890,
+      "totalRecoveredKg": 4200,
+      "marketRatePerKg": 16,
+      "purityTarget": "98.0%",
+      "lastPurityLogged": "98.5%"
+    },
+    "color_glass": {
+      "name": "Color-Sorted Cullet Glass",
+      "category": "Glass",
+      "currentInventoryKg": 1100,
+      "totalRecoveredKg": 5300,
+      "marketRatePerKg": 4.5,
+      "purityTarget": "99.5%",
+      "lastPurityLogged": "99.8%"
+    },
+    "agro_stubble": {
+      "name": "Paddy & Wheat Crop Residue (Parali)",
+      "category": "Biomass",
+      "currentInventoryKg": 4200,
+      "totalRecoveredKg": 24000,
+      "marketRatePerKg": 3.5,
+      "purityTarget": "100%",
+      "lastPurityLogged": "100% Bio-Methanated"
+    }
+  },
+  "mrfBales": [
+    {
+      "baleId": "BALE-PET-9523",
+      "material": "Clear PET Rigid Bottles (Cat I)",
+      "category": "Polymer",
+      "weightKg": 400,
+      "qualityGrade": "A+ Export Grade (99.7% Purity)",
+      "facility": "MRF Unit #04 - East Bengaluru",
+      "createdAt": "2026-09-22T18:45:39.523Z",
+      "status": "In Stock - Ready for Industrial Sale / Corporate EPR Allocation",
+      "qrPayload": "SANKALP-MRF-BALE:BALE-PET-9523|MAT:Clear PET Rigid Bottles (Cat I)|WT:400KG|CPCB-STD:OK",
+      "sha256Hash": "12a71470db2d00e5fb54e2d7c540a18f82f5a0c57b4697d7b25b871e41031af5"
+    },
+    {
+      "baleId": "BALE-PET-8801",
+      "material": "Clear PET Rigid Bottles (Cat I)",
+      "category": "Plastic",
+      "weightKg": 400,
+      "qualityGrade": "A+ Export Grade (99.7% Purity)",
+      "facility": "MRF Unit #04 - East Bengaluru",
+      "createdAt": "2026-09-22T10:00:00.000Z",
+      "status": "In Stock - CPCB EPR Allocated",
+      "qrPayload": "SANKALP-MRF-BALE:BALE-PET-8801|MAT:PET|WT:400KG|CPCB-STD:OK"
+    },
+    {
+      "baleId": "BALE-ALU-8802",
+      "material": "Aluminium Beverage Cans (Eddy Current)",
+      "category": "Metal",
+      "weightKg": 400,
+      "qualityGrade": "Commercial Grade Aluminium Scrap",
+      "facility": "MRF Unit #04 - East Bengaluru",
+      "createdAt": "2026-09-22T11:15:00.000Z",
+      "status": "In Stock - Sold via B2B Auction",
+      "qrPayload": "SANKALP-MRF-BALE:BALE-ALU-8802|MAT:ALU|WT:400KG|CPCB-STD:OK"
+    },
+    {
+      "baleId": "BALE-OCC-8803",
+      "material": "Corrugated Cardboard (OCC)",
+      "category": "Paper",
+      "weightKg": 400,
+      "qualityGrade": "Industrial Packaging Pulp Grade",
+      "facility": "MRF Unit #04 - East Bengaluru",
+      "createdAt": "2026-09-22T12:30:00.000Z",
+      "status": "In Stock - Dispatched to Paper Mill",
+      "qrPayload": "SANKALP-MRF-BALE:BALE-OCC-8803|MAT:OCC|WT:400KG|CPCB-STD:OK"
+    }
+  ],
+  "farmerStubbleBookings": [
+    {
+      "bookingId": "STB-2026-39524",
+      "farmerName": "Sardar Jagjit Singh",
+      "phone": "+91 98765 43210",
+      "kisanId": "PM-KISAN-PB-9942",
+      "village": "Fatehgarh Sahib",
+      "district": "Patiala",
+      "state": "Punjab",
+      "landAcres": 6,
+      "cropType": "Paddy Stubble",
+      "estimatedTons": 10.8,
+      "scheduledDate": "2026-09-23",
+      "status": "Confirmed - Free Municipal Transport Dispatched",
+      "transportTruckAssigned": "KA-01-MJ-8842",
+      "bookedAt": "2026-09-22T18:45:39.524Z",
+      "coordinates": {
+        "lat": 30.6425,
+        "lng": 76.3984
+      },
+      "dbtStatus": "Paid: ₹11,025 (UTR: RBI-PFMS-DBT-2026-189799518)"
+    },
+    {
+      "bookingId": "STB-2026-10491",
+      "farmerName": "Sardar Gurjit Singh Sandhu",
+      "phone": "+91 98150 44219",
+      "kisanId": "PM-KISAN-PB-8841",
+      "village": "Raikot",
+      "district": "Ludhiana",
+      "state": "Punjab",
+      "landAcres": 8,
+      "cropType": "Paddy Stubble (Non-Basmati)",
+      "estimatedTons": 14.4,
+      "scheduledDate": "2026-09-24",
+      "status": "Transport Scheduled - Free Municipal Truck Dispatched",
+      "bookedAt": "2026-09-22T07:15:00.000Z",
+      "dbtStatus": "Credit Pending Delivery"
+    },
+    {
+      "bookingId": "STB-2026-10492",
+      "farmerName": "Baldev Singh Dhillon",
+      "phone": "+91 98720 11983",
+      "kisanId": "PM-KISAN-PB-7729",
+      "village": "Samana",
+      "district": "Patiala",
+      "state": "Punjab",
+      "landAcres": 5,
+      "cropType": "Paddy Stubble (Basmati)",
+      "estimatedTons": 9,
+      "scheduledDate": "2026-09-23",
+      "status": "Delivered to Anaerobic Bio-Digester",
+      "bookedAt": "2026-09-21T09:30:00.000Z",
+      "dbtStatus": "Paid: ₹10,800 (UTR: RBI-PFMS-DBT-2026-4829104)"
+    }
+  ],
+  "farmerDbtPayouts": [
+    {
+      "payoutId": "DBT-2026-39526",
+      "bookingId": "STB-2026-39524",
+      "farmerName": "Sardar Jagjit Singh",
+      "kisanId": "PM-KISAN-PB-9942",
+      "village": "Fatehgarh Sahib",
+      "tonsDelivered": 10.5,
+      "grossBiogasRevenueInr": 36750,
+      "netProfitInr": 27563,
+      "farmerProfitSharePercent": "40%",
+      "payoutAmountInr": 11025,
+      "paymentMethod": "Direct Benefit Transfer (PFMS / NPCI Linked Bank Account)",
+      "utrNumber": "RBI-PFMS-DBT-2026-189799518",
+      "timestamp": "2026-09-22T18:45:39.526Z",
+      "status": "Transferred Successfully (Credit Confirmed)",
+      "cryptographicProof": "659d5c8bf82cae0d88ebfa9c2d2dea968e93f36ab8f326558376f9fb1f0ff644"
+    },
+    {
+      "payoutId": "DBT-2026-0041",
+      "bookingId": "STB-2026-10492",
+      "farmerName": "Baldev Singh Dhillon",
+      "kisanId": "PM-KISAN-PB-7729",
+      "village": "Samana, Patiala",
+      "tonsDelivered": 9,
+      "grossBiogasRevenueInr": 31500,
+      "netProfitInr": 27000,
+      "farmerProfitSharePercent": "40%",
+      "payoutAmountInr": 10800,
+      "paymentMethod": "Direct Benefit Transfer (PFMS / NPCI Linked Bank Account)",
+      "utrNumber": "RBI-PFMS-DBT-2026-4829104",
+      "timestamp": "2026-09-22T14:20:00.000Z",
+      "status": "Transferred Successfully (Credit Confirmed)",
+      "cryptographicProof": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+    }
+  ],
+  "eprWageFund": {
+    "totalCollectedInr": 604000,
+    "disbursedWagesInr": 387000,
+    "balanceInr": 217000,
+    "fundedWorkersCount": 18,
+    "source": "Mandatory CPCB Plastic Offset Fees Paid by FMCG Corporates (Zero Citizen Link)"
+  },
+  "otpSessions": [
+    {
+      "sessionId": "OTP-220166",
+      "phone": "+91 99887 76655",
+      "otp": "4893",
+      "createdAt": "2026-09-22T18:53:40.166Z",
+      "expiresAt": "2026-09-22T18:58:40.166Z",
+      "verified": true,
+      "smsGateway": "Govt SWACHHTA-SMS DLT Gateway",
+      "smsStatus": "Delivered to Handset via Telecom Priority Pipe",
+      "verifiedAt": "2026-09-22T18:53:40.172Z"
+    }
+  ],
+  "registeredCitizens": [
+    {
+      "id": "CIT-0172",
+      "name": "Pooja Verma",
+      "role": "citizen",
+      "phone": "+91 99887 76655",
+      "ward": "Ward 12",
+      "points": 650,
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80",
+      "badge": "Ward Guardian",
+      "registeredAt": "2026-09-22T18:53:40.172Z",
+      "lastLogin": "2026-09-22T18:53:40.172Z"
+    }
+  ]
 }

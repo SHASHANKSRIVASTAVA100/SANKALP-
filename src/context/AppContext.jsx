@@ -92,6 +92,66 @@ export const AppProvider = ({ children }) => {
   });
 
   // Active Multilingual Language: 'en' | 'hi' | 'kn' | 'ta' | 'te'
+  // Accessibility: Font Size ('normal' | 'large' | 'xlarge')
+  const [fontSize, setFontSizeState] = useState(() => {
+    return localStorage.getItem('swachhta_font_size') || 'normal';
+  });
+
+  const setFontSize = (size) => {
+    setFontSizeState(size);
+    localStorage.setItem('swachhta_font_size', size);
+  };
+
+  // Interactive User Guide Modal State
+  const [isUserGuideOpen, setIsUserGuideOpen] = useState(false);
+  const [userGuideInitialRole, setUserGuideInitialRole] = useState('citizen');
+
+  const openUserGuide = (role) => {
+    setUserGuideInitialRole(role || currentUser?.role || 'citizen');
+    setIsUserGuideOpen(true);
+  };
+
+  const closeUserGuide = () => {
+    setIsUserGuideOpen(false);
+    stopSpeaking();
+  };
+
+  // Audio Voice Reader (Web Speech API) for Low-Literacy / Senior Accessibility
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
+  const speakText = (text, langCode) => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      alert("Text-to-speech audio is not supported in this browser.");
+      return;
+    }
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    const langMap = {
+      en: 'en-IN',
+      hi: 'hi-IN',
+      kn: 'kn-IN',
+      ta: 'ta-IN',
+      te: 'te-IN',
+      pa: 'pa-IN'
+    };
+    utterance.lang = langMap[langCode] || 'en-IN';
+    utterance.rate = 0.95;
+
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const stopSpeaking = () => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    setIsSpeaking(false);
+  };
+
   const [language, setLanguageState] = useState(() => {
     return localStorage.getItem('swachhta_language') || 'en';
   });
